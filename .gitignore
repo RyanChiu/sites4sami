@@ -130,7 +130,7 @@ dist
 .pnp.*
 
 # ademo
-ademo/bin
+# ademo/bin
 ademo/node_modules
 ademo/package-lock.json
 ademo/*.gz
