@@ -128,3 +128,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# ademo
+ademo/bin
+ademo/node_modules
+ademo/package-lock.json
+ademo/*.gz
+ademo/*.tar
+ademo/*.7z
