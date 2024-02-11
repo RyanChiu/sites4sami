@@ -1,0 +1,2 @@
+alert("ok");
+actNavlink("agentsNavlink");
