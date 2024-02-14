@@ -1,3 +1,3 @@
-function actNavlink(id) {
-    alert(jQuery("#" + id).toString());
+function testFun() {
+    alert("This is a test call.");
 }
