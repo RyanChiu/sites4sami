@@ -24,7 +24,7 @@ html
               - var clsNav = (title == itemNav ? " active" : "")
               - var pathNav = itemNav.toLowerCase()
               - pathNav = pathNav.replace(/\s*/g, '')
-              - pathNav = (pathNav == "home" ? "/" : pathNav)
+              - //pathNav = (pathNav == "home" ? "/" : pathNav)
               a(class="nav-link " + clsNav href=pathNav)= itemNav
     
     block content

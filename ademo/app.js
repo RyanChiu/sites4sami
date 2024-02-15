@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/home', indexRouter); //in order to let nginx could reverse proxy it
 app.use('/agents', agentsRouter);
 
 // catch 404 and forward to error handler
