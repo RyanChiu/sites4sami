@@ -1,0 +1,15 @@
+        location ~ ^/(assets/|images/|img/|javascripts/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico){
+                root /home/ray/studio/nodejs/sites4sami/ademo/public/;
+                access_log on;
+                error_log on;
+                expires 5m;
+        }
+
+        location /ademo/ {
+                proxy_pass http://localhost:3000/;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_cache_bypass $http_upgrade;
+        }
