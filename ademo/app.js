@@ -5,7 +5,18 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var newsRouter = require('./routes/news');
+var officesRouter = require('./routes/offices');
 var agentsRouter = require('./routes/agents');
+var approveagentsRouter = require('./routes/approveagents');
+var sitesRouter = require('./routes/sites');
+var statsRouter = require('./routes/stats');
+var linksRouter = require('./routes/links');
+var logsRouter = require('./routes/logs');
+var profileRouter = require('./routes/profile');
+var adminsRouter = require('./routes/admins');
+var settingsRouter = require('./routes/settings');
+var logoutRouter = require('./routes/logout');
 
 var app = express();
 
@@ -21,7 +32,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/home', indexRouter); //in order to let nginx could reverse proxy it
+app.use('/news', newsRouter);
+app.use('/offices', officesRouter);
 app.use('/agents', agentsRouter);
+app.use('/approveagents', approveagentsRouter);
+app.use('/sites', sitesRouter);
+app.use('/stats', statsRouter);
+app.use('/links', linksRouter);
+app.use('/logs', logsRouter);
+app.use('/profile', profileRouter);
+app.use('/admins', adminsRouter);
+app.use('/settings', settingsRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
