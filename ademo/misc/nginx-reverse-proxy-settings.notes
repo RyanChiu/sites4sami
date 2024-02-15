@@ -13,3 +13,26 @@
                 proxy_set_header Host $host;
                 proxy_cache_bypass $http_upgrade;
         }
+
+/************************************************************************/
+To achieve the desired routing behavior for all paths starting with "/apath", use this configuration:
+
+Nginx
+location /apath/ {
+    proxy_pass http://localhost:3000/;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+}
+
+Explanation:
+
+location /apath/: Matches any request URL that begins with "/apath/".
+proxy_pass http://localhost:3000/: Forwards the request to your Node.js application on port 3000, removing the "/apath/" prefix from the path. This ensures that "/apath/anywhere" gets mapped to "http://localhost:3000/anywhere" as desired.
+Other proxy_ directives: Remain unchanged to handle WebSockets and other features properly.
+Key points:
+
+The crucial difference is removing the trailing slash after "/apath/" in the proxy_pass directive.
+This configuration effectively strips the "/apath/" prefix from the request path before forwarding it to the Node.js application, ensuring correct routing for all paths under "/apath/".
