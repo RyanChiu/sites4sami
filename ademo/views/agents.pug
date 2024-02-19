@@ -3,7 +3,6 @@ extends layout
 block content
   h4= title
 
-  - var typeName = ['Super Admin', 'Admin', 'Office', 'Agent']
   table(style='width:100%', border='1')
     tr
       th Username 
@@ -13,4 +12,4 @@ block content
       tr
         td= row['username']
         td= row['pwd_crypted']
-        td= typeName[row['type']]
+        td= typeNames[row['type']]

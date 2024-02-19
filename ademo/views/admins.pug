@@ -2,3 +2,14 @@ extends layout
 
 block content
   h4= title
+
+  table(style='width:100%', border='1')
+    tr
+      th Username 
+      th Password 
+      th Type
+    each row in data 
+      tr
+        td= row['username']
+        td= row['pwd_crypted']
+        td= typeNames[row['type']]

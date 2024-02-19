@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
     }
   }
 
-  renderIt("select * from user");
+  renderIt("select * from user where type = 3");
 
   //res.render('agents', { title: 'Agents', data: data });
   
