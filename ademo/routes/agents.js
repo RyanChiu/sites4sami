@@ -3,8 +3,9 @@ var router = express.Router();
 const tricks = require('../modules/ztoolkits/tricks');
 
 /* render the page */
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
   //res.send('respond with a resource');
+  /*
   async function renderIt(sql) {
     try {
         const data = await tricks.queryPromise(sql);
@@ -16,7 +17,9 @@ router.get('/', function(req, res, next) {
   }
 
   renderIt("select * from user where type = 3");
-
+  */
+  var data = await tricks.queryData("select * from user where type = 3");
+  res.render('agents', { title: 'Agents', data: data });
   //res.render('agents', { title: 'Agents', data: data });
   
 });

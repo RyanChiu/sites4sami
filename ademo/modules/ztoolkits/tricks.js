@@ -16,7 +16,7 @@ const pool = mysql.createPool({
 })
 
 /* promised query */
-exports.queryPromise = function(sql) {
+queryPromise = function(sql) {
     return new Promise((resolve, reject) => {
        pool.query(sql, (error, results) => {
             if (error) {
@@ -35,6 +35,7 @@ exports.queryData = async function (sql) {
         return data;
     } catch(error) {
         console.log(error);
+        return null;
     }
 }
 
