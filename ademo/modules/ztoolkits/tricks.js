@@ -1,5 +1,15 @@
 const net = require('net');
 const mysql = require('mysql2');
+const session = require("express-session");
+
+/* use session */
+exports.useSession = function (router) {
+    router.use(session({
+        secret: 'secret which need to be changed when offically deployed',
+        resave: true,
+        saveUninitialized: true
+    }));
+}
 
 /* connection pool */
 const pool = mysql.createPool({

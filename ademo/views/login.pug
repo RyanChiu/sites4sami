@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+  body
+    //- top banner
+    img(src="images/logo.9244004e.gif", class="img-fluid")
+
+    block content
+      h4 Please login
+      
+      div(class="")= tips
+      form(
+        action="./login"
+        method="post"
+      )
+        i(
+          class="bi bi-person"
+        )
+        input(
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Username"
+        )
+        label(
+          for="passsword"
+        ) Password:
+        input(
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+        )
+        input(
+          type="submit"
+          value="Login"
+        )
+
+      script(src='javascripts/bootstrap.bundle.min.js')
