@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
             req.session.loggedin = true;
             req.session.username = data[0]['username'];
             //res.render("login", {tips: req.session.username + ", hey, we looged in."});
-            res.redirect('/');
+            res.redirect('home');
         } else {
             res.render("login", {tips: "Incorrect Username and/or Password!"});
         }

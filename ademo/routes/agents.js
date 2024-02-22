@@ -2,26 +2,16 @@ var express = require('express');
 var router = express.Router();
 const tricks = require('../modules/ztoolkits/tricks');
 
+tricks.useSession(router);
+
 /* render the page */
 router.get('/', async function(req, res, next) {
-  //res.send('respond with a resource');
-  /*
-  async function renderIt(sql) {
-    try {
-        const data = await tricks.queryPromise(sql);
-        res.render('agents', { title: 'Agents', data: data });
-        console.log(data);
-    } catch(error) {
-        console.log(error);
-    }
+  if (req.session && req.session.loggedin) {
+    var data = await tricks.queryData("select * from user where type = 3");
+    res.render('agents', { title: 'Agents', data: data });
+  } else {
+    res.redirect('logout');
   }
-
-  renderIt("select * from user where type = 3");
-  */
-  var data = await tricks.queryData("select * from user where type = 3");
-  res.render('agents', { title: 'Agents', data: data });
-  //res.render('agents', { title: 'Agents', data: data });
-  
 });
 
 module.exports = router;

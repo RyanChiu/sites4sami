@@ -5,34 +5,39 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
   body
+    script(src='javascripts/bootstrap.bundle.min.js')
+    script(src='javascripts/jquery-3.7.1.min.js')
+    script(src='javascripts/ztoolkits.js')
+    script(src='javascripts/layout.pug.js')
+
     //- top banner
     img(src="images/logo.9244004e.gif", class="img-fluid")
 
-    //- the following is a navbar implemented with bootstrap
-    nav(class="navbar navbar-expand-lg navbar-dark bg-dark nav-underline")
-      .container-fluid
-        a(class="navbar-brand" href="#") CCS
-        button(class="navbar-toggler" type="button" 
-            data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" 
-            aria-label="Toggle navigation")
-          span(class="navbar-toggler-icon")
-        div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
-          div(class="navbar-nav", id="navbarMain")
-            - var navs = ["Home", "News", "Offices", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Admins", "Settings", "Logout"]
-            each itemNav in navs 
-              - var clsNav = (title == itemNav ? " active" : "")
-              - var pathNav = itemNav.toLowerCase()
-              - pathNav = pathNav.replace(/\s*/g, '')
-              - //pathNav = (pathNav == "home" ? "/" : pathNav)
-              a(class="nav-link " + clsNav href=pathNav)= itemNav
+    - var hideNav = (filename.indexOf("login") !== -1 ? 1 : 0);
+    case hideNav
+      when 1
+        break
+      when 0
+        //- the following is a navbar implemented with bootstrap
+        nav(class="navbar navbar-expand-lg navbar-dark bg-dark nav-underline")
+          .container-fluid
+            a(class="navbar-brand" href="#") CCS
+            button(class="navbar-toggler" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" 
+                aria-label="Toggle navigation")
+              span(class="navbar-toggler-icon")
+            div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
+              div(class="navbar-nav", id="navbarMain")
+                - var navs = ["Home", "News", "Offices", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Admins", "Settings", "Logout"]
+                each itemNav in navs 
+                  - var clsNav = (title == itemNav ? " active" : "")
+                  - var pathNav = itemNav.toLowerCase()
+                  - pathNav = pathNav.replace(/\s*/g, '')
+                  - //pathNav = (pathNav == "home" ? "/" : pathNav)
+                  a(class="nav-link " + clsNav href=pathNav)= itemNav
     
     //- preset database defines
     - var typeNames = ['Super Admin', 'Admin', 'Office', 'Agent']
     
     block content
-
-    script(src='javascripts/bootstrap.bundle.min.js')
-    script(src='javascripts/jquery-3.7.1.min.js')
-    script(src='javascripts/ztoolkits.js')
-    script(src='javascripts/layout.pug.js')

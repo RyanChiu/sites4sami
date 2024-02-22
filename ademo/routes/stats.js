@@ -2,9 +2,15 @@ var express = require('express');
 var router = express.Router();
 const tricks = require('../modules/ztoolkits/tricks');
 
+tricks.useSession(router);
+
 /* render the page */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: tricks.getTitle(__filename)});
+  if (req.session && req.session.loggedin) {
+    res.render('index', { title: tricks.getTitle(__filename)});
+  } else {
+    res.redirect('logout');
+  }
 });
 
 module.exports = router;

@@ -6,9 +6,11 @@ tricks.useSession(router);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log('[z.debug]');
-  console.log(req.session);
-  res.render('index', { title: 'Home' });
+  if (req.session && req.session.loggedin) {
+    res.render('index', { title: 'Home' });
+  } else {
+    res.redirect('logout');
+  }
 });
 
 module.exports = router;
