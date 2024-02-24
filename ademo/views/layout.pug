@@ -36,14 +36,16 @@ html
                 span(class="navbar-toggler-icon")
               div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
                 div(class="navbar-nav", id="navbarMain")
-                  - var navs = ["Home", "News", "Offices", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Admins", "Settings", "Logout"]
+                  - var navs = ["Home", "News", "Offices", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Admins", "Settings"]
                   - var i = 0
                   each itemNav in navs
                     - i++ 
                     - var clsNav = (title == itemNav ? " active" : "")
-                    - clsNav += (i == navs.length ? " float-sm-end" : "") // not work
                     - var pathNav = itemNav.toLowerCase()
                     - pathNav = pathNav.replace(/\s*/g, '')
-                    - //pathNav = (pathNav == "home" ? "/" : pathNav)
                     a(class="nav-link " + clsNav  href=pathNav)= itemNav
+              a(class="nav-link float-sm-end" href="logout" title="Lotgout" alt="Logout")
+                i(
+                  class="bi bi-box-arrow-right fs-5 p-1"
+                )
       block content
