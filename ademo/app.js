@@ -18,6 +18,7 @@ var adminsRouter = require('./routes/admins');
 var settingsRouter = require('./routes/settings');
 var logoutRouter = require('./routes/logout');
 var loginRouter = require('./routes/login');
+var captchaRouter = require('./routes/captcha');
 
 var app = express();
 
@@ -46,6 +47,7 @@ app.use('/admins', adminsRouter);
 app.use('/settings', settingsRouter);
 app.use('/logout', logoutRouter);
 app.use('/login', loginRouter);
+app.use('/captcha', captchaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
