@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news');
 var officesRouter = require('./routes/offices');
 var agentsRouter = require('./routes/agents');
+var agentsAddRouter = require('./routes/agents_add');
 var approveagentsRouter = require('./routes/approveagents');
 var sitesRouter = require('./routes/sites');
 var statsRouter = require('./routes/stats');
@@ -37,6 +38,7 @@ app.use('/home', indexRouter); //in order to let nginx could reverse proxy it
 app.use('/news', newsRouter);
 app.use('/offices', officesRouter);
 app.use('/agents', agentsRouter);
+app.use('/agents_add', agentsAddRouter);
 app.use('/approveagents', approveagentsRouter);
 app.use('/sites', sitesRouter);
 app.use('/stats', statsRouter);

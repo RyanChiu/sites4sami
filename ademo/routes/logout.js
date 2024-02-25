@@ -17,6 +17,7 @@ router.get('/', function(req, res, next) {
   } 
   res.render('login', { 
     title: tricks.getTitle(__filename),
+    tag: '',
     captcha: captcha.data
   });
 });

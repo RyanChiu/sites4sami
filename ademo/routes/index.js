@@ -7,7 +7,11 @@ tricks.useSession(router);
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.session && req.session.loggedin) {
-    res.render('index', { title: 'Home' });
+    var title = "Home";
+    res.render('index', { 
+      title: title,
+      ofPath: title.toLowerCase()
+    });
   } else {
     res.redirect('logout');
   }

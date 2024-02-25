@@ -8,7 +8,12 @@ tricks.useSession(router);
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     var data = await tricks.queryData("select * from user");
-    res.render('admins', { title: 'Admins', data: data });
+    var title = "Admins";
+    res.render('admins', { 
+      title: title,
+      ofPath: title.toLowerCase(),
+      data: data
+    });
   } else {
     res.redirect('logout');
   }

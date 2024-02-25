@@ -18,17 +18,20 @@ router.post('/', async (req, res) => {
             } else {
                 res.render("login", {
                     tips: "Incorrect Username/Password!",
+                    tag: ''
                 });
             }
             
         } else {
             res.render("login", {
                 tips: "Please enter ALL Username/Password.",
+                tag: ''
             });
         }
     } else {
         res.render("login", {
             tips: "Verification Code not right or empty.",
+            tag: ''
         });
     }
     

@@ -40,11 +40,11 @@ html
                   - var i = 0
                   each itemNav in navs
                     - i++ 
-                    - var clsNav = (title == itemNav ? " active" : "")
                     - var pathNav = itemNav.toLowerCase()
                     - pathNav = pathNav.replace(/\s*/g, '')
+                    - var clsNav = (ofPath.indexOf(pathNav) === 0 ? " active" : "")
                     a(class="nav-link " + clsNav  href=pathNav)= itemNav
-              a(class="nav-link float-sm-end" href="logout" title="Lotgout" alt="Logout")
+              a(class="nav-link float-sm-end" href="logout" title=filename alt="Logout")
                 i(
                   class="bi bi-box-arrow-right fs-5 p-1"
                 )
