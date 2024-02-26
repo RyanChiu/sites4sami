@@ -1,6 +1,14 @@
 const net = require('net');
 const mysql = require('mysql2');
 const session = require("express-session");
+const crypto = require('crypto');
+const dbSalt = "4sitesofsami202402";
+
+/* crypt it */
+exports.cryptIt = function (str) {
+    var md5 = crypto.createHash("md5");
+    return md5.update(str + dbSalt).digest("base64");
+}
 
 /* use session */
 exports.useSession = function (router) {

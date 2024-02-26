@@ -3,7 +3,68 @@ extends layout
 block content
   h4= title
 
-  table(style='width:100%', border='1')
+  div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
+    div(class="row p-2")
+      div(class="col")
+        i(class="bi bi-search fs-6 p-1")
+        b Search 
+    div(class="row p-1")
+      div(class="col-1") Agent 
+      div(class="col-3")
+        input(
+          class="w-100 h-80 rounded-2"
+          type="text"
+          name="agent"
+          id="agent"
+          placeholder="Username, First/Last name, Email, etc."
+        )
+      div(class="col-8")
+    div(class="row p-1")
+      div(class="col-1") Office 
+      div(class="col-3")
+        input(
+          class="w-100 h-80 rounded-2"
+          type="text"
+          name="office"
+          id="office"
+          placeholder=""
+        )
+      div(class="col-8")
+    div(class="row p-1")
+      div(class="col-1") Status 
+      div(class="col-3")
+        input(
+          class="w-100 h-80 rounded-2"
+          type="text"
+          name="status"
+          id="status"
+          placeholder=""
+        )
+      div(class="col-8")
+    div(class="row p-1")
+      div(class="col-2")
+        input(
+          class="btn btn-primary mb-2 w-100"
+          value="Search"
+        )
+      div(class="col-2")
+        input(
+          class="btn btn-secondary mb-2 w-100"
+          value="Clear"
+        )
+      div(class="col-8")
+
+  div(class="row mb-1")
+    div(class="col-1")
+      a(
+        role="button"
+        class="btn btn-outline-primary p-0"
+        href="agents_add"
+      )
+        i(class="bi bi-person-add fs-4 p-1")
+        label(class="ps-0 pt-0 pb-0 pe-2") Add
+
+  table(class="w-100 border")
     tr
       th Username 
       th Password 
