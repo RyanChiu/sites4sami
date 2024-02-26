@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
     if (params[2] == req.session.captcha) {
         if (params[0] && params[1] && params[2]) {
             data = await tricks.queryData(
-                "select username, id from user where username = '" + params[0] + "' and password = '" + params[1] + "'"
+                "select username, id from user where username = '" + params[0] + "' and pwd_crypted = '" + tricks.cryptIt(params[1]) + "'"
             );
             if (data != null && data.length > 0) {//successflly logged in
                 req.session.loggedin = true;
