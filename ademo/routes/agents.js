@@ -7,7 +7,7 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
-    var data = await tricks.queryData("select * from user where type = 3");
+    var data = await tricks.queryData("select * from view_agent");
     var title = "Agents";
     res.render('agents', { 
       title: title,

@@ -1,4 +1,3 @@
-//testFun();
 $(document).ready(function() {
     $("#captchaImg").click(function(){
         d = new Date();
@@ -27,4 +26,10 @@ $(document).ready(function() {
             //
         }
     });
+
+    // format all the time strings with the same 'name'
+    $('[name="uTimeStr"]').each(function() {
+        var str = new dayjs($(this).html()).format('DD/MM/YYYY HH:mm:ss');
+        $(this).html(str)
+    })
 });

@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
         + params[4] + "', '" + tricks.cryptIt(params[4]) + "', 3, 0, '" + params[5] + "')"
     );
     console.log(rst); //debug
-    var data = await tricks.queryData("select * from user where type = 3");
+    var data = await tricks.queryData("select * from view_agent");
     res.render('agents', { 
       title: title + "(" + params + ")",
       ofPath: title.toLowerCase(),
