@@ -28,8 +28,10 @@ $(document).ready(function() {
     });
 
     // format all the time strings with the same 'name'
+    dayjs.extend(window.dayjs_plugin_utc);
+    dayjs.extend(window.dayjs_plugin_timezone);
     $('[name="uTimeStr"]').each(function() {
-        var str = new dayjs($(this).html()).format('DD/MM/YYYY HH:mm:ss');
+        var str = new dayjs($(this).html()).tz("America/New_York").format('DD/MM/YYYY HH:mm:ss');
         $(this).html(str)
     })
 });
