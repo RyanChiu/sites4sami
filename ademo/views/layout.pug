@@ -24,7 +24,11 @@ html
       div(class="row text-center")
         img(src="images/logo.9244004e.gif", class="img-fluid")
 
-      - var hideNav = (filename.indexOf("login") !== -1 ? 1 : 0);
+      - var hideNav = (filename.indexOf("login") !== -1 ? 1 : 0)
+      - var paths = filename.split("\/")
+      - var lastpath = paths[paths.length -1]
+      - var idx = lastpath.indexOf("_") 
+      - var ofPath = (idx != -1 ? lastpath.substr(0, idx) : lastpath)
       case hideNav
         when 1
           break
@@ -51,5 +55,5 @@ html
               a(class="nav-link float-sm-end" href="logout" title="Logout" alt="Logout")
                 i(
                   class="bi bi-box-arrow-right fs-5 p-1"
-                )
+                )= ofPath
       block content

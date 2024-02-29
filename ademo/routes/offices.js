@@ -7,11 +7,11 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
-    var data = await tricks.queryData("select * from user where type = 2");
+    var data = await tricks.queryData("select * from view_office");
     var title = tricks.getTitle(__filename);
-    res.render('admins', { 
+    res.render('offices', { 
       title: title,
-      ofPath: title.toLowerCase()
+      data: data
     });
   } else {
     res.redirect('logout');

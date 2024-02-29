@@ -11,7 +11,6 @@ router.get('/', async function(req, res, next) {
     var title = "Agents";
     res.render('agents', { 
       title: title,
-      ofPath: title.toLowerCase(),
       data: data
     });
   } else {

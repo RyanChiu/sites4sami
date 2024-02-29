@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news');
 var officesRouter = require('./routes/offices');
+var officesAddRouter = require('./routes/offices_add');
 var agentsRouter = require('./routes/agents');
 var agentsAddRouter = require('./routes/agents_add');
 var approveagentsRouter = require('./routes/approveagents');
@@ -37,6 +38,7 @@ app.use('/', indexRouter);
 app.use('/home', indexRouter); //in order to let nginx could reverse proxy it
 app.use('/news', newsRouter);
 app.use('/offices', officesRouter);
+app.use('/offices_add', officesAddRouter);
 app.use('/agents', agentsRouter);
 app.use('/agents_add', agentsAddRouter);
 app.use('/approveagents', approveagentsRouter);

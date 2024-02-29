@@ -1,0 +1,105 @@
+extends layout
+
+block content
+    h4= title
+
+    form(id="formAddOffice" action="offices_add" method="post")
+        div(class="container w-100")
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="ipt1stName") First Name
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="ipt1stName"
+                        name="ipt1stName"
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptLstName") Last Name
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptLstName"
+                        name="iptLstName"
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptUsername") Username
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptUsername"
+                        name="iptUsername"
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptPassword") Password
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="password"
+                        id="iptPassword"
+                        name="iptPassword"
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptPassword2") Confirm Password
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="password"
+                        id="iptPassword2"
+                        name="iptPassword2"
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="txtNote") Must Read (optional)
+                div(class="col-9")
+                    textarea(
+                        class="form-control w-75 mb-1 rounded-2"
+                        rows="5"
+                        id="txtNote"
+                        name="txtNote"
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    div(class="form-check")
+                        input(
+                            checked
+                            class="form-check-input"
+                            value=""
+                            type="checkbox"
+                            id="chkStatus"
+                            name="chkStatus"
+                        )
+                        label(for="chkStatus" class="form-check-label") Activated
+                div(class="col-9")
+                    input(
+                        class="w-25 btn btn-primary mb-3"
+                        type="submit"
+                        value="Add"
+                    )
+                    a(
+                        role="button"
+                        class="btn btn-secondary mb-3 ms-2"
+                        href="offices"
+                    ) Cancel

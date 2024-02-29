@@ -7,12 +7,9 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
-    var title = "Add Agent";
-    var data = await tricks.queryData("select id, username from user where type = 2");
-    console.log(data);//debug
-    res.render('agents_add', { 
-      title: title,
-      data: data
+    var title = "Add Office";
+    res.render('offices_add', { 
+      title: title
     });
   } else {
     res.redirect('logout');
@@ -22,21 +19,21 @@ router.get('/', async function(req, res, next) {
 /* deal with post data */
 router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
-    var title = "Agents";
+    var title = "Offices";
     var params = [
-      req.body.selOffice, 
       req.body.ipt1stName, req.body.iptLstName, 
       req.body.iptUsername, req.body.iptPassword,
       req.body.txtNote
     ];
     var rst = await tricks.queryData(
-      "insert into user (officeid, 1stname, lstname, username, password, pwd_crypted, type, status, note) values ("
-        + params[0] + ", '" + params[1] + "', '" + params[2] + "', '" + params[3] + "', '" 
-        + params[4] + "', '" + tricks.cryptIt(params[4]) + "', 3, 0, '" + params[5] + "')"
+      "insert into user (1stname, lstname, username, password, pwd_crypted, type, status, note) values ('"
+        + params[0] + "', '" + params[1] + "', '" + params[2] + "', '"
+        + params[3] + "', '" + tricks.cryptIt(params[3]) + "', 2, 0, '" + params[4] + "')"
     );
     console.log(rst); //debug
-    var data = await tricks.queryData("select * from view_agent");
-    res.render('agents', { 
+    var data = await tricks.queryData("select * from view_office");
+    res.render('offices', { 
+      // title: title + "(" + params + ")",
       title: title,
       data: data
     });

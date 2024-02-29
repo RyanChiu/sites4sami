@@ -8,9 +8,8 @@ tricks.useSession(router);
 router.get('/', function(req, res, next) {
   if (req.session && req.session.loggedin) {
     var title = tricks.getTitle(__filename);
-    res.render('index', { 
-      title: title,
-      ofPath: title.toLowerCase()
+    res.render('home', { 
+      title: title
     });
   } else {
     res.redirect('logout');

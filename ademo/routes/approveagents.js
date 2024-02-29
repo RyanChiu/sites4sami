@@ -9,9 +9,8 @@ router.get('/', function(req, res, next) {
   if (req.session && req.session.loggedin) {
     res.render('index', { title: "Approve Agents"});
     var title = "Approve Agents";
-    res.render('index', { 
-      title: title,
-      ofPath: title.replace(/\s*/g, '').toLowerCase(),
+    res.render('home', { 
+      title: title
     });
   } else {
     res.redirect('logout');
