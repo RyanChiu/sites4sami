@@ -3,56 +3,68 @@ extends layout
 block content
   h4= title
 
-  div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
-    div(class="row p-2")
-      div(class="col")
-        i(class="bi bi-search fs-6 p-1")
-        b Search 
-    div(class="row p-1")
-      div(class="col-1") Agent 
-      div(class="col-3")
-        input(
-          class="w-100 h-80 rounded-2"
-          type="text"
-          name="agent"
-          id="agent"
-          placeholder="Username, First/Last name, Email, etc."
-        )
-      div(class="col-8")
-    div(class="row p-1")
-      div(class="col-1") Office 
-      div(class="col-3")
-        input(
-          class="w-100 h-80 rounded-2"
-          type="text"
-          name="office"
-          id="office"
-          placeholder=""
-        )
-      div(class="col-8")
-    div(class="row p-1")
-      div(class="col-1") Status 
-      div(class="col-3")
-        input(
-          class="w-100 h-80 rounded-2"
-          type="text"
-          name="status"
-          id="status"
-          placeholder=""
-        )
-      div(class="col-8")
-    div(class="row p-1")
-      div(class="col-2")
-        input(
-          class="btn btn-primary mb-2 w-100"
-          value="Search"
-        )
-      div(class="col-2")
-        input(
-          class="btn btn-secondary mb-2 w-100"
-          value="Clear"
-        )
-      div(class="col-8")
+  form(id="formSearchAgent" action="agents" method="post")
+    div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
+      div(class="row p-2")
+        div(class="col")
+          i(class="bi bi-search fs-6 p-1")
+          b Search 
+      div(class="row p-1")
+        div(class="col-1") Agent 
+        div(class="col-3")
+          input(
+            class="w-100 rounded-2"
+            type="text"
+            name="iptAgent"
+            id="iptAgent"
+            placeholder="Username, First/Last name, Email, etc."
+          )
+        div(class="col-8")
+      div(class="row p-1")
+        div(class="col-1") Office 
+        div(class="col-3")
+          select(
+              class="form-select w-100 ps-1 pe-0 pt-0 pb-0"
+              name="selOffice"
+              id="selOffice"
+              required
+          )
+              option(selected value="") 
+              each office in offices  
+                  option(value=office["username"])= office["username"]
+        div(class="col-8")
+      div(class="row p-1")
+        div(class="col-1") Status 
+        div(class="col-5")
+          input(type="hidden" id="iptStatus" name="iptStatus" value="-111")
+          div(class="form-check form-check-inline pe-3 border-end")
+            input(class="form-check-input" type="radio" name="rdioStatus" id="rdioStatusAll" value="-111" onclick="$('#iptStatus').val(this.value);" checked="true")
+            label(class="form-check-label" for="rdioStatusAll")
+              b All
+          div(class="form-check form-check-inline")
+            input(class="form-check-input" type="radio" name="rdioStatus" id="rdioStatusSus" value="-1" onclick="$('#iptStatus').val(this.value);")
+            label(class="form-check-label" for="rdioStatusSus") Suspended
+          div(class="form-check form-check-inline")
+            input(class="form-check-input" type="radio" name="rdioStatus" id="rdioStatusIna" value="0" onclick="$('#iptStatus').val(this.value);")
+            label(class="form-check-label" for="rdioStatusIna") Not Activated
+          div(class="form-check form-check-inline")
+            input(class="form-check-input" type="radio" name="rdioStatus" id="rdioStatusAct" value="1" onclick="$('#iptStatus').val(this.value);")
+            label(class="form-check-label" for="rdioStatusAct") Activated
+        div(class="col-6")
+      div(class="row p-1")
+        div(class="col-2")
+          input(
+            class="btn btn-primary mb-1 w-100"
+            type="submit"
+            value="Search"
+          )
+        div(class="col-2")
+          a(
+            role="button"
+            class="btn btn-secondary mb-1"
+            href="agents"
+          ) Reset
+        div(class="col-8")
 
   div(class="row mb-1")
     div(class="col-1")
@@ -61,8 +73,8 @@ block content
         class="btn btn-outline-primary p-0"
         href="agents_add"
       )
-        i(class="bi bi-person-add fs-4 p-1")
-        label(class="ps-0 pt-0 pb-0 pe-2") Add
+        i(class="bi bi-person-add fs-5 p-1")
+        label(class="fs-6 ps-0 pt-0 pb-0 pe-2") Add
 
   table(class="w-100")
     thead
