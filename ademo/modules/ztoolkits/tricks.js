@@ -45,10 +45,32 @@ queryPromise = function(sql) {
     })
 }
 
+queryPromise = function(sql, holders) {
+    return new Promise((resolve, reject) => {
+       pool.query(sql, holders, (error, results) => {
+            if (error) {
+                return reject(error);
+            }
+            return resolve(results);
+       })
+    })
+}
+
 /* query */
 exports.queryData = async function (sql) {
     try {
         const data = await queryPromise(sql);
+        // console.log(data); //debug
+        return data;
+    } catch(error) {
+        console.log(error);
+        return null;
+    }
+}
+
+exports.queryData = async function (sql, holders) {
+    try {
+        const data = await queryPromise(sql, holders);
         // console.log(data); //debug
         return data;
     } catch(error) {

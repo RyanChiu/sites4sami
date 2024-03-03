@@ -36,7 +36,7 @@ router.get('/', async function(req, res, next) {
         break;
       case "edit":
         title = "Edit Agent";
-        data = await tricks.queryData("select * from view_agent where id = " + paramId);
+        data = await tricks.queryData("select * from view_agent where id = ?", [paramId]);
         var offices_edit = [{"id" : "", "username" : ""}];
         for (var i = 0, len = offices.length; i < len; i++) {
           if (offices[i]["username"] == data[0]["office"]) {
@@ -67,30 +67,44 @@ router.get('/', async function(req, res, next) {
 router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
     var title = "Agents";
-    var params = [
-      req.body.selOffice, 
-      req.body.ipt1stName, req.body.iptLstName, 
-      req.body.iptUsername, req.body.iptPassword,
-      req.body.txtNote, req.body.chkStatus,
-      req.body.iptId,
-      req.body.submitType
-    ];
+    var params = [];
     console.log("[debug for agent_dwit post] params:"); console.log(params); // debug
     var rst = null;
     var sql = "";
-    if (params[8] == "add") {
+    if (req.body.submitType == "add") {
+      /*
       sql = "insert into user (officeid, 1stname, lstname, username, password, pwd_crypted, type, status, note) values ("
         + params[0] + ", '" + params[1] + "', '" + params[2] + "', '" + params[3] + "', '" 
         + params[4] + "', '" + tricks.cryptIt(params[4]) + "', 3, 0, '" + params[5] + "')";
       rst = await tricks.queryData(sql);
-    } else if (params[8] == "edit") {
+      */
+      sql = "insert into user (officeid, 1stname, lstname, username, password, pwd_crypted, type, status, note) values ("
+        + "?, ?, ?, ?, ?, ?, 3, 0, ?)";
+      params = [
+        parseInt(req.body.selOffice), 
+        req.body.ipt1stName, req.body.iptLstName, 
+        req.body.iptUsername, req.body.iptPassword, tricks.cryptIt(req.body.iptPassword),
+        req.body.txtNote
+      ];
+      rst = await tricks.queryData(sql, params);
+    } else if (req.body.submitType == "edit") {
+      /*
       sql = "update user set 1stname = '" + params[1] + "', lstname = '" + params[2] + "', username = '" + params[3] + "', "
         + "password = '" + params[4] + "', pwd_crypted = '" + tricks.cryptIt(params[4]) + "', "
         + "note = '" + params[5] + "', status = " + (params[6] == 1 ? 1 : 0)
         + " where id = " + params[7] + "";
       rst = await tricks.queryData(sql);
+      */
+      sql = "update user set 1stname = ?, lstname = ?, username = ?, "
+        + "password = ?, pwd_crypted = ?, note = ?, status = ? where id = ?";
+      params = [
+        req.body.ipt1stName, req.body.iptLstName, 
+        req.body.iptUsername, req.body.iptPassword, tricks.cryptIt(req.body.iptPassword),
+        req.body.txtNote, req.body.chkStatus == 1 ? 1 : 0, parseInt(req.body.iptId)
+      ];
+      rst = await tricks.queryData(sql, params);
     }
-    console.log("[debug for agent_dwit db op] rst/sql:"); console.log(rst); console.log(sql); //debug
+    console.log("[debug for agent_dwit db op] rst/sql:"); console.log(rst); console.log(sql); console.log(params) //debug
     var offices = await tricks.queryData("select id, username from user where type = 2");
     var data = await tricks.queryData("select * from view_agent");
     res.render('agents', { 
