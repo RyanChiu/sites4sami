@@ -7,14 +7,22 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
-    var data = await tricks.queryData("select * from view_agent");
-    var offices = await tricks.queryData("select id, username from user where type = 2");
-    var title = "Agents";
-    res.render('agents', { 
-      title: title,
-      offices: offices,
-      data: data
-    });
+    var params = req.query;
+    console.log("params from get:"); console.log(params); // debug
+    if (JSON.stringify(params) == '{}') {
+      var data = await tricks.queryData("select * from view_agent");
+      var offices = await tricks.queryData("select id, username from user where type = 2");
+      var title = "Agents";
+      res.render('agents', { 
+        title: title,
+        offices: offices,
+        data: data
+      });
+    } else {
+      res.render('home', { 
+        
+      });
+    }
   } else {
     res.redirect('logout');
   }

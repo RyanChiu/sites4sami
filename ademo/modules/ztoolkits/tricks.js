@@ -49,7 +49,7 @@ queryPromise = function(sql) {
 exports.queryData = async function (sql) {
     try {
         const data = await queryPromise(sql);
-        console.log(data); //debug
+        // console.log(data); //debug
         return data;
     } catch(error) {
         console.log(error);

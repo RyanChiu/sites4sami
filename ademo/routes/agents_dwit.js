@@ -1,0 +1,106 @@
+/**
+ * Deal Whih It, D W I
+ */
+var express = require('express');
+var router = express.Router();
+const tricks = require('../modules/ztoolkits/tricks');
+
+tricks.useSession(router);
+
+/* render the page */
+router.get('/', async function(req, res, next) {
+  if (req.session && req.session.loggedin) {
+    var params = req.query;
+    console.log("params from get:"); console.log(params); // debug
+    var paramOp = "";
+    var paramId = "";
+    if (JSON.stringify(params) == '{}' || typeof(params["op"]) == "undefined" || typeof(params["id"]) == "undefined") {
+      paramOp = "add";
+    } else {
+      paramOp = params["op"];
+      paramId = params["id"];
+    }
+    var title, data, offices;
+    offices = await tricks.queryData("select id, username from user where type = 2");
+    console.log("debug[add agent]"); console.log(offices); //debug
+    switch (paramOp) {
+      case "":
+      case "add":
+        title = "Add Agent";
+        data = "";
+        res.render('agents_dwit', { 
+          title: title,
+          offices: offices,
+          data: data
+        });
+        break;
+      case "edit":
+        title = "Edit Agent";
+        data = await tricks.queryData("select * from view_agent where id = " + paramId);
+        var offices_edit = [{"id" : "", "username" : ""}];
+        for (var i = 0, len = offices.length; i < len; i++) {
+          if (offices[i]["username"] == data[0]["office"]) {
+            offices_edit[0]["id"] = offices[i]["id"];
+            offices_edit[0]["username"] = offices[i]["username"];
+          }
+        } 
+        console.log("data for edit agent:"); console.log(data); // debug
+        res.render('agents_dwit', { 
+          title: title,
+          offices: offices_edit,
+          data: data
+        });
+        break;
+      default:
+        res.render('home', {
+          title: "It seems sth. went south..."
+        })
+        break;
+    }
+    
+  } else {
+    res.redirect('logout');
+  }
+});
+
+/* deal with post data */
+router.post('/', async (req, res) => {
+  if (req.session && req.session.loggedin) {
+    var title = "Agents";
+    var params = [
+      req.body.selOffice, 
+      req.body.ipt1stName, req.body.iptLstName, 
+      req.body.iptUsername, req.body.iptPassword,
+      req.body.txtNote, req.body.chkStatus,
+      req.body.iptId,
+      req.body.submitType
+    ];
+    console.log("[debug for agent_dwit post] params:"); console.log(params); // debug
+    var rst = null;
+    var sql = "";
+    if (params[8] == "add") {
+      sql = "insert into user (officeid, 1stname, lstname, username, password, pwd_crypted, type, status, note) values ("
+        + params[0] + ", '" + params[1] + "', '" + params[2] + "', '" + params[3] + "', '" 
+        + params[4] + "', '" + tricks.cryptIt(params[4]) + "', 3, 0, '" + params[5] + "')";
+      rst = await tricks.queryData(sql);
+    } else if (params[8] == "edit") {
+      sql = "update user set 1stname = '" + params[1] + "', lstname = '" + params[2] + "', username = '" + params[3] + "', "
+        + "password = '" + params[4] + "', pwd_crypted = '" + tricks.cryptIt(params[4]) + "', "
+        + "note = '" + params[5] + "', status = " + (params[6] == 1 ? 1 : 0)
+        + " where id = " + params[7] + "";
+      rst = await tricks.queryData(sql);
+    }
+    console.log("[debug for agent_dwit db op] rst/sql:"); console.log(rst); console.log(sql); //debug
+    var offices = await tricks.queryData("select id, username from user where type = 2");
+    var data = await tricks.queryData("select * from view_agent");
+    res.render('agents', { 
+      title: title,
+      offices: offices,
+      data: data
+    });
+  } else {
+    res.redirect('logout');
+  }
+});
+
+module.exports = router;
