@@ -93,27 +93,28 @@ block content
         th way
         th OPs
     - var i = 0
-    each row in data 
-      - i++
-      - var iptID = "<input type='checkbox' class='form-check-input me-1' value='" + row['id'] + "' id='chkID" + row['id'] + "'/>"
-      - iptID += "<label class='form-check-label' for='chkID" + row['id'] + "'>" + i + "</label>"
-      tr
-        td !{iptID}
-        td= row['username']
-        td= row['1stname']
-        td= row['lstname']
-        td= row['password']
-        td= row['office']
-        td(name="uTimeStr")= row['registered']
-        td(name="uTimeStr")= row['lastlogintime']
-        td= row['logintimes']
-        td(name="uStatus")= row['status']
-        td
-          a(class="pe-1" href="agents_dwit?op=edit&id=" + row['id'])
-            i(class="bi bi-pencil-square text-primary")
-          a(class="pe-1" href="agents?op=approve&id=" + row['id'])
-            i(class="bi bi-check2-square text-primary")
-          a(class="pe-2" href="agents?op=hide&id=" + row['id'])
-            i(class="bi bi-eye-slash text-primary")
-          a(class="pe-1" href="agents?op=suspend&id=" + row['id'])
-            i(class="bi bi-ban text-danger")
+      tbody
+        each row in data 
+          - i++
+          - var iptID = "<input type='checkbox' class='form-check-input me-1' value='" + row['id'] + "' id='chkID" + row['id'] + "'/>"
+          - iptID += "<label class='form-check-label' for='chkID" + row['id'] + "'>" + i + "</label>"
+          tr
+            td !{iptID}
+            td= row['username']
+            td= row['1stname']
+            td= row['lstname']
+            td= row['password']
+            td= row['office']
+            td(name="uTimeStr")= row['registered']
+            td(name="uTimeStr")= row['lastlogintime']
+            td= row['logintimes']
+            td(name="uStatus")= row['status']
+            td
+              a(class="pe-1" href="agents_dwit?op=edit&id=" + row['id'])
+                i(class="bi bi-pencil-square text-primary")
+              a(class="pe-1" href="agents?op=approve&id=" + row['id'])
+                i(class="bi bi-check2-square text-primary")
+              a(class="pe-2" href="agents?op=hide&id=" + row['id'])
+                i(class="bi bi-eye-slash text-primary")
+              a(class="pe-1" href="agents?op=suspend&id=" + row['id'])
+                i(class="bi bi-ban text-danger")
