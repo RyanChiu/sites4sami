@@ -10,13 +10,14 @@ block content
                     label(for="selOffice") Office
                     label(class="text-danger ms-2") *
                 div(class="col-9")
+                    - var op = (data == "" ? "add" : "edit")
                     case offices.length 
                         when 1
                             input(type="hidden" name="selOffice" id="selOffice" value=offices[0]["id"])
-                            input(type="hidden" name="submitType" id="submitType" value="edit")
+                            input(type="hidden" name="submitType" id="submitType" value=op)
                             label= offices[0]["username"]
                         default
-                            input(type="hidden" name="submitType" id="submitType" value="add")
+                            input(type="hidden" name="submitType" id="submitType" value=op)
                             select(
                                 class="form-select w-75"
                                 name="selOffice"
@@ -127,7 +128,6 @@ block content
                             onclick="$('#chkStatus').val(" + (status == 1 ? 0 : 1) + ")"
                         )
                         label(for="chkStatus" class="form-check-label") Activated
-                        label(class="ps-3" name="debugLabel")= status
                 div(class="col-9")
                     input(
                         class="w-25 btn btn-primary mb-3"

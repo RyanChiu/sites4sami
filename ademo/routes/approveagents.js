@@ -10,7 +10,9 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: "Approve Agents"});
     var title = "Approve Agents";
     res.render('home', { 
-      title: title
+      title: title,
+      navs: req.session.navs,
+      user: req.session.username
     });
   } else {
     res.redirect('logout');

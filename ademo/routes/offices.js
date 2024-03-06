@@ -11,6 +11,8 @@ router.get('/', async function(req, res, next) {
     var title = tricks.getTitle(__filename);
     res.render('offices', { 
       title: title,
+      navs: req.session.navs,
+      user: req.session.username,
       data: data
     });
   } else {

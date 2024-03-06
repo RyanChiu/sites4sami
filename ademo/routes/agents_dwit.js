@@ -20,8 +20,8 @@ router.get('/', async function(req, res, next) {
       paramOp = params["op"];
       paramId = params["id"];
     }
-    var title, data, offices;
-    offices = await tricks.queryData("select id, username from user where type = 2");
+    var title, data, offices, status = null;
+    offices = await tricks.queryOffices(req.session.role, req.session.userid);
     console.log("debug[add agent]"); console.log(offices); //debug
     switch (paramOp) {
       case "":
@@ -30,13 +30,15 @@ router.get('/', async function(req, res, next) {
         data = "";
         res.render('agents_dwit', { 
           title: title,
+          navs: req.session.navs,
+          user: req.session.username,
           offices: offices,
           data: data
         });
         break;
       case "edit":
         title = "Edit Agent";
-        data = await tricks.queryData("select * from view_agent where id = ?", [paramId]);
+        data = await tricks.queryData("select * from view_agent where id = ?", paramId);
         var offices_edit = [{"id" : "", "username" : ""}];
         for (var i = 0, len = offices.length; i < len; i++) {
           if (offices[i]["username"] == data[0]["office"]) {
@@ -47,17 +49,40 @@ router.get('/', async function(req, res, next) {
         console.log("data for edit agent:"); console.log(data); // debug
         res.render('agents_dwit', { 
           title: title,
+          navs: req.session.navs,
+          user: req.session.username,
           offices: offices_edit,
           data: data
         });
         break;
+      case "approve":
+        status = 1;
+        break;
+      case "suspend":
+        status = -1;
+        break;
+      case "hide":
+        status = -2;
+        break;
       default:
         res.render('home', {
-          title: "It seems sth. went south..."
+          title: "It seems sth. went south...",
+          navs: req.session.navs
         })
         break;
     }
-    
+    if (status !== null) {
+      title = "Agents";
+      await tricks.queryData("update user set status = ? where id = ?", [status, paramId]);
+      data = await tricks.queryAgents(req.session.role, req.session.userid);
+      res.render('agents', { 
+        title: title,
+        navs: req.session.navs,
+        user: req.session.username,
+        offices: offices,
+        data: data
+      });
+    }
   } else {
     res.redirect('logout');
   }
@@ -105,10 +130,12 @@ router.post('/', async (req, res) => {
       rst = await tricks.queryData(sql, params);
     }
     console.log("[debug for agent_dwit db op] rst/sql:"); console.log(rst); console.log(sql); console.log(params) //debug
-    var offices = await tricks.queryData("select id, username from user where type = 2");
-    var data = await tricks.queryData("select * from view_agent");
+    var offices = await tricks.queryOffices(req.session.role, req.session.userid);
+    var data = await tricks.queryAgents(req.session.role, req.session.userid);
     res.render('agents', { 
       title: title,
+      navs: req.session.navs,
+      user: req.session.username,
       offices: offices,
       data: data
     });

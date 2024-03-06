@@ -57,7 +57,7 @@ queryPromise = function(sql, holders) {
 }
 
 /* query */
-exports.queryData = async function (sql) {
+exports.queryData = queryData = async function (sql) {
     try {
         const data = await queryPromise(sql);
         // console.log(data); //debug
@@ -68,7 +68,7 @@ exports.queryData = async function (sql) {
     }
 }
 
-exports.queryData = async function (sql, holders) {
+exports.queryData = queryData = async function (sql, holders) {
     try {
         const data = await queryPromise(sql, holders);
         // console.log(data); //debug
@@ -77,6 +77,44 @@ exports.queryData = async function (sql, holders) {
         console.log(error);
         return null;
     }
+}
+
+exports.queryOffices = async function(role, userid) {
+    var sql = "select id, username from user where type = 2";
+    var offices;
+    switch (role) {
+        case 0:
+        case 1:
+        default:
+          offices = await queryData(sql);
+          break;
+        case 2:
+          offices = await queryData(sql + " and id = ?", [userid]);
+          break;
+        case 3:
+          offices = await queryData(sql + " and id = (select officeid from user where id = ?)", [userid]);
+          break;
+      }
+      return offices;
+}
+
+exports.queryAgents = async function(role, userid) {
+    var sql = "select * from view_agent";
+    var agents;
+    switch (role) {
+        case 0:
+        case 1:
+        default:
+            agents = await queryData(sql);
+            break;
+        case 2:
+            agents = await queryData(sql + " where office = (select username from user where id = ?)", [userid]);
+            break;
+        case 3:
+            agents = await queryData(sql + " where id = ?", [userid]);
+            break;
+    }
+    return agents;
 }
 
 exports.getTitle = function (t) {

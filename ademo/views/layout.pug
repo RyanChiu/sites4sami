@@ -2,17 +2,17 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap-icons/font/bootstrap-icons.min.css')
-
-  body(class="bg-dark text-light fw-lighter")
     script(src='javascripts/bootstrap.bundle.min.js')
     script(src='javascripts/jquery-3.7.1.min.js')
     script(src='javascripts/jquery.validate.min.js')
     script(src='javascripts/dayjs/dayjs.min.js')
     script(src='javascripts/dayjs/plugin/utc.js')
     script(src='javascripts/dayjs/plugin/timezone.js')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-icons/font/bootstrap-icons.min.css')
+
+  body(class="bg-dark text-light fw-lighter")
     script(src='javascripts/ztoolkits.js')
     script(src='javascripts/layout.pug.js')
 
@@ -44,7 +44,6 @@ html
                 span(class="navbar-toggler-icon")
               div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
                 div(class="navbar-nav", id="navbarMain")
-                  - var navs = ["Home", "News", "Offices", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Admins", "Settings"]
                   - var i = 0
                   each itemNav in navs
                     - i++ 
@@ -53,7 +52,6 @@ html
                     - var clsNav = (ofPath.indexOf(pathNav) === 0 ? " active" : "")
                     a(class="nav-link " + clsNav  href=pathNav)= itemNav
               a(class="nav-link float-sm-end" href="logout" title="Logout" alt="Logout")
-                i(
-                  class="bi bi-box-arrow-right fs-5 p-1"
-                )
+                label(class="border border-start-0 border-end-0 rounded-3 ps-1 pe-1 me-1")= user
+                i(class="bi bi-box-arrow-right fs-5 p-1")
       block content

@@ -9,13 +9,27 @@ router.post('/', async (req, res) => {
     console.log("[z.debug.login]"); console.log(params);
     if (params[2] == req.session.captcha) {
         if (params[0] && params[1] && params[2]) {
-            data = await tricks.queryData(
-                "select username, id from user where username = '" + params[0] + "' and pwd_crypted = '" + tricks.cryptIt(params[1]) + "'"
-            );
+            var sql = "select id, username, type, status from user where username = ? and pwd_crypted = ?";
+            data = await tricks.queryData(sql, [params[0], tricks.cryptIt(params[1])]);
             if (data != null && data.length > 0) {//successflly logged in
                 req.session.loggedin = true;
                 req.session.username = data[0]['username'];
                 req.session.userid = data[0]['id'];
+                req.session.role = data[0]['type'];
+                req.session.status = data[0]['status'];
+                switch (req.session.role) {
+                    case 0:
+                    case 1:
+                    default:
+                        req.session.navs = ["Home", "News", "Offices", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Admins", "Settings"];
+                        break;
+                    case 2:
+                        req.session.navs = ["Home", "News", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Settings"];
+                        break;
+                    case 3:
+                        req.session.navs = ["Home", "News", "Sites", "Stats", "Links", "Logs", "Profile", "Settings"];
+                        break;
+                }
                 //save the logged-in in log
                 await tricks.queryData(
                     "insert into log (userid, type) values (" + data[0]['id'] + ", 1)"
