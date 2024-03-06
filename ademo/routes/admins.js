@@ -6,8 +6,8 @@ tricks.useSession(router);
 
 /* render the page */
 router.get('/', async function(req, res, next) {
-  if (req.session && req.session.loggedin) {
-    var data = await tricks.queryData("select * from user");
+  if (req.session && req.session.loggedin && req.session.role == 0) {
+    var data = await tricks.queryData("select * from user where type = 1");
     var title = "Admins";
     res.render('admins', { 
       title: title,
