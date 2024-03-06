@@ -1,0 +1,70 @@
+extends layout
+
+block content
+    h4= title
+
+    form(id="formAdminDwit" action="admins_dwit" method="post")
+        div(class="container w-100")
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptUsername") Username
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    - var op = (data == "" ? "add" : "edit")
+                    input(type="hidden" name="submitType" id="submitType" value=op)
+                    input(
+                        type="hidden" 
+                        name="iptId" 
+                        id="iptId"
+                        value=(data=="" ? -1 : data[0]["id"])
+                    )
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptUsername"
+                        name="iptUsername"
+                        value=(data=="" ? "" : data[0]["username"])
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptPassword") Password
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="password"
+                        id="iptPassword"
+                        name="iptPassword"
+                        value=(data=="" ? "" : data[0]["password"])
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptPassword2") Confirm Password
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="password"
+                        id="iptPassword2"
+                        name="iptPassword2"
+                        value=(data=="" ? "" : data[0]["password"])
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                div(class="col-9")
+                    input(
+                        class="w-25 btn btn-primary mb-3"
+                        type="submit"
+                        value=(data == "" ? "Add" : "Edit")
+                    )
+                    a(
+                        role="button"
+                        class="btn btn-secondary mb-3 ms-2"
+                        href="offices"
+                    ) Cancel

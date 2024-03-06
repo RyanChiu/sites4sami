@@ -9,7 +9,9 @@ router.get('/', function(req, res, next) {
   if (req.session && req.session.loggedin) {
     var title = "Home";
     res.render('home', { 
-      title: title
+      title: title,
+      navs: req.session.navs,
+      user: req.session.username
     });
   } else {
     res.redirect('logout');

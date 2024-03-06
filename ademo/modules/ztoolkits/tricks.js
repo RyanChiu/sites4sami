@@ -45,11 +45,22 @@ queryPromise = function(sql) {
     })
 }
 
+queryPromise = function(sql, holders) {
+    return new Promise((resolve, reject) => {
+       pool.query(sql, holders, (error, results) => {
+            if (error) {
+                return reject(error);
+            }
+            return resolve(results);
+       })
+    })
+}
+
 /* query */
-exports.queryData = async function (sql) {
+exports.queryData = queryData = async function (sql) {
     try {
         const data = await queryPromise(sql);
-        console.log(data);
+        // console.log(data); //debug
         return data;
     } catch(error) {
         console.log(error);
@@ -57,9 +68,72 @@ exports.queryData = async function (sql) {
     }
 }
 
+exports.queryData = queryData = async function (sql, holders) {
+    try {
+        const data = await queryPromise(sql, holders);
+        // console.log(data); //debug
+        return data;
+    } catch(error) {
+        console.log(error);
+        return null;
+    }
+}
+
+exports.queryOffices = async function(role, userid) {
+    var sql = "select * from user where type = 2";
+    var offices;
+    switch (role) {
+        case 0:
+        case 1:
+        default:
+          offices = await queryData(sql);
+          break;
+        case 2:
+          offices = await queryData(sql + " and id = ?", [userid]);
+          break;
+        case 3:
+          offices = await queryData(sql + " and id = (select officeid from user where id = ?)", [userid]);
+          break;
+      }
+      return offices;
+}
+
+exports.queryAgents = async function(role, userid) {
+    var sql = "select * from view_agent";
+    var agents;
+    switch (role) {
+        case 0:
+        case 1:
+        default:
+            agents = await queryData(sql);
+            break;
+        case 2:
+            agents = await queryData(sql + " where office = (select username from user where id = ?)", [userid]);
+            break;
+        case 3:
+            agents = await queryData(sql + " where id = ?", [userid]);
+            break;
+    }
+    return agents;
+}
+
 exports.getTitle = function (t) {
     t = t.split('\\').pop().split('/').pop();
     t = t.substring(0, t.indexOf("."));
     t = t.slice(0, 1).toUpperCase() + t.slice(1);
     return t;
+}
+
+exports.getDwit = function (params) {
+    var op = "", id = "";
+    if (JSON.stringify(params) == '{}' || typeof(params["op"]) == "undefined" || typeof(params["id"]) == "undefined") {
+        op = "add";
+    } else {
+        op = params["op"];
+        id = params["id"];
+    }
+    return {
+        "op": op,
+        "id": id
+    }
 }

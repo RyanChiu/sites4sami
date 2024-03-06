@@ -3,13 +3,29 @@ extends layout
 block content
   h4= title
 
+  div(class="row mb-1")
+    div(class="col-1")
+      a(
+        role="button"
+        class="btn btn-outline-primary p-0"
+        href="admins_dwit"
+      )
+        i(class="bi bi-person-add fs-5 p-1")
+        label(class="fs-6 ps-0 pt-0 pb-0 pe-2") Add
+
   table(style='width:100%', border='1')
-    tr
-      th Username 
-      th Password 
-      th Type
-    each row in data 
+    thead
       tr
-        td= row['username']
-        td= row['pwd_crypted']
-        td= typeNames[row['type']]
+        th Username 
+        th Password 
+        th Registered
+        th OPs
+    tbody
+      each row in data 
+        tr
+          td= row['username']
+          td= row['password']
+          td(name="uTimeStr")= row['registered']
+          td
+            a(class="pe-1" href="admins_dwit?op=edit&id=" + row['id'])
+              i(class="bi bi-pencil-square text-primary")
