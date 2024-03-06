@@ -12,13 +12,15 @@ router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     var params = req.query;
     console.log("params from get:"); console.log(params); // debug
-    var paramOp = "";
-    var paramId = "";
-    if (JSON.stringify(params) == '{}' || typeof(params["op"]) == "undefined" || typeof(params["id"]) == "undefined") {
+    var paramOp = "", paramId = "", paramRef = null;
+    if (JSON.stringify(params) == '{}' 
+      || typeof(params["op"]) == "undefined" 
+      || typeof(params["id"]) == "undefined") {
       paramOp = "add";
     } else {
       paramOp = params["op"];
       paramId = params["id"];
+      paramRef = params["ref"];
     }
     var title, data, offices, status = null;
     offices = await tricks.queryOffices(req.session.role, req.session.userid);
@@ -75,13 +77,22 @@ router.get('/', async function(req, res, next) {
       title = "Agents";
       await tricks.queryData("update user set status = ? where id = ?", [status, paramId]);
       data = await tricks.queryAgents(req.session.role, req.session.userid);
-      res.render('agents', { 
-        title: title,
-        navs: req.session.navs,
-        user: req.session.username,
-        offices: offices,
-        data: data
-      });
+      if (paramRef) {
+        res.render('approveagents', { 
+          title: title,
+          navs: req.session.navs,
+          user: req.session.username,
+          data: data
+        });
+      } else {
+        res.render('agents', { 
+          title: title,
+          navs: req.session.navs,
+          user: req.session.username,
+          offices: offices,
+          data: data
+        });
+      }
     }
   } else {
     res.redirect('logout');

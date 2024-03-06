@@ -2,3 +2,36 @@ extends layout
 
 block content
   h4= title
+
+  table(class="w-100")
+    thead
+      tr
+        th 
+          input(type="checkbox" class="form-check-input me-1" id="chkAll" value="all")
+          label(class="form-check-label" for="chkAll") #
+        th Username 
+        th First Name 
+        th Last Name 
+        th Office 
+        th Registered 
+        th st.
+        th OPs
+    - var i = 0
+      tbody
+        each row in data 
+          - i++
+          - var iptID = "<input type='checkbox' class='form-check-input me-1' value='" + row['id'] + "' id='chkID" + row['id'] + "'/>"
+          - iptID += "<label class='form-check-label' for='chkID" + row['id'] + "'>" + i + "</label>"
+          case row['status']
+            when 0
+              tr
+                td !{iptID}
+                td= row['username']
+                td= row['1stname']
+                td= row['lstname']
+                td= row['office']
+                td(name="uTimeStr")= row['registered']
+                td(name="uStatus")= row['status']
+                td
+                  a(class="pe-1" href="agents_dwit?op=approve&id=" + row['id'] + "&ref=approveagents")
+                    i(class="bi bi-check2-square text-primary")
