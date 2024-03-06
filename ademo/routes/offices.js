@@ -20,4 +20,25 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+/* deal with post data */
+router.post('/', async (req, res) => {
+  if (req.session && req.session.loggedin) {
+    var title = "Offices";
+    var params = [
+      "%" + req.body.iptOffice + "%"
+    ];
+    var sql = "select * from view_office where username like ?";
+    var data = await tricks.queryData(sql, [params[0]]);
+    console.log("[debug from post in offices:]"); console.log(data); // debug
+    res.render('offices', {
+      title: title,
+      navs: req.session.navs,
+      user: req.session.username,
+      data: data
+    })
+  } else {
+    res.redirect('logout');
+  }
+})
+
 module.exports = router;

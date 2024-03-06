@@ -80,7 +80,7 @@ exports.queryData = queryData = async function (sql, holders) {
 }
 
 exports.queryOffices = async function(role, userid) {
-    var sql = "select id, username from user where type = 2";
+    var sql = "select * from user where type = 2";
     var offices;
     switch (role) {
         case 0:
@@ -122,4 +122,18 @@ exports.getTitle = function (t) {
     t = t.substring(0, t.indexOf("."));
     t = t.slice(0, 1).toUpperCase() + t.slice(1);
     return t;
+}
+
+exports.getDwit = function (params) {
+    var op = "", id = "";
+    if (JSON.stringify(params) == '{}' || typeof(params["op"]) == "undefined" || typeof(params["id"]) == "undefined") {
+        op = "add";
+    } else {
+        op = params["op"];
+        id = params["id"];
+    }
+    return {
+        "op": op,
+        "id": id
+    }
 }

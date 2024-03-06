@@ -3,19 +3,22 @@ extends layout
 block content
     h4= title
 
-    form(id="formAddOffice" action="offices_add" method="post")
+    form(id="formAddOffice" action="offices_dwit" method="post")
         div(class="container w-100")
             div(class="row m-2")
                 div(class="col-3")
                     label(for="ipt1stName") First Name
                     label(class="text-danger ms-2") *
                 div(class="col-9")
+                    - var op = (data == "" ? "add" : "edit")
+                    input(type="hidden" name="submitType" id="submitType" value=op)
                     input(
                         class="form-input w-75 rounded-2"
                         style="height:39px;"
                         type="text"
                         id="ipt1stName"
                         name="ipt1stName"
+                        value=(data=="" ? "" : data[0]["1stname"])
                         required
                     )
             div(class="row m-2")
@@ -29,6 +32,7 @@ block content
                         type="text"
                         id="iptLstName"
                         name="iptLstName"
+                        value=(data=="" ? "" : data[0]["lstname"])
                         required
                     )
             div(class="row m-2")
@@ -37,11 +41,18 @@ block content
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(
+                        type="hidden" 
+                        name="iptId" 
+                        id="iptId"
+                        value=(data=="" ? -1 : data[0]["id"])
+                    )
+                    input(
                         class="form-input w-75 rounded-2"
                         style="height:39px;"
                         type="text"
                         id="iptUsername"
                         name="iptUsername"
+                        value=(data=="" ? "" : data[0]["username"])
                         required
                     )
             div(class="row m-2")
@@ -55,6 +66,7 @@ block content
                         type="password"
                         id="iptPassword"
                         name="iptPassword"
+                        value=(data=="" ? "" : data[0]["password"])
                         required
                     )
             div(class="row m-2")
@@ -68,6 +80,7 @@ block content
                         type="password"
                         id="iptPassword2"
                         name="iptPassword2"
+                        value=(data=="" ? "" : data[0]["password"])
                         required
                     )
             div(class="row m-2")
@@ -79,24 +92,26 @@ block content
                         rows="5"
                         id="txtNote"
                         name="txtNote"
-                    )
+                    )= (data=="" ? "" : data[0]["note"])
             div(class="row m-2")
                 div(class="col-3")
                     div(class="form-check")
+                        - var status = (Number.isNaN(data) || data == "" ? 1 : (data[0]["status"] == 1 ? 1 : 0));
                         input(
-                            checked
+                            checked=(status == 1 ? true : false)
                             class="form-check-input"
                             value=""
                             type="checkbox"
                             id="chkStatus"
                             name="chkStatus"
+                            onclick="$('#chkStatus').val(" + (status == 1 ? 0 : 1) + ")"
                         )
                         label(for="chkStatus" class="form-check-label") Activated
                 div(class="col-9")
                     input(
                         class="w-25 btn btn-primary mb-3"
                         type="submit"
-                        value="Add"
+                        value=(data == "" ? "Add" : "Edit")
                     )
                     a(
                         role="button"
