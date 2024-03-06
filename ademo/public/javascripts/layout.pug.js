@@ -27,7 +27,51 @@ $(document).ready(function() {
         }
     });
 
-    $("#formAddOffice").validate({
+    $("#formOfficeDwit").validate({
+        rules: {
+            ipt1stName: "required",
+            iptLstName: "required",
+            iptUsername: {
+                required: true,
+                minlength: 3
+            },
+            iptPassword: {
+                required: true,
+                minlength: 5
+            },
+            iptPassword2: {
+                required: true,
+                minlength: 5,
+                equalTo: "#iptPassword"
+            }
+        },
+        message: {
+            //
+        }
+    });
+
+    $("#formAdminDwit").validate({
+        rules: {
+            iptUsername: {
+                required: true,
+                minlength: 3
+            },
+            iptPassword: {
+                required: true,
+                minlength: 5
+            },
+            iptPassword2: {
+                required: true,
+                minlength: 5,
+                equalTo: "#iptPassword"
+            }
+        },
+        message: {
+            //
+        }
+    });
+
+    $("#formProfile").validate({
         rules: {
             ipt1stName: "required",
             iptLstName: "required",
