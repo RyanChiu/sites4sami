@@ -22,7 +22,10 @@ html
     div(class="container")
       //- top banner
       div(class="row text-center")
-        img(src="images/logo.9244004e.gif", class="img-fluid")
+        div(class="col-2 p-0 m-0")
+          img(src="images/topleft-sm.gif", class="w-100 h-100 m-0 p-0")
+        div(class="col-10 p-0 m-0")
+          img(src="images/topbanner.png", class="w-100 h-100 m-0 p-0")
 
       - var hideNav = (filename.indexOf("login") !== -1 ? 1 : 0)
       - var paths = filename.split("\/")
