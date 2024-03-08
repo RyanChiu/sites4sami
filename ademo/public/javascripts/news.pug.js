@@ -1,2 +1,2 @@
 const editor = Jodit.make('#joitNews');
-editor.value = '<p>start</p>';
+//editor.value = '<p>start</p>';
