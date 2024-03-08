@@ -81,18 +81,19 @@ exports.queryData = queryData = async function (sql, holders) {
 
 exports.queryOffices = async function(role, userid) {
     var sql = "select * from user where type = 2";
+    var orderBy = " order by username";
     var offices;
     switch (role) {
         case 0:
         case 1:
         default:
-          offices = await queryData(sql);
+          offices = await queryData(sql + orderBy);
           break;
         case 2:
-          offices = await queryData(sql + " and id = ?", [userid]);
+          offices = await queryData(sql + " and id = ?" + orderBy, [userid]);
           break;
         case 3:
-          offices = await queryData(sql + " and id = (select officeid from user where id = ?)", [userid]);
+          offices = await queryData(sql + " and id = (select officeid from user where id = ?)" + orderBy, [userid]);
           break;
       }
       return offices;
@@ -100,18 +101,19 @@ exports.queryOffices = async function(role, userid) {
 
 exports.queryAgents = async function(role, userid) {
     var sql = "select * from view_agent";
+    var orderBy = " order by username, office";
     var agents;
     switch (role) {
         case 0:
         case 1:
         default:
-            agents = await queryData(sql);
+            agents = await queryData(sql + orderBy);
             break;
         case 2:
-            agents = await queryData(sql + " where office = (select username from user where id = ?)", [userid]);
+            agents = await queryData(sql + " where office = (select username from user where id = ?)" + orderBy, [userid]);
             break;
         case 3:
-            agents = await queryData(sql + " where id = ?", [userid]);
+            agents = await queryData(sql + " where id = ?" + orderBy, [userid]);
             break;
     }
     return agents;
