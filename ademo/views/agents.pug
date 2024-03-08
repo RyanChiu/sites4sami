@@ -1,16 +1,16 @@
 extends layout
 
 block content
-  h4= title
+  h4(class="text-light")= title
 
   form(id="formSearchAgent" action="agents" method="post")
     div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
       div(class="row p-2")
         div(class="col")
-          i(class="bi bi-search fs-6 p-1")
-          b Search 
+          i(class="bi bi-search fs-6 p-1 text-light")
+          b(class="text-light") Search 
       div(class="row p-1")
-        div(class="col-1") Agent 
+        div(class="col-1 text-light") Agent 
         div(class="col-3")
           input(
             class="w-100 rounded-2"
@@ -21,7 +21,7 @@ block content
           )
         div(class="col-8")
       div(class="row p-1")
-        div(class="col-1") Office 
+        div(class="col-1 text-light") Office 
         div(class="col-3")
           - var len = Object.keys(offices).length
           case len
@@ -46,22 +46,22 @@ block content
                   option(value=office["username"])= office["username"]
         div(class="col-8")
       div(class="row p-1")
-        div(class="col-1") Status 
+        div(class="col-1 text-light") Status 
         div(class="col-5")
           input(type="hidden" id="iptStatus" name="iptStatus" value="-111")
           div(class="form-check form-check-inline pe-3 border-end")
             input(class="form-check-input" type="radio" name="rdioStatus" id="rdioStatusAll" value="-111" onclick="$('#iptStatus').val(this.value);" checked="true")
-            label(class="form-check-label" for="rdioStatusAll")
+            label(class="form-check-label text-light" for="rdioStatusAll")
               b All
           div(class="form-check form-check-inline")
             input(class="form-check-input" type="radio" name="rdioStatus" id="rdioStatusSus" value="-1" onclick="$('#iptStatus').val(this.value);")
-            label(class="form-check-label" for="rdioStatusSus") Suspended
+            label(class="form-check-label text-light" for="rdioStatusSus") Suspended
           div(class="form-check form-check-inline")
             input(class="form-check-input" type="radio" name="rdioStatus" id="rdioStatusIna" value="0" onclick="$('#iptStatus').val(this.value);")
-            label(class="form-check-label" for="rdioStatusIna") Not Activated
+            label(class="form-check-label text-light" for="rdioStatusIna") Not Activated
           div(class="form-check form-check-inline")
             input(class="form-check-input" type="radio" name="rdioStatus" id="rdioStatusAct" value="1" onclick="$('#iptStatus').val(this.value);")
-            label(class="form-check-label" for="rdioStatusAct") Activated
+            label(class="form-check-label text-light" for="rdioStatusAct") Activated
         div(class="col-6")
       div(class="row p-1")
         div(class="col-2")

@@ -1,13 +1,13 @@
 extends layout
 
 block content
-    h4= title
+    h4(class="text-light")= title
 
     form(id="formAdminDwit" action="admins_dwit" method="post")
         div(class="container w-100")
             div(class="row m-2")
                 div(class="col-3")
-                    label(for="iptUsername") Username
+                    label(class="text-light" for="iptUsername") Username
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     - var op = (data == "" ? "add" : "edit")
@@ -29,7 +29,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(for="iptPassword") Password
+                    label(class="text-light" for="iptPassword") Password
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(
@@ -43,7 +43,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(for="iptPassword2") Confirm Password
+                    label(class="text-light" for="iptPassword2") Confirm Password
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(

@@ -1,13 +1,13 @@
 extends layout
 
 block content
-    h4= title
+    h4(class="text-light")= title
 
     form(id="formOfficeDwit" action="offices_dwit" method="post")
         div(class="container w-100")
             div(class="row m-2")
                 div(class="col-3")
-                    label(for="ipt1stName") First Name
+                    label(class="text-light" for="ipt1stName") First Name
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     - var op = (data == "" ? "add" : "edit")
@@ -23,7 +23,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(for="iptLstName") Last Name
+                    label(class="text-light" for="iptLstName") Last Name
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(
@@ -37,7 +37,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(for="iptUsername") Username
+                    label(class="text-light" for="iptUsername") Username
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(
@@ -57,7 +57,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(for="iptPassword") Password
+                    label(class="text-light" for="iptPassword") Password
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(
@@ -71,7 +71,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(for="iptPassword2") Confirm Password
+                    label(class="text-light" for="iptPassword2") Confirm Password
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(
@@ -85,7 +85,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(for="txtNote") Must Read (optional)
+                    label(class="text-light" for="txtNote") Must Read (optional)
                 div(class="col-9")
                     textarea(
                         class="form-control w-75 mb-1 rounded-2"
@@ -106,7 +106,7 @@ block content
                             name="chkStatus"
                             onclick="$('#chkStatus').val(" + (status == 1 ? 0 : 1) + ")"
                         )
-                        label(for="chkStatus" class="form-check-label") Activated
+                        label(class="text-light" for="chkStatus" class="form-check-label") Activated
                 div(class="col-9")
                     input(
                         class="w-25 btn btn-primary mb-3"

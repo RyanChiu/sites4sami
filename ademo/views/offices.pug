@@ -1,16 +1,16 @@
 extends layout
 
 block content
-  h4= title
+  h4(class="text-light")= title
 
   form(id="formSearchOffice" action="offices" method="post")
     div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
       div(class="row p-2")
         div(class="col")
-          i(class="bi bi-search fs-6 p-1")
-          b Search 
+          i(class="bi bi-search fs-6 p-1 text-light")
+          b(class="text-light") Search 
       div(class="row p-1")
-        div(class="col-1") Office 
+        div(class="col-1 text-light") Office 
         div(class="col-3")
           input(
             class="w-100 h-80 rounded-2"

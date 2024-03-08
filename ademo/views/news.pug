@@ -1,4 +1,8 @@
 extends layout
 
 block content
-  h4= title
+  h4(class="text-light")= title
+
+  div(class="container")
+    textarea(id="joitNews" name="joitNews" placeholder="Design your news, please.") 
+  script(src='javascripts/news.pug.js')

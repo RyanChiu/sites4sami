@@ -8,11 +8,13 @@ html
     script(src='javascripts/dayjs/dayjs.min.js')
     script(src='javascripts/dayjs/plugin/utc.js')
     script(src='javascripts/dayjs/plugin/timezone.js')
+    script(src='javascripts/jodit.min.js')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap-icons/font/bootstrap-icons.min.css')
+    link(rel='stylesheet', href='/stylesheets/jodit.min.css')
 
-  body(class="bg-dark text-light fw-lighter")
+  body(class="bg-dark text-dark fw-lighter")
     script(src='javascripts/ztoolkits.js')
     script(src='javascripts/layout.pug.js')
 
@@ -55,6 +57,6 @@ html
                     - var clsNav = (ofPath.indexOf(pathNav) === 0 ? " active" : "")
                     a(class="nav-link " + clsNav  href=pathNav)= itemNav
               a(class="nav-link float-sm-end" href="logout" title="Logout" alt="Logout")
-                label(class="border border-start-0 border-end-0 rounded-3 ps-1 pe-1 me-1")= user
-                i(class="bi bi-box-arrow-right fs-5 p-1")
+                label(class="border border-start-0 border-end-0 rounded-3 text-light ps-1 pe-1 me-1")= user
+                i(class="bi bi-box-arrow-right text-light fs-5 p-1")
       block content
