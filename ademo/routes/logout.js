@@ -14,10 +14,12 @@ router.get('/', async function(req, res, next) {
   if (req.session) {
     req.session.loggedin = false;
     req.session.username = '';
-    await tricks.queryData(
-      "insert into log (userid, type) values (" + req.session.userid + ", 0)"
+    var rst = await tricks.queryData(
+      "update log set outtime = NOW() where id = ?",
+      req.session.loginsertid
     );
     req.session.userid = -1;
+    console.log(["debug from logout page:"]); console.log(rst); // debug
   } 
   res.render('login', { 
     title: tricks.getTitle(__filename),

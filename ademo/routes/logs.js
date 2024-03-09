@@ -5,13 +5,33 @@ const tricks = require('../modules/ztoolkits/tricks');
 tricks.useSession(router);
 
 /* render the page */
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     var title = tricks.getTitle(__filename);
-    res.render('home', { 
+    var data = await tricks.queryLogs(req.session.role, req.session.userid)
+    res.render('logs', { 
       title: title,
       navs: req.session.navs,
-      user: req.session.username
+      user: req.session.username,
+      data: data
+    });
+  } else {
+    res.redirect('logout');
+  }
+});
+
+/* deal with post data */
+router.post('/', async (req, res) => {
+  if (req.session && req.session.loggedin) {
+    var data = await tricks.queryLogs(
+      req.session.role, req.session.userid, 
+      "username like '%" + req.body.iptUsername + "%'"
+    );
+    res.render('logs', { 
+      title: "Logs",
+      navs: req.session.navs,
+      user: req.session.username,
+      data: data
     });
   } else {
     res.redirect('logout');

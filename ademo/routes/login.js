@@ -33,9 +33,11 @@ router.post('/', async (req, res) => {
                         break;
                 }
                 //save the logged-in in log
-                await tricks.queryData(
-                    "insert into log (userid, type) values (" + data[0]['id'] + ", 1)"
+                var rst = await tricks.queryData(
+                    "insert into log (userid, type, outtime) values (?, 1, null)",
+                    req.session.userid
                 );
+                req.session.loginsertid = rst['insertId'];
                 res.redirect('home');
             } else {
                 res.render("login", {

@@ -119,6 +119,42 @@ exports.queryAgents = async function(role, userid) {
     return agents;
 }
 
+exports.queryLogs = async function(role, userid, cond="", orderBy=" order by intime desc") {
+    var sql = "select * from view_log ";
+    var logs, where = "";
+    switch (role) {
+        case 0:
+            if (cond != "") {
+                where = "where " + cond;
+            }
+            logs = await queryData(sql + where + orderBy);
+            break;
+        case 1:
+        default:
+            where = " where role != 0";
+            if (cond != "") {
+                where += " and (" + cond + ")"
+            }
+            logs = await queryData(sql + where + orderBy);
+            break;
+        case 2:
+            where = " where (role > 1 and office = (select username from user where id = ?) or userid = ?)";
+            if (cond != "") {
+                where += " and (" + cond + ")"
+            }
+            logs = await queryData(sql + where + orderBy, [userid, userid]);
+            break;
+        case 3:
+            where = " where userid = ?";
+            if (cond != "") {
+                where += " and (" + cond + ")"
+            }
+            logs = await queryData(sql + where + orderBy, [userid]);
+            break;
+    }
+    return logs;
+}
+
 exports.getTitle = function (t) {
     t = t.split('\\').pop().split('/').pop();
     t = t.substring(0, t.indexOf("."));
