@@ -5,6 +5,7 @@ $(document).ready(function() {
     })
 
     $("#formAgentDwit").validate({
+        errorClass: 'text-danger',
         rules: {
             ipt1stName: "required",
             iptLstName: "required",
@@ -28,6 +29,7 @@ $(document).ready(function() {
     });
 
     $("#formOfficeDwit").validate({
+        errorClass: 'text-danger',
         rules: {
             ipt1stName: "required",
             iptLstName: "required",
@@ -51,6 +53,7 @@ $(document).ready(function() {
     });
 
     $("#formAdminDwit").validate({
+        errorClass: 'text-danger',
         rules: {
             iptUsername: {
                 required: true,
@@ -72,6 +75,7 @@ $(document).ready(function() {
     });
 
     $("#formProfile").validate({
+        errorClass: 'text-danger',
         rules: {
             ipt1stName: "required",
             iptLstName: "required",
@@ -120,7 +124,12 @@ $(document).ready(function() {
         }
     })
 
-    // theme all the table
+    // theme all the label for input
+    $('label[for]').each(function() {
+        $(this).addClass("text-light");
+    })
+
+    // theme all the tables
     $('table').each(function() {
         $(this).addClass("table table-dark table-striped table-borderless");
     })
