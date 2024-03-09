@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
       params = [
         req.body.ipt1stName, req.body.iptLstName, 
         req.body.iptUsername, req.body.iptPassword, tricks.cryptIt(req.body.iptPassword),
-        req.body.chkStatus, req.body.txtNote
+        (req.body.chkStatus == 1 ? 1 : 0), req.body.txtNote
       ];
       rst = await tricks.queryData(sql, params);
     } else if (req.body.submitType == "edit") {

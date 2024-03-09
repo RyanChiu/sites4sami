@@ -7,7 +7,7 @@ block content
         div(class="container w-100")
             div(class="row m-2")
                 div(class="col-3")
-                    label(class="text-light" for="ipt1stName") First Name
+                    label(for="ipt1stName") First Name
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     - var op = (data == "" ? "add" : "edit")
@@ -23,7 +23,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(class="text-light" for="iptLstName") Last Name
+                    label(for="iptLstName") Last Name
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(
@@ -37,7 +37,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(class="text-light" for="iptUsername") Username
+                    label(for="iptUsername") Username
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(
@@ -57,7 +57,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(class="text-light" for="iptPassword") Password
+                    label(for="iptPassword") Password
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(
@@ -71,7 +71,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(class="text-light" for="iptPassword2") Confirm Password
+                    label(for="iptPassword2") Confirm Password
                     label(class="text-danger ms-2") *
                 div(class="col-9")
                     input(
@@ -85,7 +85,7 @@ block content
                     )
             div(class="row m-2")
                 div(class="col-3")
-                    label(class="text-light" for="txtNote") Must Read (optional)
+                    label(for="txtNote") Must Read (optional)
                 div(class="col-9")
                     textarea(
                         class="form-control w-75 mb-1 rounded-2"
@@ -100,13 +100,13 @@ block content
                         input(
                             checked=(status == 1 ? true : false)
                             class="form-check-input"
-                            value=""
+                            value=(status == 1 ? 1: 0)
                             type="checkbox"
                             id="chkStatus"
                             name="chkStatus"
                             onclick="$('#chkStatus').val(" + (status == 1 ? 0 : 1) + ")"
                         )
-                        label(class="text-light" for="chkStatus" class="form-check-label") Activated
+                        label(for="chkStatus" class="form-check-label") Activated
                 div(class="col-9")
                     input(
                         class="w-25 btn btn-primary mb-3"

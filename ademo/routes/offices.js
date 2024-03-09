@@ -7,7 +7,7 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
-    var data = await tricks.queryData("select * from view_office");
+    var data = await tricks.queryOffices(req.session.role, req.session.userid);
     var title = tricks.getTitle(__filename);
     res.render('offices', { 
       title: title,
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     var params = [
       "%" + req.body.iptOffice + "%"
     ];
-    var sql = "select * from view_office where username like ?";
+    var sql = "select * from view_office where username like ? order by username";
     var data = await tricks.queryData(sql, [params[0]]);
     console.log("[debug from post in offices:]"); console.log(data); // debug
     res.render('offices', {
