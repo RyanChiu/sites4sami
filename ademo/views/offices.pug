@@ -71,7 +71,8 @@ block content
         td= row['password']
         td(name="uTimeStr")= row['lastlogintime']
         td(name="uTimeStr")= row['registered']
-        td= row['agents']
+        td
+          a(href="agents?office=" + row['username'])= row['agents']
         td(name="uStatus")= row['status']
         td
           a(class="pe-1" href="offices_dwit?op=edit&id=" + row['id'])

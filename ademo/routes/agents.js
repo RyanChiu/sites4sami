@@ -8,11 +8,24 @@ tricks.useSession(router);
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     var params = req.query;
+    var title = "Agents", data = null, offices = null;
     console.log("[debug] params/session from get:"); console.log(params); console.log(req.session); // debug
-    if (JSON.stringify(params) == '{}') {
-      var data = await tricks.queryAgents(req.session.role, req.session.userid); //queryData("select * from view_agent");
-      var offices = await tricks.queryOffices(req.session.role, req.session.userid);
-      var title = "Agents";
+    if (JSON.stringify(params) == '{}' || !params.office || isNaN(params.office)) {
+      data = await tricks.queryAgents(req.session.role, req.session.userid); //queryData("select * from view_agent");
+      offices = await tricks.queryOffices(req.session.role, req.session.userid);
+      if (JSON.stringify(params) !== '{}' && (!params.office || isNaN(params.office))) {
+        var data0 = [];
+        var offices0 = [];
+        for (let row of data) {
+          if (row.office == params.office) data0.push(row);
+        }
+        for (let row of offices) {
+          if (row.username == params.office) offices0.push(row);
+        }
+        data = data0;
+        offices = offices0;
+      }
+      console.log("[debug 202403091456]:"); console.log(offices0); console.log(data0); //debug
       res.render('agents', { 
         title: title,
         navs: req.session.navs,
@@ -21,6 +34,7 @@ router.get('/', async function(req, res, next) {
         data: data
       });
     } else {
+      title = "Home";
       res.render('home', { 
         title: title,
         navs: req.session.navs,
