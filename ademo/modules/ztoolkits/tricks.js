@@ -80,7 +80,7 @@ exports.queryData = queryData = async function (sql, holders) {
 }
 
 exports.queryOffices = async function(role, userid) {
-    var sql = "select * from user where type = 2";
+    var sql = "select * from view_office";
     var orderBy = " order by username";
     var offices;
     switch (role) {
