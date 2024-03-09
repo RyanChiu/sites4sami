@@ -90,10 +90,10 @@ exports.queryOffices = async function(role, userid) {
           offices = await queryData(sql + orderBy);
           break;
         case 2:
-          offices = await queryData(sql + " and id = ?" + orderBy, [userid]);
+          offices = await queryData(sql + " where id = ?" + orderBy, [userid]);
           break;
         case 3:
-          offices = await queryData(sql + " and id = (select officeid from user where id = ?)" + orderBy, [userid]);
+          offices = await queryData(sql + " where id = (select officeid from user where id = ?)" + orderBy, [userid]);
           break;
       }
       return offices;
