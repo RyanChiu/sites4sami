@@ -129,6 +129,11 @@ $(document).ready(function() {
         $(this).addClass("text-light");
     })
 
+    // theme all the H4 for title
+    $('h4').each(function() {
+        $(this).addClass("text-light");
+    })
+
     // theme all the tables
     $('table').each(function() {
         $(this).addClass("table table-dark table-striped table-borderless");
