@@ -123,6 +123,21 @@ $(document).ready(function() {
                 $(this).html("-");
         }
     })
+    // format a status into a reffered icon in tds or other components with the same name 'sStatus'
+    $('[name="sStatus"]').each(function() {
+        $(this).addClass("fs-6 pt-1 pb-0");
+        let status = $(this).html();
+        switch (status) {
+            case "0":
+                $(this).html("<i class='bi bi-bookmark-dash text-warning'></i>");
+                break;
+            case "1":
+                $(this).html("<i class='bi bi-bookmark-check text-success'></i>");
+                break;
+            default:
+                $(this).html("-");
+        }
+    })
 
     // theme all the label for input
     $('label[for]').each(function() {

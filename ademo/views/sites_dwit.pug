@@ -1,0 +1,122 @@
+extends layout
+
+block content
+  h4= title
+
+  form(id="formSiteDwit" action="sites_dwit" method="post")
+        div(class="container w-100")
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptName") Name 
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    - var op = (data == "" ? "add" : "edit")
+                    input(type="hidden" name="submitType" id="submitType" value=op)
+                    input(
+                        type="hidden" 
+                        name="iptId" 
+                        id="iptId"
+                        value=(data=="" ? -1 : data[0]["id"])
+                    )
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptName"
+                        name="iptName"
+                        value=(data=="" ? "" : data[0]["name"])
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptName") Short Name 
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptShort"
+                        name="iptShort"
+                        value=(data=="" ? "" : data[0]["short"])
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptName") Abbrivation 
+                    label(class="text-danger ms-2") *
+                div(class="col-9") 
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptAbbr"
+                        name="iptAbbr"
+                        value=(data=="" ? "" : data[0]["abbr"])
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptName") URL 
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptUrl"
+                        name="iptUrl"
+                        value=(data=="" ? "" : data[0]["url"])
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptName") Click Param
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptClickparam"
+                        name="iptClickparam"
+                        value=(data=="" ? "" : data[0]["clickparam"])
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    label(for="iptName") Type 
+                    label(class="text-danger ms-2") *
+                div(class="col-9")
+                    input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptType"
+                        name="iptType"
+                        value=(data=="" ? "" : data[0]["type"])
+                        required
+                    )
+            div(class="row m-2")
+                div(class="col-3")
+                    div(class="form-check")
+                        - var status = (Number.isNaN(data) || data == "" ? 1 : (data[0]["status"] == 1 ? 1 : 0));
+                        input(
+                            checked=(status == 1 ? true : false)
+                            class="form-check-input"
+                            value=(status == 1 ? 1: 0)
+                            type="checkbox"
+                            id="chkStatus"
+                            name="chkStatus"
+                            onclick="$('#chkStatus').val(" + (status == 1 ? 0 : 1) + ")"
+                        )
+                        label(for="chkStatus" class="form-check-label") Activated
+                div(class="col-9")
+                    input(
+                        class="w-25 btn btn-primary mb-3"
+                        type="submit"
+                        value=(data == "" ? "Add" : "Edit")
+                    )
+                    a(
+                        role="button"
+                        class="btn btn-secondary mb-3 ms-2"
+                        href="sites"
+                    ) Cancel

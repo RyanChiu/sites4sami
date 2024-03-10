@@ -2,3 +2,53 @@ extends layout
 
 block content
   h4= title
+
+  div(class="row mb-1")
+    div(class="col-2")
+      a(
+        role="button"
+        class="btn btn-outline-primary p-0"
+        href="sites_dwit"
+      )
+        i(class="bi bi-bookmark-plus fs-5 p-1")
+        label(class="fs-6 ps-0 pt-0 pb-0 pe-2") Add
+
+  table(class="w-100")
+    thead
+      tr
+        th Name 
+        th Type 
+        th Abbr 
+        th Links 
+        th st. 
+        th OPs 
+    - var i = 0
+    tbody 
+      each row in data 
+        - i++
+        tr 
+          td= row['name']
+          td= row['type']
+          td= row['abbr']
+          td 
+            a(href="#foo" data-bs-toggle="modal" data-bs-target="#linksModal" + row['id'])= row['lksamount']
+            div(class="modal fade" id="linksModal" + row['id'] tabindex="-1" aria-labelledby="linksModalLabel" + row['id'] aria-hidden="true")
+              div(class="modal-dialog modal-dialog-centered modal-dialog-scrollable")
+                div(class="modal-content text-bg-dark")
+                  div(class="modal-header")
+                    h1(class="modal-title fs-5" id="exampleModalLabel")= "Links of [" + row['name'] + "]"
+                    button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+                  - var lkstxt = '{"links": [' + row['links'] + ']}'
+                  div(class="modal-body")
+                    - var links = JSON.parse(lkstxt).links
+                    each lk in links
+                      label(for)= JSON.stringify(lk)
+                      
+                  div(class="modal-footer")
+                    button(type="button" class="btn btn-primary" data-bs-dismiss="modal") Got it
+          td(name="sStatus")= row['status']
+          td
+            a(class="pe-1" href="sites_dwit?op=edit&id=" + row['id'])
+                i(class="bi bi-pencil-square text-primary")
+
+    
