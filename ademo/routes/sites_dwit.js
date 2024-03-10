@@ -42,7 +42,7 @@ router.get('/', async function(req, res, next) {
 /* deal with post data */
 router.post('/', async (req, res) => {
     if (req.session && req.session.loggedin
-        && (req.session.role == 0 || req.session.role.role == 1)) {
+        && (req.session.role == 0 || req.session.role == 1)) {
         var params = [], rst = null, sql = "";
         if (req.body.submitType == "add") {
             sql = "insert into site"

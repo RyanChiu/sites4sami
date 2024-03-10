@@ -7,7 +7,7 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin
-      && (req.session.role == 0 || req.session.role.role == 1)) {
+      && (req.session.role == 0 || req.session.role == 1)) {
     var title = tricks.getTitle(__filename);
     var data = await tricks.queryData(
       "select *, JSON_LENGTH(links) as lksamount from site"
