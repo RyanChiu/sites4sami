@@ -16,6 +16,7 @@ router.get('/', async function(req, res, next) {
         title: title,
         navs: req.session.navs,
         user: req.session.username,
+        role: req.session.role,
         data: data
       });
     } else {

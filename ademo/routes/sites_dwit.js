@@ -7,7 +7,7 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
-    if (req.session.role == 0 || req.session.role == 1) {
+    if (req.session.role == 0) {
         var params = req.query, paramOp = "", paramId = "";
         if (JSON.stringify(params) == '{}'
             || typeof(params["op"]) == "undefined" 
@@ -45,7 +45,7 @@ router.get('/', async function(req, res, next) {
 /* deal with post data */
 router.post('/', async (req, res) => {
     if (req.session && req.session.loggedin) {
-        if (req.session.role == 0 || req.session.role == 1) {
+        if (req.session.role == 0) {
             var params = [], rst = null, sql = "";
             if (req.body.submitType == "add") {
                 sql = "insert into site"

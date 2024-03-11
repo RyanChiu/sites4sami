@@ -3,15 +3,17 @@ extends layout
 block content
   h4= title
 
-  div(class="row mb-1")
-    div(class="col-2")
-      a(
-        role="button"
-        class="btn btn-outline-primary p-0"
-        href="sites_dwit"
-      )
-        i(class="bi bi-bookmark-plus fs-5 p-1")
-        label(class="fs-6 ps-0 pt-0 pb-0 pe-2") Add
+  case role 
+    when 0
+      div(class="row mb-1")
+        div(class="col-2")
+          a(
+            role="button"
+            class="btn btn-outline-primary p-0"
+            href="sites_dwit"
+          )
+            i(class="bi bi-bookmark-plus fs-5 p-1")
+            label(class="fs-6 ps-0 pt-0 pb-0 pe-2") Add
 
   table(class="w-100")
     thead
@@ -20,8 +22,10 @@ block content
         th Type 
         th Abbr 
         th Links 
-        th st. 
-        th OPs 
+        th st.
+        case role 
+          when 0 
+            th OPs 
     - var i = 0
     tbody 
       each row in data 
@@ -49,8 +53,10 @@ block content
                   div(class="modal-footer")
                     button(type="button" class="btn btn-primary" data-bs-dismiss="modal") Got it
           td(name="sStatus")= row['status']
-          td
-            a(class="pe-1" href="sites_dwit?op=edit&id=" + row['id'])
-                i(class="bi bi-pencil-square text-primary")
+          case role 
+            when 0
+              td
+                a(class="pe-1" href="sites_dwit?op=edit&id=" + row['id'])
+                    i(class="bi bi-pencil-square text-primary")
 
     
