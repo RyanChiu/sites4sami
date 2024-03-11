@@ -26,10 +26,10 @@ router.post('/', async (req, res) => {
                         req.session.navs = ["Home", "Offices", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Settings"];
                         break;
                     case 2:
-                        req.session.navs = ["Home", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Settings"];
+                        req.session.navs = ["Home", "Agents", "Approve Agents", "Stats", "Links", "Logs", "Profile", "Settings"];
                         break;
                     case 3:
-                        req.session.navs = ["Home", "Sites", "Stats", "Links", "Logs", "Profile", "Settings"];
+                        req.session.navs = ["Home", "Stats", "Links", "Logs", "Profile", "Settings"];
                         break;
                 }
                 //save the logged-in in log
