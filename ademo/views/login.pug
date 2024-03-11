@@ -1,11 +1,11 @@
 extends layout
 
 block content
-  div(class="container text-center" style="width:360px")
+  div(class="container text-center" style="width:420px")
     div(class="row")
       div(class="col p-2 text-light border-bottom-1")
         h4 Sign In
-    div(class="row")
+    div(class="row" + (tips == "" || typeof(tips) == undefined || tips == null ? " d-none" : " d-block"))
       div(class="col text-warning" style="height:41px")= tips
     div(class="row")
       div(class="col")

@@ -36,13 +36,15 @@ block content
               div(class="modal-dialog modal-dialog-centered modal-dialog-scrollable")
                 div(class="modal-content text-bg-dark")
                   div(class="modal-header")
-                    h1(class="modal-title fs-5" id="exampleModalLabel")= "Links of [" + row['name'] + "]"
+                    h3(class="modal-title fs-5" id="exampleModalLabel")= "Links of [" + row['name'] + "]"
                     button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
                   - var lkstxt = '{"links": [' + row['links'] + ']}'
                   div(class="modal-body")
                     - var links = JSON.parse(lkstxt).links
                     each lk in links
-                      label(for)= JSON.stringify(lk)
+                      - var str_lk = JSON.stringify(lk)
+                      - str_lk = str_lk.replace("{", "").replace("}", "")
+                      label(for)= str_lk
                       
                   div(class="modal-footer")
                     button(type="button" class="btn btn-primary" data-bs-dismiss="modal") Got it

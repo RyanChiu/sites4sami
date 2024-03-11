@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
         if (params[0] && params[1] && params[2]) {
             var sql = "select id, username, type, status from user where username = ? and pwd_crypted = ?";
             data = await tricks.queryData(sql, [params[0], tricks.cryptIt(params[1])]);
-            if (data != null && data.length > 0) {//successflly logged in
+            if (data != null && data.length > 0 && data[0]['status'] == 1) {//successflly logged in
                 req.session.loggedin = true;
                 req.session.username = data[0]['username'];
                 req.session.userid = data[0]['id'];
@@ -40,10 +40,17 @@ router.post('/', async (req, res) => {
                 req.session.loginsertid = rst['insertId'];
                 res.redirect('home');
             } else {
-                res.render("login", {
-                    tips: "Incorrect Username/Password!",
-                    tag: ''
-                });
+                if (data[0]["status"] != 1) {
+                    res.render("login", {
+                        tips: "Not allowed to login, please contact your admin.",
+                        tag: ''
+                    });
+                } else {
+                    res.render("login", {
+                        tips: "Incorrect Username/Password!",
+                        tag: ''
+                    });
+                }
             }
             
         } else {
