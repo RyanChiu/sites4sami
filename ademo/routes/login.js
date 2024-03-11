@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
                 req.session.loginsertid = rst['insertId'];
                 res.redirect('home');
             } else {
-                if (data[0]["status"] != 1) {
+                if (data != null && data.length > 0 && data[0]['status'] != 1) {
                     res.render("login", {
                         tips: "Not allowed to login, please contact your admin.",
                         tag: ''

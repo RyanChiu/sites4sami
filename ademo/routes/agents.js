@@ -7,6 +7,9 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
+    if (req.session.role == 3) {
+      res.redirect('home?tips=Now allowed.');
+    }
     var params = req.query;
     var title = "Agents", data = null, offices = null;
     console.log("[debug] params/session from get:"); console.log(params); console.log(req.session); // debug
@@ -49,6 +52,9 @@ router.get('/', async function(req, res, next) {
 /* deal with post data */
 router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
+    if (req.session.role == 3) {
+      res.redirect('home?tips=Now allowed.');
+    }
     var title = "Agents";
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var params = [

@@ -10,6 +10,9 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
+    if (req.session.role == 3) {
+      res.redirect('home?tips=Now allowed.');
+    }
     var params = req.query;
     console.log("params from get:"); console.log(params); // debug
     var paramOp = "", paramId = "", paramRef = null;
@@ -102,6 +105,9 @@ router.get('/', async function(req, res, next) {
 /* deal with post data */
 router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
+    if (req.session.role == 3) {
+      res.redirect('home?tips=Now allowed.');
+    }
     var title = "Agents";
     var params = [];
     console.log("[debug for agent_dwit post] params:"); console.log(params); // debug

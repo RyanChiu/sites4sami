@@ -8,11 +8,13 @@ tricks.useSession(router);
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     var title = "Home";
+    var tips = req.query.tips;
     data = await tricks.queryData(
       "select * from news where id = (select max(id) from news);"
     );
     res.render('home', { 
       title: title,
+      tips: tips,
       navs: req.session.navs,
       user: req.session.username,
       data: data
