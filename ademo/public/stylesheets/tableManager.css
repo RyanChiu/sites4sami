@@ -1,0 +1,65 @@
+/*Initial style sort*/
+.tablemanager th.sorterHeader {
+	cursor: pointer;
+}
+.tablemanager th.sorterHeader:after {
+	content: " \f0dc";
+	font-family: "Font Awesome 6 Free";
+}
+/*Style sort desc*/
+.tablemanager th.sortingDesc:after {
+	content: " \f0dc";
+	font-family: "Font Awesome 6 Free";
+	/*color: black;*/
+}
+/*Style sort asc*/
+.tablemanager th.sortingAsc:after {
+	content: " \f0de";
+	font-family: "Font Awesome 6 Free";
+}
+/*Style sort disabled*/
+.tablemanager th.disableSort {
+	content: "";
+}
+/* ++ page controller style*/
+button.pagecontroller {
+	color: green;
+}
+button.pagecontroller-p:after {
+	content: " \f060";
+	font-family: "Font Awesome 6 Free";
+	color: green;
+}
+button.pagecontroller-n:after {
+	content: " \f061";
+	font-family: "Font Awesome 6 Free";
+	color: green;
+}
+button.pagecontroller-f:after {
+	content: " \f190";
+	font-family: "Font Awesome 6 Free";
+	color: green;
+}
+button.pagecontroller-l:after {
+	content: " \f18e";
+	font-family: "Font Awesome 6 Free";
+	color: green;
+}
+button.pagecontroller-num {
+	color: black;
+}
+button.currentPage {
+	color: red;
+}
+#for_numrows {
+	padding: 10px;
+	float: left;
+}
+#for_filter_by {
+	padding: 10px;
+	float: right;
+}
+#pagesControllers {
+	display: block;
+	text-align: right;
+}
