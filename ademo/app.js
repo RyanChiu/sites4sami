@@ -23,6 +23,7 @@ var settingsRouter = require('./routes/settings');
 var logoutRouter = require('./routes/logout');
 var loginRouter = require('./routes/login');
 var captchaRouter = require('./routes/captcha');
+var tracksDwitCBRoute = require('./routes/tracks_dwit_cb');
 
 var app = express();
 
@@ -56,6 +57,7 @@ app.use('/settings', settingsRouter);
 app.use('/logout', logoutRouter);
 app.use('/login', loginRouter);
 app.use('/captcha', captchaRouter);
+app.use('/cbs_tracks', tracksDwitCBRoute)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
