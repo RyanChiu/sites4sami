@@ -123,8 +123,10 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
         // default pagination variables
         var currentPage = 0;
         var numPerPage =
-            pagination !== true && showrows_option !== true ? rows.length : 5;
-        var numOfPages = options.numOfPages !== undefined && options.numOfPages > 0 ? options.numOfPages : 5;
+            //pagination !== true && showrows_option !== true ? rows.length : 5;
+            pagination !== true && showrows_option !== true ? rows.length : 20;
+        //var numOfPages = options.numOfPages !== undefined && options.numOfPages > 0 ? options.numOfPages : 5;
+        var numOfPages = options.numOfPages !== undefined && options.numOfPages > 0 ? options.numOfPages : 20;
 
         /**
         Set default show rows list or set if option is set

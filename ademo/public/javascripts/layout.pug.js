@@ -149,15 +149,6 @@ $(document).ready(function() {
         $(this).addClass("text-light");
     })
 
-    //use pagination-sort-filter-manager/tableManager
-    $('#tblAgents').each(function() {
-        $(this).tablemanager({
-            pagination: true,
-            numOfPages: 5,
-            disable: [1, 10, "last"],
-        });
-    })
-
     // theme all the tables
     $('table').each(function() {
         $(this).addClass("table table-dark table-striped table-borderless");

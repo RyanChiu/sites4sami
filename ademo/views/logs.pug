@@ -35,7 +35,7 @@ block content
           ) Reset
         div(class="col-8")
 
-  table(class="w-100 border")
+  table(class="w-100 tablemanager" id="tblLogs")
     thead 
       tr 
         th Username
@@ -50,3 +50,5 @@ block content
         td= row['office'] == null ? "-" : row['office']
         td(name='uTimeStr')= row['intime']
         td(name='uTimeStr')= row['outtime']
+
+  script(src="javascripts/logs.pug.js")
