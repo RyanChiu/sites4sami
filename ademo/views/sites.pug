@@ -45,9 +45,9 @@ block content
                     - var links = JSON.parse(lkstxt).links
                     each lk in links
                       - var str_lk = JSON.stringify(lk)
-                      - str_lk = str_lk.replace("{", "").replace("}", "")
+                      - str_lk = str_lk.replace("{", "").replace("}", "");
                       label(for)= str_lk
-                      
+                      hr
                   div(class="modal-footer")
                     button(type="button" class="btn btn-primary" data-bs-dismiss="modal") Got it
           td(name="sStatus")= row['status']

@@ -10,6 +10,7 @@ var officesRouter = require('./routes/offices');
 var officesDwitRouter = require('./routes/offices_dwit');
 var agentsRouter = require('./routes/agents');
 var agentsDwitRouter = require('./routes/agents_dwit');
+var agsnovRouter = require('./routes/ags_nov'); // ags means agents, nov means with no view
 var approveagentsRouter = require('./routes/approveagents');
 var sitesRouter = require('./routes/sites');
 var sitesDwitRouter = require('./routes/sites_dwit');
@@ -24,6 +25,7 @@ var logoutRouter = require('./routes/logout');
 var loginRouter = require('./routes/login');
 var captchaRouter = require('./routes/captcha');
 var tracksDwitCBRoute = require('./routes/tracks_dwit_cb');
+var nav2Route = require('./routes/nav2');
 
 var app = express();
 
@@ -44,6 +46,7 @@ app.use('/offices', officesRouter);
 app.use('/offices_dwit', officesDwitRouter);
 app.use('/agents', agentsRouter);
 app.use('/agents_dwit', agentsDwitRouter);
+app.use('/ags_nov', agsnovRouter);
 app.use('/approveagents', approveagentsRouter);
 app.use('/sites', sitesRouter);
 app.use('/sites_dwit', sitesDwitRouter);
@@ -57,7 +60,8 @@ app.use('/settings', settingsRouter);
 app.use('/logout', logoutRouter);
 app.use('/login', loginRouter);
 app.use('/captcha', captchaRouter);
-app.use('/cbs_tracks', tracksDwitCBRoute)
+app.use('/cbs_tracks', tracksDwitCBRoute);
+app.use('/nav2', nav2Route);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

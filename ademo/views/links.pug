@@ -1,3 +1,112 @@
 extends layout
 
 block content
+  button(id="btnStartLoading" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#spinnerModal") loading
+  div(class="modal" id="spinnerModal" tabindex="-1" aria-labelledby="spinnerModalLabel" aria-hidden="true")
+    div(class="modal-dialog modal-dialog-centered")
+        div(class="modal-content text-bg-dark")
+            div(class="modal-header d-none")
+                
+            div(class="modal-body")
+                button(class="btn p-0 w-100" type="button" id="btnLoading" disabled)
+                    span(class="spinner-border spinner-border-sm" aria-hidden="true")
+                    span(class="pe-1" role="status") Loading...
+                
+            div(class="modal-footer d-none")
+                button(id="btnEndLoading" class="btn btn-primary" data-bs-dismiss="modal") Got it
+
+  form(id="formLinks" action="links" method="post" onSubmit="return false;")
+    div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
+        div(class="row")
+            div(class="col")
+                i(class="bi bi-link fs-3 text-light float-start")
+        div(class="row p-1")
+            div(class="col-3")
+                label(for="selSite") Site 
+                - var len = Object.keys(sites).length
+                case len
+                    when 1
+                        input(
+                            type="hidden"
+                            value=sites[0]["id"]
+                            name="selSite"
+                            id="selSite"
+                        )
+                        input(
+                            class="form-select w-75 rounded-2 ps-1 pe-0 pt-0 pb-0"
+                            value=sites[0]["name"]
+                            readonly
+                            required
+                        )
+                    default
+                        select(
+                            class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                            name="selSite"
+                            id="selSite"
+                            required
+                        )
+                            option(selected value="") -Pick a site-
+                            each site in sites  
+                                option(value=site["id"])= site["name"]
+            div(class="col-3")
+                label(for="selOffice") Office 
+                - var len = Object.keys(offices).length
+                case len
+                    when 1
+                        input(
+                            type="hidden"
+                            value=offices[0]["id"]
+                            name="selOffice"
+                            id="selOffice"
+                        )
+                        input(
+                            class="form-select w-75 rounded-2 ps-1 pe-0 pt-0 pb-0"
+                            value=offices[0]["username"]
+                            readonly
+                            required
+                        )
+                    default
+                        select(
+                            class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                            name="selOffice"
+                            id="selOffice"
+                            required
+                        )
+                            option(selected value=0) All
+                            each office in offices  
+                                option(value=office["id"])= office["username"]
+            div(class="col-3")
+                label(for="selAgent") Agent
+                - var len = Object.keys(agents).length
+                case len
+                    when 1
+                        input(
+                            class="form-select w-75 rounded-2 ps-1 pe-0 pt-0 pb-0"
+                            name="selAgent"
+                            id="selAgent"
+                            value=agents[0]["username"]
+                            readonly
+                            required
+                        )
+                    default
+                        select(
+                            class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                            name="selAgent"
+                            id="selAgent"
+                            required
+                        )
+                            option(selected value="") -Pick an agent-
+                            each agent in agents  
+                                option(value=agent["username"])= agent["username"]
+        div(class="row p-1")
+            div(class="col-3")
+                input(class="btn btn-primary w-75" type="submit" id="btnLinks" value="Get Link(s)")
+
+        div(class="row p-1 mt-2 mb-2 text-light")
+            hr
+            div(class="col-2")
+            div(class="col-8" id="divLinks")
+            div(class="col-2")
+
+    script(src="javascripts/links.pug.js")    
+

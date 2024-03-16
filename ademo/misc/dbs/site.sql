@@ -18,5 +18,6 @@ it must quote with '' but not with "",
 **/
 update site 
 set links = JSON_ARRAY(
-    '{"url":"u.4", "payout":21.03, "earning":30.31}', '{"url":"u.3", "payout":21.02, "earning":31.03}'
+    '{"url":"u.4", "name":"Site A", "abbr":"sa", "payout":21.03, "earning":30.31}', 
+    '{"url":"u.3", "name":"Site B", "abbr":"sb", "payout":21.02, "earning":31.03}'
 ) where id = 1

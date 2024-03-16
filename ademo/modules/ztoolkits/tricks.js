@@ -3,11 +3,30 @@ const mysql = require('mysql2');
 const session = require("express-session");
 const crypto = require('crypto');
 const dbSalt = "4sitesofsami202402";
+const ALGORITHM = 'aes-192-cbc';
 
 /* crypt it */
 exports.cryptIt = function (str) {
     var md5 = crypto.createHash("md5");
     return md5.update(str + dbSalt).digest("base64");
+}
+
+/* cipher and decipher */
+exports.cipherIt = function (str) {
+    const cipher = crypto.createCipher(ALGORITHM, dbSalt);
+    let encrypted = cipher.update(str);
+    encrypted += cipher.final('hex');
+    return encrypted;
+}
+exports.decipherIt = function (str) {
+    try {
+        const decipher = crypto.createDecipher(ALGORITHM, dbSalt);
+        let decrypted = decipher.update(str, 'hex');
+        decrypted += decipher.final('utf8');
+        return decrypted;
+    } catch (err) {
+        return "";
+    }
 }
 
 /* use session */
@@ -99,21 +118,23 @@ exports.queryOffices = async function(role, userid) {
       return offices;
 }
 
-exports.queryAgents = async function(role, userid) {
+exports.queryAgents = async function(role, userid, cond="1=1", orderBy = " order by username, office") {
     var sql = "select * from view_agent";
-    var orderBy = " order by username, office";
     var agents;
     switch (role) {
         case 0:
         case 1:
         default:
-            agents = await queryData(sql + orderBy);
+            agents = await queryData(sql + " where (" + cond + ")" + orderBy);
             break;
         case 2:
-            agents = await queryData(sql + " where office = (select username from user where id = ?)" + orderBy, [userid]);
+            agents = await queryData(sql 
+                + " where office = (select username from user where id = ?) and (" + cond + ")" + orderBy, 
+                [userid]
+            );
             break;
         case 3:
-            agents = await queryData(sql + " where id = ?" + orderBy, [userid]);
+            agents = await queryData(sql + " where id = ? and (" + cond + ")" + orderBy, [userid]);
             break;
     }
     return agents;

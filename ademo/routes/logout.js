@@ -22,7 +22,7 @@ router.get('/', async function(req, res, next) {
     console.log(["debug from logout page:"]); console.log(rst); // debug
   } 
   res.render('login', { 
-    title: tricks.getTitle(__filename),
+    title: "",//tricks.getTitle(__filename),
     tag: '',
     captcha: captcha.data
   });
