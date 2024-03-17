@@ -8,7 +8,7 @@ tricks.useSession(router);
 router.get('/', async function(req, res, next) {
     let params = req.query;
     const tos = tricks.decipherIt(params.to).split(",");// tos will be [{siteid}, {link.abbr}, {agent.username}]
-    console.log(`[debug from page nav2 without a view:${tos}`);
+    console.log(`[debug from page nav(1):${tos}`);
     var data = await tricks.queryData(
        "select * from site where id = ?", [tos[0]]
     );
@@ -24,7 +24,8 @@ router.get('/', async function(req, res, next) {
                 }
             }
         if (url != "") {
-            url = url.replace("__agent__", tos[2]);
+            url = url.replace("__agent__", tos[2]).replace("__abbr__", tos[1]);
+            console.log(`[debug from page nav(2):${url}`);
             res.redirect(url);
         } else {
             res.send("Illegal visit.");
