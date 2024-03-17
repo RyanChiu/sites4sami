@@ -13,7 +13,7 @@ block content
                         when 1
                             input(type="hidden" name="selOffice" id="selOffice" value=offices[0]["id"])
                             input(type="hidden" name="submitType" id="submitType" value=op)
-                            label= offices[0]["username"]
+                            label(for)= offices[0]["username"]
                         default
                             input(type="hidden" name="submitType" id="submitType" value=op)
                             select(
