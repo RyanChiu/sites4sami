@@ -32,14 +32,15 @@ router.post('/', async (req, res) => {
     var sites = await tricks.queryData(sql, [params.siteid]);
     var links = [];
     if (sites && sites.length != 0) {
-      for (let lnk of sites[0]["links"]) {
-        let link = JSON.parse(lnk);
-        //links.push('{"url": "' + link.url + '?sub1=__sub1__", "params": "' + tricks.cipherIt(link.url + "?sub2=" + params.agent) + '", "payout": ' + link.payout + ', "earning": ' + link.earning + '}');
-        var host = req.protocol + '://' + req.get('Host') + req.originalUrl;
-        links.push('{"param": "' + tricks.cipherIt(sites[0]["id"] + "," + link.abbr + "," + params.agent) + '", "name": "' + link.name + '", "abbr": "' + link.abbr + '"}');
-      }
+      if (sites[0]["links"])
+        for (let lnk of sites[0]["links"]) {
+          let link = JSON.parse(lnk);
+          //links.push('{"url": "' + link.url + '?sub1=__sub1__", "params": "' + tricks.cipherIt(link.url + "?sub2=" + params.agent) + '", "payout": ' + link.payout + ', "earning": ' + link.earning + '}');
+          //var host = req.protocol + '://' + req.get('Host') + req.originalUrl;
+          links.push('{"param": "' + tricks.cipherIt(sites[0]["id"] + "," + link.abbr + "," + params.agent) + '", "name": "' + link.name + '", "abbr": "' + link.abbr + '"}');
+        }
     }
-    console.log("[debug from links with post:]"); console.log(req); //debug
+    console.log("[debug from links with post:]"); console.log(sites[0]["links"]); //debug
     res.set('Content-Type', 'text/html');
     res.send({
       "rst": links

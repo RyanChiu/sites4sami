@@ -12,16 +12,17 @@ router.get('/', async function(req, res, next) {
     var data = await tricks.queryData(
        "select * from site where id = ?", [tos[0]]
     );
-    if (data != null) {
+    if (data != null && data.length != 0) {
         var lnks = data[0]["links"];
         var url = "";
-        for (let lnk of lnks) {
-            let link = JSON.parse(lnk);
-            if (link.abbr == tos[1]) {
-                url = link.url;
-                break;
+        if (lnks)
+            for (let lnk of lnks) {
+                let link = JSON.parse(lnk);
+                if (link.abbr == tos[1]) {
+                    url = link.url;
+                    break;
+                }
             }
-        }
         if (url != "") {
             url = url.replace("__agent__", tos[2]);
             res.redirect(url);
