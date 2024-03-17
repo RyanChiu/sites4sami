@@ -12,12 +12,35 @@ router.get('/', async function(req, res, next) {
       var data = await tricks.queryData(
         "select *, JSON_LENGTH(links) as lksamount from site"
       );
+      var sites = [];
+      if (data && data.length != 0 && data[0]["links"])
+        for (let row of data) {
+          var lnks = "[" + row["links"] + "]";
+          console.log(`[debug from sites page in get(0):]${row["links"]}`);
+          console.log(`[debug from sites page in get(1):]${lnks}`);
+          var _links = JSON.parse(lnks);
+          row["links_json"] = [];
+          for (let _link of _links) {
+            row["links_json"].push(_link);
+          }
+          //row["links_json"] = links;
+          sites.push(row);
+          /*
+          var links = [];
+          for (let lnk of row["links"]) {
+            var link = JSON.parse(lnk);
+            links.push(link);
+          }
+          row["lnks"] = links;
+          sites.push(row);
+          */
+        }
       res.render('sites', { 
         title: title,
         navs: req.session.navs,
         user: req.session.username,
         role: req.session.role,
-        data: data
+        data: sites
       });
     } else {
       res.redirect('home?tips=Not allowed.');

@@ -37,19 +37,52 @@ block content
             div(class="modal fade" id="linksModal" + row['id'] tabindex="-1" aria-labelledby="linksModalLabel" + row['id'] aria-hidden="true")
               div(class="modal-dialog modal-dialog-centered modal-dialog-scrollable")
                 div(class="modal-content text-bg-dark")
-                  div(class="modal-header")
-                    h3(class="modal-title fs-5" id="exampleModalLabel")= "Links of [" + row['name'] + "]"
-                    button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
-                  - var lkstxt = '{"links": [' + row['links'] + ']}'
+                  div(class="modal-header pt-2 pb-2 pe-3")
+                    h3(class="modal-title fs-5 m-0 ps-0" id="exampleModalLabel")= "Links of [" + row['name'] + "]"
+                    button(type="button m-0 p-0" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+                  - var links = row['links_json']
                   div(class="modal-body")
-                    - var links = JSON.parse(lkstxt).links
-                    each lk in links
-                      - var str_lk = JSON.stringify(lk)
-                      - str_lk = str_lk.replace("{", "").replace("}", "");
-                      label(for)= str_lk
-                      hr
+                    - var j = 0
+                    each link in links
+                      - j++
+                      - var _str = "[err]"
+                      - var _link = null
+                      - try {
+                      -   _link = JSON.parse(JSON.stringify(link))
+                      -   _str += _link.url
+                          label(for class="mt-0 mb-1")= "[" + _link.name + "] Abbr:" + _link.abbr + ", Payout:" + _link.payout
+                          a(class="pe-1 float-end" href="#" onClick='$("#divLink' + j +'").removeClass("d-none");')
+                            i(class="bi bi-pencil-square text-primary")
+                          div(class="row w-100 border border-secondary-subtle rounded-3 d-none" id="divLink" + j)
+                            div(class="col-2")
+                              label(for) Name:
+                            div(class="col-10")
+                              input(type="text" class="w-100 h-75" id="iptLinkname" + j value=_link.name)
+                            div(class="col-2")
+                              label(for) Abbr:
+                            div(class="col-10")
+                              input(type="text" class="w-100 h-75" id="iptLinkabbr" + j value=_link.abbr)
+                            div(class="col-2")
+                              label(for) URL:
+                            div(class="col-10")
+                              input(type="text" class="w-100 h-75" id="iptLinkurl" + j value=_link.url)
+                            div(class="col-2")
+                              label(for) Payout:
+                            div(class="col-10")
+                              input(type="hidden" id="iptLinkpaytou" + j)
+                              label(for)= _link.payout
+                            div(class="col-2")
+                              label(for) Earning:
+                            div(class="col-10")
+                              input(type="text" class="w-100 h-75" id="iptLinkearning" + j value=_link.earning)
+                          hr
+
+                      - } catch (e) {
+                      -   _str = e.message
+                      - }
+  
                   div(class="modal-footer")
-                    button(type="button" class="btn btn-primary" data-bs-dismiss="modal") Got it
+                    button(type="button" class="btn btn-primary m-0 pt-0 pb-0" data-bs-dismiss="modal") Got it
           td(name="sStatus")= row['status']
           case role 
             when 0
