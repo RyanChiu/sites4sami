@@ -18,6 +18,7 @@ it must quote with '' but not with "",
 **/
 update site 
 set links = JSON_ARRAY(
-    '{"url":"u.4", "name":"Site A", "abbr":"sa", "payout":21.03, "earning":30.31}', 
-    '{"url":"u.3", "name":"Site B", "abbr":"sb", "payout":21.02, "earning":31.03}'
+    '{"url":"https://site.of.provider/?uid=xxx&sub1=__agent__&sub2=__abbr__", "name":"Live Sex Show", "abbr":"LSS", "payout":150.00, "earning":0, "status": 1}', 
+    '{"url":"https://site.of.provider/?uid=xxx&sub1=__agent__&sub2=__abbr__", "name":"Live Cam Models", "abbr":"LCM", "payout":150.00, "earning":0, "status": 1}',
+    '{"url":"https://site.of.provider/?uid=xxx&sub1=__agent__&sub2=__abbr__", "name":"Naugtiest Girls Live", "abbr":"NGL", "payout":150.00, "earning":0, "status": 1}'
 ) where id = 1

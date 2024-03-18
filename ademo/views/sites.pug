@@ -68,13 +68,17 @@ block content
                               input(type="text" class="w-100 h-75" id="iptLinkurl" + j value=_link.url)
                             div(class="col-2")
                               label(for) Payout:
-                            div(class="col-10")
+                            div(class="col-2")
                               input(type="hidden" id="iptLinkpaytou" + j)
                               label(for)= _link.payout
                             div(class="col-2")
                               label(for) Earning:
-                            div(class="col-10")
+                            div(class="col-2")
                               input(type="text" class="w-100 h-75" id="iptLinkearning" + j value=_link.earning)
+                            div(class="col-2")
+                              label(for) Activated:
+                            div(class="col-2")
+                              input(type="checkbox" class="form-check-input" value=_link.status checked=(_link.status == 0 ? false : true))
                           hr
 
                       - } catch (e) {
