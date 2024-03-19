@@ -1,3 +1,151 @@
 extends layout
 
 block content
+  button(id="btnStartLoading" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#spinnerModal") loading
+  div(class="modal" id="spinnerModal" tabindex="-1" aria-labelledby="spinnerModalLabel" aria-hidden="true")
+    div(class="modal-dialog modal-dialog-centered")
+        div(class="modal-content text-bg-dark")
+            div(class="modal-header d-none")
+            div(class="modal-body")
+                button(class="btn p-0 w-100" type="button" id="btnLoading" disabled)
+                    span(class="spinner-border spinner-border-sm" aria-hidden="true")
+                    span(class="pe-1" role="status") Loading...    
+            div(class="modal-footer d-none")
+                button(id="btnEndLoading" class="btn btn-primary" data-bs-dismiss="modal") GotIt!
+
+  form(id="formLoadStats" action="agents" method="post")
+      div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
+        div(class="row p-1")
+          div(class="col")
+            i(class="bi bi-cash-coin fs-3 text-light float-start")
+        div(class="row p-1")
+          div(class="col-1")
+            label(for) Site
+          div(class="col-4")
+            - var len = Object.keys(sites).length
+            case len
+              when 1
+                label(for)= sites[0]["name"]
+                input(
+                  name="selSite"
+                  id="selSite"
+                  value=sites[0]["id"]
+                  type="hidden"
+                  required
+                ) 
+              default 
+                select(
+                  class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                  name="selSite"
+                  id="selSite"
+                  required
+                )
+                  option(selected value="-111") All
+                  each site in sites  
+                    option(value=site["id"])= site["name"]
+          div(class="col-1")
+            label(for) View By
+          div(class="col-4")
+            input(type="hidden" id="iptViewBy" name="iptViewBy" value="detail")
+            div(class="form-check form-check-inline")
+                input(class="form-check-input" type="radio" name="rdioViewBy" id="rdioViewByDate" value="date" onclick="$('#iptViewBy').val(this.value);")
+                label(class="form-check-label text-light" for="rdioStatusSus") Date
+            div(class="form-check form-check-inline")
+                input(class="form-check-input" type="radio" name="rdioViewBy" id="rdioViewByOffice" value="office" onclick="$('#iptViewBy').val(this.value);")
+                label(class="form-check-label text-light" for="rdioStatusSus") Office
+            div(class="form-check form-check-inline")
+                input(class="form-check-input" type="radio" name="rdioViewBy" id="rdioViewByAgent" value="agent" onclick="$('#iptViewBy').val(this.value);")
+                label(class="form-check-label text-light" for="rdioStatusSus") Agent
+            div(class="form-check form-check-inline")
+                input(class="form-check-input" type="radio" name="rdioViewBy" id="rdioViewByDetail" value="detail" onclick="$('#iptViewBy').val(this.value);" checked="true")
+                label(class="form-check-label text-light" for="rdioStatusSus") Detail
+        div(class="row p-1")
+          div(class="col-1")
+            label(for) Type
+          div(class="col-4")
+            select(
+                class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                name="selType"
+                id="selType"
+                required
+            )
+                option(selected value="-111") All
+          div(class="col-1")
+            label(for) Periods
+          div(class="col-4")
+            select(
+                class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                name="selPeriod"
+                id="selPeriod"
+                required
+            )
+                option(selected value="0") -Pick a preset payout period-
+        div(class="row p-1")
+          div(class="col-1")
+            label(for) Office
+          div(class="col-4")
+            - var len = Object.keys(offices).length
+            case len
+              when 1
+                label(for)= offices[0]["username"]
+                input(
+                  name="selOffice"
+                  id="selOffice"
+                  value=offices[0]["id"]
+                  type="hidden"
+                  required
+                ) 
+              default 
+                select(
+                  class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                  name="selOffice"
+                  id="selOffice"
+                  required
+                )
+                  option(selected value="-111") All
+                  each office in offices  
+                    option(value=office["id"])= office["username"]
+                
+          div(class="col-1")
+            label(for) Date
+          div(class="col-4")
+            input(class="form-input w-75 rounded-2 pull-right" type="text" name="datePeriod")
+        div(class="row p-1")
+          div(class="col-1")
+            label(for) Agent
+          div(class="col-4")
+            - var len = Object.keys(agents).length
+            case len
+              when 1
+                label(for)= agents[0]["username"]
+                input(
+                  name="selAgent"
+                  id="selAgent"
+                  value=agents[0]["id"]
+                  type="hidden"
+                  required
+                ) 
+              default 
+                select(
+                  class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                  name="selAgent"
+                  id="selAgent"
+                  required
+                )
+                  option(selected value="-111") All
+                  each agent in agents  
+                    option(value=agent["id"])= agent["username"]
+          div(class="col-1")
+          div(class="col-4")
+        div(class="row p-1")
+          div(class="col-2")
+            input(
+              class="btn btn-primary mb-1 w-100"
+              type="submit"
+              value="Load Report"
+            )
+          div(class="col-3")
+          div(class="col-5")
+
+  script(src="javascripts/stats.pug.js")
+          
