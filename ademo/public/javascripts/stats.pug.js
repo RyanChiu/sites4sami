@@ -55,6 +55,17 @@ var selPeriod =$('#selPeriod');
 var now = moment(), yesterday = moment().subtract(1, 'day');
 selPeriod.append("<option value='" + now.format("MM/DD/YYYY") + "," + now.format("MM/DD/YYYY") + "'>Today</option>");
 selPeriod.append("<option value='" + yesterday.format("MM/DD/YYYY") + "," + yesterday.format("MM/DD/YYYY") + "'>Yesterday</option>");
+var weekstart = moment().day(0), weekend = moment().day(0).add(6, 'day');
+selPeriod.append("<option value='" + weekstart.format("MM/DD/YYYY") + "," + weekend.format("MM/DD/YYYY") + "'>This week</option>");
+selPeriod.append("<option value='" + weekstart.subtract(7, 'day').format("MM/DD/YYYY") + "," + weekend.subtract(7, 'day').format("MM/DD/YYYY") + "'>Last week</option>");
+var monstart = moment().year(moment().year()).month(moment().month()).date(1), monend = moment(monstart).add(1, 'month').subtract(1, 'day');
+selPeriod.append("<option value='" + monstart.format("MM/DD/YYYY") + "," + monend.format("MM/DD/YYYY") + "'>This Month</option>");
+monstart = monstart.subtract(1, 'month'); monend = moment(monstart).add(1, 'month').subtract(1, 'day');
+selPeriod.append("<option value='" + monstart.format("MM/DD/YYYY") + "," + monend.format("MM/DD/YYYY") + "'>Last Month</option>");
+var yearstart = moment().month(0).date(1), yearend = moment(yearstart).add(1, 'year').subtract(1, 'day');
+selPeriod.append("<option value='" + yearstart.format("MM/DD/YYYY") + "," + yearend.format("MM/DD/YYYY") + "'>This Year</option>");
+yearstart = yearstart.subtract(1, 'year'); yearend = moment(yearstart).add(1, 'year').subtract(1, 'day');
+selPeriod.append("<option value='" + yearstart.format("MM/DD/YYYY") + "," + yearend.format("MM/DD/YYYY") + "'>Last Year</option>");
 
 $('#selPeriod').click(function() {
     dates = $('#selPeriod').val().split(",");
