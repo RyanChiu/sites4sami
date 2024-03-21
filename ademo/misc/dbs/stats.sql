@@ -1,0 +1,23 @@
+CREATE TABLE `stats` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `trxtime` datetime DEFAULT CURRENT_TIMESTAMP,
+  `agentid` int NOT NULL,
+  `officeid` int NOT NULL,
+  `siteid` int NOT NULL,
+  `raws` int DEFAULT '0',
+  `uniques` int DEFAULT '0',
+  `chargebacks` int DEFAULT '0',
+  `signups` int DEFAULT '0',
+  `frauds` int DEFAULT '0',
+  `sales0` json DEFAULT NULL COMMENT 'a json_array(0, 0, 0), the value of the index like the following, #0 means sales type, #1 means  sales payout, #2 means sales earning, and so does the other sales field below',
+  `sales1` json DEFAULT NULL,
+  `sales2` json DEFAULT NULL,
+  `sales3` json DEFAULT NULL,
+  `sales4` json DEFAULT NULL,
+  `sales5` json DEFAULT NULL,
+  `sales6` json DEFAULT NULL,
+  `sales7` json DEFAULT NULL,
+  `sales8` json DEFAULT NULL,
+  `sales9` json DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
