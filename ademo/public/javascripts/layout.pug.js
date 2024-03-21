@@ -102,7 +102,11 @@ $(document).ready(function() {
     dayjs.extend(window.dayjs_plugin_utc);
     dayjs.extend(window.dayjs_plugin_timezone);
     $('[name="uTimeStr"]').each(function() {
-        var str = new dayjs($(this).html()).tz("America/New_York").format('DD/MM/YYYY HH:mm:ss');
+        var str = new dayjs($(this).html()).tz("America/New_York").format('MM/DD/YYYY HH:mm:ss');
+        $(this).html(str)
+    })
+    $('[name="uDateStr"]').each(function() {
+        var str = new dayjs($(this).html()).tz("America/New_York").format('MM/DD/YYYY');
         $(this).html(str)
     })
     // format a status into a reffered icon in tds or other components with the same name 'uStatus'

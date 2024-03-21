@@ -4,6 +4,26 @@ const session = require("express-session");
 const crypto = require('crypto');
 const dbSalt = "4sitesofsami202402";
 const ALGORITHM = 'aes-192-cbc';
+const dbSettings = {
+    host: "localhost",
+    user: "sami",
+    password: "4sites0fsami",
+    database: "gwr",
+    //stream: net.connect('/var/run/mysqld/mysqld.sock')
+    stream: function() {
+        var socket = net.connect('/var/run/mysqld/mysqld.sock');
+        socket.setKeepAlive(true);
+        return socket;
+    }
+};
+
+exports.getMysql = function() {
+    return mysql;
+}
+
+exports.getDBSettings = function() {
+    return dbSettings;
+}
 
 /* crypt it */
 exports.cryptIt = function (str) {
@@ -39,18 +59,7 @@ exports.useSession = function (router) {
 }
 
 /* connection pool */
-const pool = mysql.createPool({
-    host: "localhost",
-    user: "sami",
-    password: "4sites0fsami",
-    database: "gwr",
-    //stream: net.connect('/var/run/mysqld/mysqld.sock')
-    stream: function() {
-        var socket = net.connect('/var/run/mysqld/mysqld.sock');
-        socket.setKeepAlive(true);
-        return socket;
-    }
-})
+const pool = mysql.createPool(dbSettings);
 
 /* promised query */
 queryPromise = function(sql) {

@@ -140,12 +140,49 @@ block content
         div(class="row p-1")
           div(class="col-2")
             input(
-              class="btn btn-primary mb-1 w-100"
+              class="btn btn-secondary mb-1 w-100"
               type="submit"
               value="Load Report"
+              disabled=true
             )
           div(class="col-3")
           div(class="col-5")
+
+  div(class="row text-danger ps-3") Day's time zone shown as "America/New_York"
+  table(class="w-100 tablemanager" id="tblStats")
+    thead
+      tr 
+        th #
+        th Day 
+        th agent 
+        th office 
+        th site 
+        th raws 
+        th uniques
+        th s0_num 
+        th s0_po 
+        th s0_eg
+        th s1_num
+        th s1_po 
+        th s1_eg
+    - var i = 0
+    tbody 
+      each row in stats
+        - i++
+        tr 
+          td= i 
+          td(name="uDateStr")= row['day']
+          td= row['agent']
+          td= row['office'] 
+          td= row['site'] 
+          td= row['raws'] 
+          td= row['uniques']
+          td= row['sales_type0'] 
+          td= row['sales_type0_payout'] 
+          td= row['sales_type0_earning']
+          td= row['sales_type1'] 
+          td= row['sales_type1_payout'] 
+          td= row['sales_type1_earning']
 
   script(src="javascripts/stats.pug.js")
           
