@@ -99,7 +99,7 @@ exports.cherry2DB = async function (
     }
     /* get agents */
     var agents = await getAgents();
-    console.log(`agents:${agents}`);
+    //console.log(`agents:${agents}`);
     if (abbrs.indexOf("LSS") !== -1) console.log("Getcha");
     if (agents.indexOf("test01") !== -1) console.log("Getcha, too");
     
@@ -140,7 +140,7 @@ exports.cherry2DB = async function (
                     JSON_ARRAY(?), JSON_ARRAY(?))",
                 [date + " 00:00:00", agent, agent, parseInt(siteId, 10), raws, uniques, sales0, sales1]
             );
-            console.log(`${rst.affectedRows} rec inserted into stats.)}(after ${effectedRows} deleted)`);
+            console.log(`${rst.affectedRows} rec inserted into stats.(after ${effectedRows} deleted)`);
         }
     }
     console.log("finished.");
