@@ -47,8 +47,8 @@ $('#selOffice').on("change", function() {
 })
 
 var datePicker = $('input[name="datePeriod"]').daterangepicker({
-    startDate: moment(),
-    endDate: moment().subtract(7, 'day')
+    endDate: moment(),
+    startDate: moment().subtract(7, 'day')
 });
 
 var selPeriod =$('#selPeriod');
