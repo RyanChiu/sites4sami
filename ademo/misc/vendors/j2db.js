@@ -100,8 +100,8 @@ exports.cherry2DB = async function (
     /* get agents */
     var agents = await getAgents();
     //console.log(`agents:${agents}`);
-    if (abbrs.indexOf("LSS") !== -1) console.log("Getcha");
-    if (agents.indexOf("test01") !== -1) console.log("Getcha, too");
+    //if (abbrs.indexOf("LSS") !== -1) console.log("Getcha");
+    //if (agents.indexOf("test01") !== -1) console.log("Getcha, too");
     
     var i = 0;
     for (let row of stats.table) {

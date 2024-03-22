@@ -41,7 +41,12 @@ select convert(a.trxtime, date) as day, a.agentid, b.username as agent, \
 from stats a, user b, site c \
 ";
 var where = " where a.agentid = b.id and a.siteid = c.id";//default
-var groupBy = " group by day, officeid, agentid, siteid"; //detailed
+var groupBy = {
+  detail: " group by day, officeid, agentid, siteid",
+  agent:  " group by agentid",
+  office: " group by officeid",
+  day:    " group by convert(trxtime, date)"
+};
 var orderBy = " order by day"; //default
 
 /* render the page */
@@ -62,16 +67,26 @@ router.get('/', async function(req, res, next) {
       case 3:
         where += " and a.agentid = " + req.session.userid;
     }
-    var stats = await tricks.queryData(sqlStats + where + groupBy + orderBy);
+    var stats = await tricks.queryData(sqlStats + where + groupBy.detail + orderBy);
     res.render('stats', { 
       title: title,
       navs: req.session.navs,
       user: req.session.username,
+      role: req.session.role,
       offices: offices,
       agents: agents,
       sites: sites,
       stats: stats
     });
+  } else {
+    res.redirect('logout');
+  }
+});
+
+/* deal with post data */
+router.post('/', async (req, res) => {
+  if (req.session && req.session.loggedin) {
+    res.send(JSON.stringify(req.body));
   } else {
     res.redirect('logout');
   }

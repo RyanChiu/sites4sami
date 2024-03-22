@@ -161,7 +161,9 @@ block content
         th uniques
         th sales(L-1)
         th sales(L-2) 
-        th earning 
+        case role 
+          when 0
+            th earning 
     - var i = 0
     tbody 
       each row in stats
@@ -176,7 +178,9 @@ block content
           td= row['uniques']
           td= row['sales_type0'] 
           td= row['sales_type1'] 
-          td= row['sales_type0'] * row['sales_type0_earning'] + row['sales_type1'] * row['sales_type1_earning']
+          case role
+            when 0
+              td= row['sales_type0'] * row['sales_type0_earning'] + row['sales_type1'] * row['sales_type1_earning']
 
   script(src="javascripts/stats.pug.js")
           
