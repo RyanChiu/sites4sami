@@ -79,7 +79,7 @@ block content
                 id="selPeriod"
                 required
             )
-                option(selected value="0") -Pick a preset payout period-
+                option(selected value="0") -Pick a preset period-
         div(class="row p-1")
           div(class="col-1")
             label(for) Office
@@ -107,7 +107,7 @@ block content
                     option(value=office["id"])= office["username"]
                 
           div(class="col-1")
-            label(for) Date
+            i(class="bi bi-arrow-return-right fs-5 w-50 text-light float-end")            
           div(class="col-4")
             input(class="form-input w-75 rounded-2 pull-right" type="text" name="datePeriod")
         div(class="row p-1")
@@ -143,12 +143,12 @@ block content
               class="btn btn-primary mb-1 w-100"
               type="submit"
               value="Load Report"
-              disabled=true
+              disabled=false
             )
           div(class="col-3")
           div(class="col-5")
 
-  div(class="row text-danger ps-3") Day's time zone's shown as "America/New_York"
+  div(class="row text-warning ps-3") Day's time zone's shown as "America/New_York"
   table(class="w-100 tablemanager" id="tblStats")
     thead
       tr 

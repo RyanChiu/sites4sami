@@ -57,17 +57,18 @@ router.get('/', async function(req, res, next) {
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
     var sites = await tricks.queryData("select * from site");
 
+    var _where = where;
     switch (req.session.role) {
       case 0:
       case 1:
         break;
       case 2:
-        where += " and a.officeid = " + req.session.userid;
+        _where += " and a.officeid = " + req.session.userid;
         break;
       case 3:
-        where += " and a.agentid = " + req.session.userid;
+        _where += " and a.agentid = " + req.session.userid;
     }
-    var stats = await tricks.queryData(sqlStats + where + groupBy.detail + orderBy);
+    var stats = await tricks.queryData(sqlStats + _where + groupBy.detail + orderBy);
     res.render('stats', { 
       title: title,
       navs: req.session.navs,
@@ -86,7 +87,37 @@ router.get('/', async function(req, res, next) {
 /* deal with post data */
 router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
-    res.send(JSON.stringify(req.body));
+    var params = req.body;
+    var _where = where;
+    if (parseInt(params.selSite) !== -111) {
+      _where += " and a.siteid = " + params.selSite;
+    }
+    if (parseInt(params.selOffice) !== -111) {
+      _where += " and a.officeid = " + params.selOffice;
+    }
+    if (parseInt(params.selAgent) !== -111) {
+      _where += " and a.agentid = " + params.selAgent;
+    }
+    var dates = params.datePeriod.split("-");
+    dates[0] = dates[0].trim();
+    dates[1] = dates[1].trim();
+    _where += " and convert(trxtime, date) >= str_to_date('" 
+      + dates[0] + "', '%m/%d/%Y') and convert(trxtime, date) <= str_to_date('" 
+      + dates[1] + "', '%m/%d/%Y')"
+    var stats = await tricks.queryData(sqlStats + _where + groupBy.detail + orderBy);
+    var offices = await tricks.queryOffices(req.session.role, req.session.userid);
+    var agents = await tricks.queryAgents(req.session.role, req.session.userid);
+    var sites = await tricks.queryData("select * from site");
+    res.render('stats', { 
+      title: "Stats",
+      navs: req.session.navs,
+      user: req.session.username,
+      role: req.session.role,
+      offices: offices,
+      agents: agents,
+      sites: sites,
+      stats: stats
+    });
   } else {
     res.redirect('logout');
   }
