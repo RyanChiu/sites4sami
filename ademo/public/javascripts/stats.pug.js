@@ -12,6 +12,25 @@ $(document)
         //console.log("ajax request ends"); //debug
     })
 
+$(document).ready(function() {
+    var post_params = JSON.parse($("#iptPost_params").val());
+    if (JSON.stringify(post_params) != "{}") {
+        $("#selSite option[value='" + post_params.selSite + "']").attr("selected", "selected");
+        //type ....... undergoing
+        $("#selOffice option[value='" + post_params.selOffice + "']").attr("selected", "selected");
+        $("#selAgent option[value='" + post_params.selAgent + "']").attr("selected", "selected");
+    }
+    var caption = (post_params !== "" ? "[" + post_params.datePeriod + "] " : "");
+    var _site = (caption != "" ? (post_params.selSite != -111 ? ("Site:"+ $("#selSite option[value='" + post_params.selSite + "']").text()) : "Site:All") : "Site:All");
+    var _type = (caption != "" ? (post_params.selType != -111 ? ("Type:"+ post_params.selType) : "Type:All") : "Type:All");
+    var _office = (caption != "" ? (post_params.selOffice != -111 ? ("Office:"+ $("#selOffice option[value='" + post_params.selOffice + "']").text()) : "Office:All") : "Office:All");
+    var _agent = (caption != "" ? (post_params.selAgent != -111 ? ("Agent:"+ $("#selAgent option[value='" + post_params.selAgent + "']").text()) : "Agent:All") : "Agent:All");
+    caption += (_site != "" ? _site : "") + "," + (_type != "" ? _type : "");
+    caption += "," + (_office != "" ? _office : "") + "," + (_agent != "" ? _agent : "");
+    caption = '<i class="bi bi-calendar2-week fs-6"></i>' + caption;
+    $("#divCaption").html(caption);
+});
+
 $("#formLoadStats").validate({
     errorClass: 'text-danger',
     rules: {

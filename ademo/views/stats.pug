@@ -107,7 +107,7 @@ block content
                     option(value=office["id"])= office["username"]
                 
           div(class="col-1")
-            i(class="bi bi-arrow-return-right fs-5 w-50 text-light float-end")            
+            i(class="bi bi-arrow-return-right fs-5 w-50 text-light float-end")
           div(class="col-4")
             input(class="form-input w-75 rounded-2 pull-right" type="text" name="datePeriod")
         div(class="row p-1")
@@ -148,19 +148,21 @@ block content
           div(class="col-3")
           div(class="col-5")
 
-  div(class="row text-warning ps-3") Day's time zone's shown as "America/New_York"
+  input(type="hidden" id="iptPost_params" value=JSON.stringify(post_params))
+  div(class="row") 
+    div(class="col text-danger fw-medium ps-3" id="divCaption")
+    div(class="col text-warning ps-3 text-end") Day's shown as "America/New_York"
   table(class="w-100 tablemanager" id="tblStats")
     thead
       tr 
         th #
         th Day 
-        th agent 
-        th office 
-        th site 
-        th raws 
-        th uniques
-        th sales(L-1)
-        th sales(L-2) 
+        th Agent 
+        th Office 
+        th Site 
+        th Raws 
+        th Uniques
+        th Tot Sales
         case role 
           when 0
             th earning 
@@ -176,8 +178,7 @@ block content
           td= row['site'] 
           td= row['raws'] 
           td= row['uniques']
-          td= row['sales_type0'] 
-          td= row['sales_type1'] 
+          td= row['sales_type0'] + row['sales_type1']
           case role
             when 0
               td= row['sales_type0'] * row['sales_type0_earning'] + row['sales_type1'] * row['sales_type1_earning']

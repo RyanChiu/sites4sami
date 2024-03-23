@@ -77,7 +77,8 @@ router.get('/', async function(req, res, next) {
       offices: offices,
       agents: agents,
       sites: sites,
-      stats: stats
+      stats: stats,
+      post_params: ""
     });
   } else {
     res.redirect('logout');
@@ -116,7 +117,8 @@ router.post('/', async (req, res) => {
       offices: offices,
       agents: agents,
       sites: sites,
-      stats: stats
+      stats: stats,
+      post_params: params
     });
   } else {
     res.redirect('logout');
