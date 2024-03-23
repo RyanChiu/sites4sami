@@ -58,7 +58,7 @@ $('#selOffice').on("change", function() {
             let agents = $.parseJSON(rst.rst);
             for (let agent of agents) {
                 $('#selAgent').html($('#selAgent').html() 
-                    + "<option value='" + agent.username + "'>" + agent.username + "</option>");
+                    + "<option value='" + agent.id + "'>" + agent.username + "</option>");
             }
             //console.log("[debug from links page of ajax:]"); console.log(rst); console.log(agents);// debug;
         }

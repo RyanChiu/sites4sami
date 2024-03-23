@@ -109,6 +109,7 @@ router.post('/', async (req, res) => {
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
     var sites = await tricks.queryData("select * from site");
+    //res.send(sqlStats + _where + groupBy.detail + orderBy);
     res.render('stats', { 
       title: "Stats",
       navs: req.session.navs,
