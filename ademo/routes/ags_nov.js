@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
     if (typeof(params.officeid) !== undefined) {
         var data = await tricks.queryAgents(
             req.session.role, req.session.userid, 
-            params.officeid == 0 ? " 1=1 " :
+            parseInt(params.officeid) === -111 ? " 1=1 " :
                 " office = (select distinct username from user where id =" + params.officeid + ")"
         );
         var rst = [];
