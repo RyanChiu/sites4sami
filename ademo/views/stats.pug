@@ -217,21 +217,33 @@ block content
             when 0
               td= '$' + parseFloat(row['sales_type0'] * row['sales_type0_earning'] + row['sales_type1'] * row['sales_type1_earning']).toFixed(2)
     tfoot 
-      case viewBy
-        when 'detail'
-          td(class="text-bg-warning fw-bold text-end" colspan=5) Totals:
-          break
-      case viewBy
-        when 'agent'
-        when 'office'
-        when 'day'
-          td(class="text-bg-warning fw-bold text-end" colspan=2) Totals:
-      td(class="text-bg-warning fw-bold")= tots['raws']
-      td(class="text-bg-warning fw-bold")= tots['uniques']
-      td(class="text-bg-warning fw-bold")= tots['sales']
-      case role
-        when 0
-          td(class="text-bg-warning fw-bold")= '$' + tots['earnings'].toFixed(2)
+      tr
+        case viewBy
+          when 'detail'
+            td(class="text-bg-warning fw-bold text-end" colspan=5) Overall Totals:
+            break
+        case viewBy
+          when 'agent'
+          when 'office'
+          when 'day'
+            td(class="text-bg-warning fw-bold text-end" colspan=2) Overall Totals:
+        td(class="text-bg-warning fw-bold")= tots['raws']
+        td(class="text-bg-warning fw-bold")= tots['uniques']
+        td(class="text-bg-warning fw-bold")= tots['sales']
+        case role
+          when 0
+            td(class="text-bg-warning fw-bold")= '$' + tots['earnings'].toFixed(2)
+      tr 
+        case viewBy
+          when 'detail'
+            td(class="text-bg-warning fw-bold text-end" colspan=5) Uniques to Sales Ratio:
+            break
+        case viewBy
+          when 'agent'
+          when 'office'
+          when 'day'
+            td(class="text-bg-warning fw-bold text-end" colspan=2) Uniques to Sales Ratio:
+        td(class="text-bg-warning fw-bold text-start" colspan=4)= (tots["sales"] !== 0 ? (parseFloat(tots["uniques"]) / parseFloat(tots["sales"])).toFixed(2): "-")
 
   script(src="javascripts/stats.pug.js")
           
