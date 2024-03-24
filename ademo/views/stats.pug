@@ -16,8 +16,13 @@ block content
   form(id="formLoadStats" action="stats" method="post")
       div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
         div(class="row p-1")
-          div(class="col")
+          div(class="col-1")
             i(class="bi bi-cash-coin fs-3 text-light float-start")
+          div(class="col-11 lh-sm text-light")
+            label(class="fs-6") All stats pages show EST/EDT(USA) time zone (World Clock: http://www.timeanddate.com/worldclock/)
+            br
+            label(class="fs-6") 2 a.m. on the Second Sunday in March to 2 a.m. on the First Sunday of November, GMT - 4 (Other time, GMT - 5)
+            hr(class="mt-1 mb-0")
         div(class="row p-1")
           div(class="col-1")
             label(for) Site
@@ -151,7 +156,7 @@ block content
   input(type="hidden" id="iptPost_params" value=JSON.stringify(post_params))
   div(class="row") 
     div(class="col text-danger fw-medium ps-3" id="divCaption")
-    div(class="col text-warning ps-3 text-end") Day's shown as "America/New_York"
+    div(class="col text-warning ps-3 text-end")
   table(class="w-100 tablemanager" id="tblStats")
     thead
       tr 
