@@ -36,14 +36,14 @@ $(document).ready(function() {
             break;
         }
     }
-    var caption = (post_params !== "" ? "[" + post_params.datePeriod + "] " : "");
+    var caption = (post_params !== "" ? "<u class='me-1'>From " + post_params.datePeriod.replace("-", "To") + "</u>" : "");
     var _site = (caption != "" ? (post_params.selSite != -111 ? ("Site:"+ $("#selSite option[value='" + post_params.selSite + "']").text()) : "Site:All") : "Site:All");
     var _type = (caption != "" ? (post_params.selType != -111 ? ("Type:"+ post_params.selType) : "Type:All") : "Type:All");
     var _office = (caption != "" ? (post_params.selOffice != -111 ? ("Office:"+ $("#selOffice option[value='" + post_params.selOffice + "']").text()) : "Office:All") : "Office:All");
     var _agent = (caption != "" ? (post_params.selAgent != -111 ? ("Agent:"+ $("#selAgent option[value='" + post_params.selAgent + "']").text()) : "Agent:All") : "Agent:All");
-    caption += (_site != "" ? _site : "") + "," + (_type != "" ? _type : "");
-    caption += "," + (_office != "" ? _office : "") + "," + (_agent != "" ? _agent : "");
-    caption = '<i class="bi bi-calendar2-week fs-6"></i>' + caption;
+    caption += "[" + (_site != "" ? _site : "") + "," + (_type != "" ? _type : "");
+    caption += "," + (_office != "" ? _office : "") + "," + (_agent != "" ? _agent : "") + "]";
+    caption = '<i class="bi bi-calendar2-week fs-6 me-1"></i>' + caption;
     $("#divCaption").html(caption);
 });
 
