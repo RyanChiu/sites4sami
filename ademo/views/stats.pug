@@ -156,10 +156,21 @@ block content
     thead
       tr 
         th #
-        th Day 
-        th Agent 
-        th Office 
-        th Site 
+        case viewBy
+          when 'detail'
+          when 'day'
+            th Day 
+        case viewBy
+          when 'detail'
+          when 'agent'
+            th Agent 
+        case viewBy
+          when 'detail'
+          when 'office'
+            th Office 
+        case viewBy
+          when 'detail'
+            th Site 
         th Raws 
         th Uniques
         th Tot Sales
@@ -172,10 +183,21 @@ block content
         - i++
         tr 
           td= i 
-          td(name="uDateStr")= row['day']
-          td= row['agent']
-          td= row['office'] 
-          td= row['site'] 
+          case viewBy
+            when 'detail'
+            when 'day'
+              td(name="uDateStr")= row['day']
+          case viewBy
+            when 'detail'
+            when 'agent'
+              td= row['agent']
+          case viewBy
+            when 'detail'
+            when 'office'
+              td= row['office'] 
+          case viewBy
+            when 'detail'
+              td= row['site'] 
           td= row['raws'] 
           td= row['uniques']
           td= row['sales_type0'] + row['sales_type1']

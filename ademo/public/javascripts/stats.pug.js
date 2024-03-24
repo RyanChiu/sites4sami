@@ -19,6 +19,22 @@ $(document).ready(function() {
         //type ....... undergoing
         $("#selOffice option[value='" + post_params.selOffice + "']").attr("selected", "selected");
         $("#selAgent option[value='" + post_params.selAgent + "']").attr("selected", "selected");
+
+        $("#iptViewBy").val(post_params.iptViewBy);
+        switch (post_params.iptViewBy) {
+            case 'detail':
+                $("#rdioViewByDetail").attr("checked", "checked");
+                break;
+            case 'agent':
+                $("#rdioViewByAgent").attr("checked", "checked");
+                break;
+            case 'office':
+                $("#rdioViewByOffice").attr("checked", "checked");
+                break;
+            case 'day':
+            $("#rdioViewByDay").attr("checked", "checked");
+            break;
+        }
     }
     var caption = (post_params !== "" ? "[" + post_params.datePeriod + "] " : "");
     var _site = (caption != "" ? (post_params.selSite != -111 ? ("Site:"+ $("#selSite option[value='" + post_params.selSite + "']").text()) : "Site:All") : "Site:All");
