@@ -117,3 +117,9 @@ $('#selPeriod').click(function() {
     datePicker.data('daterangepicker').setStartDate(dates[0]);
     datePicker.data('daterangepicker').setEndDate(dates[1]);
 })
+
+$('#tblStats').tablemanager({
+    pagination: true,
+    //numOfPages: "8",
+    //disable: [1, 10, "last"]
+});
