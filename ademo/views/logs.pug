@@ -36,17 +36,27 @@ block content
   table(class="w-100 tablemanager" id="tblLogs")
     thead 
       tr 
+        th #
         th Username
         th Office
         th Login 
         th Logout
     - var i = 0
-    each row in data 
-      - i++
+    tbody
+      each row in data 
+        - i++
+        tr 
+          td= i
+          td= row['username']
+          td= row['office'] == null ? "-" : row['office']
+          td(name='uTimeStr')= row['intime']
+          td(name='uTimeStr')= row['outtime']
+    tfoot 
       tr 
-        td= row['username']
-        td= row['office'] == null ? "-" : row['office']
-        td(name='uTimeStr')= row['intime']
-        td(name='uTimeStr')= row['outtime']
+        td
+        td
+        td
+        td(class="text-bg-warning text-end") Login Tots:
+        td(class="text-bg-warning")= i
 
   script(src="javascripts/logs.pug.js")
