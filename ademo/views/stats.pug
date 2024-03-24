@@ -211,28 +211,21 @@ block content
             when 0
               td= row['sales_type0'] * row['sales_type0_earning'] + row['sales_type1'] * row['sales_type1_earning']
     tfoot 
-      td 
       case viewBy
         when 'detail'
-        when 'day'
-          td
+          td(class="text-bg-warning fw-bold text-end" colspan=5) Totals:
+          break
       case viewBy
-        when 'detail'
         when 'agent'
-          td
-      case viewBy
-        when 'detail'
         when 'office'
-          td
-      case viewBy
-        when 'detail'
-          td
-      td= tots['raws']
-      td= tots['uniques']
-      td= tots['sales']
+        when 'day'
+          td(class="text-bg-warning fw-bold text-end" colspan=2) Totals:
+      td(class="text-bg-warning fw-bold")= tots['raws']
+      td(class="text-bg-warning fw-bold")= tots['uniques']
+      td(class="text-bg-warning fw-bold")= tots['sales']
       case role
         when 0
-          td= tots['earnings']
+          td(class="text-bg-warning fw-bold")= tots['earnings']
 
   script(src="javascripts/stats.pug.js")
           
