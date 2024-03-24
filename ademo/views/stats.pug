@@ -214,7 +214,7 @@ block content
           td= row['sales_type0'] + row['sales_type1']
           case role
             when 0
-              td= row['sales_type0'] * row['sales_type0_earning'] + row['sales_type1'] * row['sales_type1_earning']
+              td= '$' + parseFloat(row['sales_type0'] * row['sales_type0_earning'] + row['sales_type1'] * row['sales_type1_earning']).toFixed(2)
     tfoot 
       case viewBy
         when 'detail'
@@ -230,7 +230,7 @@ block content
       td(class="text-bg-warning fw-bold")= tots['sales']
       case role
         when 0
-          td(class="text-bg-warning fw-bold")= tots['earnings']
+          td(class="text-bg-warning fw-bold")= '$' + tots['earnings'].toFixed(2)
 
   script(src="javascripts/stats.pug.js")
           
