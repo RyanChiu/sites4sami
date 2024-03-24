@@ -8,7 +8,7 @@
 }
 /*Style sort desc*/
 .tablemanager th.sortingDesc:after {
-	content: " \f0dc";
+	content: " \f0dd";
 	font-family: "Font Awesome 6 Free";
 	/*color: black;*/
 }
