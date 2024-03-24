@@ -138,7 +138,7 @@ router.post('/', async (req, res) => {
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
     var sites = await tricks.queryData("select * from site");
     var stats = await tricks.queryData(getStatsSql(params.iptViewBy, req.session, req.body));
-    //res.send(getStatsSql(req.body.iptViewBy, req.session,  req.body));
+    //res.send(getStatsSql(req.body.iptViewBy, req.session,  req.body) + JSON.stringify(params));
     res.render('stats', { 
       title: "Stats",
       navs: req.session.navs,

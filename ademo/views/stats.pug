@@ -178,9 +178,14 @@ block content
           when 0
             th earning 
     - var i = 0
+    - var tots = []
+    - tots['raws'] = tots['uniques'] = tots['sales'] = tots['earnings'] = 0
     tbody 
       each row in stats
         - i++
+        - tots['raws'] += parseInt(row['raws'])
+        - tots['uniques'] += parseInt(row['uniques'])
+        - tots['sales'] += parseInt(row['sales_type0']) + parseInt(row['sales_type1'])
         tr 
           td= i 
           case viewBy
@@ -204,6 +209,29 @@ block content
           case role
             when 0
               td= row['sales_type0'] * row['sales_type0_earning'] + row['sales_type1'] * row['sales_type1_earning']
+    tfoot 
+      td 
+      case viewBy
+        when 'detail'
+        when 'day'
+          td
+      case viewBy
+        when 'detail'
+        when 'agent'
+          td
+      case viewBy
+        when 'detail'
+        when 'office'
+          td
+      case viewBy
+        when 'detail'
+          td
+      td= tots['raws']
+      td= tots['uniques']
+      td= tots['sales']
+      case role
+        when 0
+          td
 
   script(src="javascripts/stats.pug.js")
           

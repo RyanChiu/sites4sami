@@ -20,7 +20,7 @@ $(document).ready(function() {
         $("#selOffice option[value='" + post_params.selOffice + "']").attr("selected", "selected");
         $("#selAgent option[value='" + post_params.selAgent + "']").attr("selected", "selected");
 
-        $("#iptViewBy").val(post_params.iptViewBy);
+        $("#iptViewBy").val((typeof(post_params) !== undefined && post_params !== "") ? post_params.iptViewBy : 'detail');
         switch (post_params.iptViewBy) {
             case 'detail':
                 $("#rdioViewByDetail").attr("checked", "checked");
