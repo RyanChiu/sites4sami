@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
     var rst = null, data = null;
     rst = await tricks.queryData(
       "update news set content = ? where id = ?", 
-      [req.body.joitNews, req.body.iptId]
+      [req.body.joditNews, req.body.iptId]
     )
     console.log("[debug from update in news page:]"); console.log(rst); // debug
     data = await tricks.queryData(

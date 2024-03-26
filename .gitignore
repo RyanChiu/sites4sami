@@ -136,3 +136,4 @@ ademo/package-lock.json
 ademo/*.gz
 ademo/*.tar
 ademo/*.7z
+ademo/public/media/
