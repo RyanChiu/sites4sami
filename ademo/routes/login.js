@@ -4,6 +4,22 @@ const tricks = require('../modules/ztoolkits/tricks');
 
 tricks.useSession(router);
 
+/* render the page */
+router.get('/', async function(req, res, next) {
+    if (typeof(req.session.loggedin) !== undefined && req.session.loggedin) {
+        return res.redirect('home');
+    } else {
+        return res.render("login", {
+            title: "",
+            navs: [],
+            user: req.session.username,
+            tips: "",
+            tag: ''
+        });
+    }
+});
+
+/* deal with post data */
 router.post('/', async (req, res) => {
     var params = [req.body.username, req.body.password, req.body.captcha];
     console.log("[z.debug.login]"); console.log(params);
@@ -38,15 +54,23 @@ router.post('/', async (req, res) => {
                     req.session.userid
                 );
                 req.session.loginsertid = rst['insertId'];
-                res.redirect('home');
+                return res.redirect('home');
             } else {
                 if (data != null && data.length > 0 && data[0]['status'] != 1) {
+                    console.log("~~~~~~~1~~~~~~");
                     res.render("login", {
+                        title: "",
+                        navs: [],
+                        user: req.session.username,
                         tips: "Not allowed to login, please contact your admin.",
                         tag: ''
                     });
                 } else {
+                    console.log("~~~~~~~2~~~~~~");
                     res.render("login", {
+                        title: "",
+                        navs: [],
+                        user: req.session.username,
                         tips: "Incorrect Username/Password!",
                         tag: ''
                     });
@@ -54,18 +78,25 @@ router.post('/', async (req, res) => {
             }
             
         } else {
+            console.log("~~~~~~~3~~~~~~");
             res.render("login", {
+                title: "",
+                navs: [],
+                user: req.session.username,
                 tips: "Please enter ALL Username/Password.",
                 tag: ''
             });
         }
     } else {
+        console.log("~~~~~~~4~~~~~~");
         res.render("login", {
+            title: "",
+            navs: [],
+            user: req.session.username,
             tips: "Verification Code not right or empty.",
             tag: ''
         });
-    }
-    
+    }    
     //res.send(params);
 })
 
