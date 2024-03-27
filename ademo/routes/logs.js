@@ -7,10 +7,9 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
-    var title = tricks.getTitle(__filename);
     var data = await tricks.queryLogs(req.session.role, req.session.userid)
     res.render('logs', { 
-      title: title,
+      title: "Logs",
       navs: req.session.navs,
       user: req.session.username,
       data: data

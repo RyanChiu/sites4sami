@@ -155,30 +155,34 @@ exports.queryLogs = async function(role, userid, cond="", orderBy=" order by int
     switch (role) {
         case 0:
             if (cond != "") {
-                where = "where " + cond;
+                where = " where " + cond;
             }
+            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy}`);
             logs = await queryData(sql + where + orderBy);
             break;
         case 1:
         default:
-            where = " where role != 0";
+            where = " where role != 0 ";
             if (cond != "") {
-                where += " and (" + cond + ")"
+                where += " and (" + cond + ") "
             }
+            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy}`);
             logs = await queryData(sql + where + orderBy);
             break;
         case 2:
-            where = " where (role > 1 and office = (select username from user where id = ?) or userid = ?)";
+            where = " where (role > 1 and office = (select username from user where id = ?) or userid = ?) ";
             if (cond != "") {
-                where += " and (" + cond + ")"
+                where += " and (" + cond + ") "
             }
+            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy}`);
             logs = await queryData(sql + where + orderBy, [userid, userid]);
             break;
         case 3:
-            where = " where userid = ?";
+            where = " where userid = ? ";
             if (cond != "") {
-                where += " and (" + cond + ")"
+                where += " and (" + cond + ") "
             }
+            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy}`);
             logs = await queryData(sql + where + orderBy, [userid]);
             break;
     }

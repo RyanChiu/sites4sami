@@ -103,8 +103,9 @@ exports.cherry2DB = async function (
     //if (abbrs.indexOf("LSS") !== -1) console.log("Getcha");
     //if (agents.indexOf("test01") !== -1) console.log("Getcha, too");
     
-    var i = 0;
+    var i = 0, j = 0;
     for (let row of stats.table) {
+        j++;
         var agent = row.columns[1].label;
         var abbr = row.columns[2].label;
         var raws = row.reporting.total_click;
@@ -143,6 +144,6 @@ exports.cherry2DB = async function (
             console.log(`${rst.affectedRows} rec inserted into stats.(after ${effectedRows} deleted)`);
         }
     }
-    console.log("finished.");
+    console.log(`finished.[${j} row(s) processed.]`);
     return true;
 }
