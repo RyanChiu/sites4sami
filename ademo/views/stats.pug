@@ -31,14 +31,13 @@ block content
             - var len = Object.keys(sites).length
             case len
               when 1
-                label(for)= sites[0]["name"]
-                input(
+                select(
+                  class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
                   name="selSite"
                   id="selSite"
-                  value=sites[0]["id"]
-                  type="hidden"
                   required
-                ) 
+                )
+                  option(selected value=sites[0]["id"])= sites[0]["name"]
               default 
                 select(
                   class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
@@ -93,14 +92,14 @@ block content
             - var len = Object.keys(offices).length
             case len
               when 1
-                label(for)= offices[0]["username"]
-                input(
+                select(
+                  class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
                   name="selOffice"
                   id="selOffice"
-                  value=offices[0]["id"]
-                  type="hidden"
                   required
-                ) 
+                  readonly
+                )
+                  option(selected value=offices[0]["id"])= offices[0]["username"]
               default 
                 select(
                   class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
@@ -123,14 +122,14 @@ block content
             - var len = Object.keys(agents).length
             case len
               when 1
-                label(for)= agents[0]["username"]
-                input(
+                select(
+                  class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
                   name="selAgent"
                   id="selAgent"
-                  value=agents[0]["id"]
-                  type="hidden"
                   required
-                ) 
+                  readonly
+                )
+                  option(selected value=agents[0]["id"])= agents[0]["username"]
               default 
                 select(
                   class="form-select w-75 ps-1 pe-0 pt-0 pb-0"

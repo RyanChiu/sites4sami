@@ -104,6 +104,14 @@ function getStatsSql(byWhat, session, post_params = "") {
     return sqlStats;
 }
 
+function add0(m){return m<10?'0'+m:m;}
+function formatDate(timeStamp) {
+  var time = new Date(timeStamp);
+  var y = time.getFullYear();
+  var m = time.getMonth() + 1;
+  var d = time.getDate();
+  return add0(m) + '/' + add0(d) + '/' + y;
+}
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
@@ -112,7 +120,25 @@ router.get('/', async function(req, res, next) {
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
     var sites = await tricks.queryData("select * from site");
 
-    var stats = await tricks.queryData(getStatsSql('detail', req.session));
+    // to get an "This week" at EDT
+    var now = new Date();
+    now.setHours(now.getHours() - 5);
+    var nowTime = now.getTime();
+    var day = now.getDay();
+    var oneDayTime = 24 * 60 * 60 * 1000;
+    var SundayTime = nowTime + (day - 6) * oneDayTime;
+    var SaturdayTime = SundayTime + 6 * oneDayTime;
+    var sunday = new Date(SundayTime);
+    var saturday = new Date(SaturdayTime);
+    console.log(`[debug from stats page(period):]${formatDate(sunday)}-${formatDate(saturday)}`);
+    let params = {};
+    params.selType = -111;
+    params.selSite = -111;
+    params.selAgent = (req.session.role == 3 ? req.session.userid : -111);
+    params.selOffice = (req.session.role == 2 ? req.session.userid : -111);
+    params.datePeriod = formatDate(sunday) + " - " + formatDate(saturday);
+    params.iptViewBy = 'detail';
+    var stats = await tricks.queryData(getStatsSql(params.iptViewBy, req.session, params));
     res.render('stats', { 
       title: title,
       navs: req.session.navs,
@@ -122,8 +148,8 @@ router.get('/', async function(req, res, next) {
       agents: agents,
       sites: sites,
       stats: stats,
-      post_params: "",
-      viewBy: 'detail'
+      post_params: params,
+      viewBy: params.iptViewBy
     });
   } else {
     res.redirect('logout');
@@ -137,7 +163,7 @@ router.post('/', async (req, res) => {
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
     var sites = await tricks.queryData("select * from site");
-    var stats = await tricks.queryData(getStatsSql(params.iptViewBy, req.session, req.body));
+    var stats = await tricks.queryData(getStatsSql(params.iptViewBy, req.session, params));
     //res.send(getStatsSql(req.body.iptViewBy, req.session,  req.body) + JSON.stringify(params));
     res.render('stats', { 
       title: "Stats",

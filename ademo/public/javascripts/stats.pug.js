@@ -14,7 +14,8 @@ $(document)
 
 $(document).ready(function() {
     var post_params = JSON.parse($("#iptPost_params").val());
-    if (JSON.stringify(post_params) != "{}") {
+    console.log(`[debug from stats.pug.js(0):]${JSON.stringify(post_params)}`)
+    if (JSON.stringify(post_params) !== "{}" && JSON.stringify(post_params) !== "") {
         $("#selSite option[value='" + post_params.selSite + "']").attr("selected", "selected");
         //type ....... undergoing
         $("#selOffice option[value='" + post_params.selOffice + "']").attr("selected", "selected");
@@ -45,6 +46,13 @@ $(document).ready(function() {
     caption += "," + (_office != "" ? _office : "") + "," + (_agent != "" ? _agent : "") + "]";
     caption = '<i class="bi bi-calendar2-week fs-6 me-1"></i>' + caption;
     $("#divCaption").html(caption);
+
+    if (post_params == "") {
+        $("#selPeriod")[0].selectedIndex = 3;
+        console.log("[debug from stats.pug.js(1):]" + $("#selPeriod").val());
+        setDatePicker();
+        //$("#iptLoadReport").click();
+    }
 });
 
 $("#formLoadStats").validate({
@@ -82,8 +90,8 @@ $('#selOffice').on("change", function() {
 })
 
 var datePicker = $('input[name="datePeriod"]').daterangepicker({
-    endDate: moment(),
-    startDate: moment().subtract(6, 'day')
+    //endDate: moment(),
+    //startDate: moment().subtract(6, 'day')
 });
 
 var selPeriod =$('#selPeriod');
@@ -111,11 +119,17 @@ for (let i = 0; i < 11; i++) {
     var me = moment(monstart).add(1, 'month').subtract(1, 'day').format("MM/DD/YYYY");
     selPeriod.append("<option value='" + ms + "," + me + "'>[month]" + ms + " to " + me + "</option>");
 }
+$("#selPeriod")[0].selectedIndex = 3;
+setDatePicker();
 
-$('#selPeriod').click(function() {
-    dates = $('#selPeriod').val().split(",");
+function setDatePicker() {
+    let dates = $('#selPeriod').val().split(",");
     datePicker.data('daterangepicker').setStartDate(dates[0]);
     datePicker.data('daterangepicker').setEndDate(dates[1]);
+}
+
+$('#selPeriod').click(function() {
+    setDatePicker();
 })
 
 $('#tblStats').tablemanager({
