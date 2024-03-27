@@ -241,7 +241,7 @@ block content
           when 'office'
           when 'day'
             td(class="text-bg-warning fw-bold text-end" colspan=2) Uniques to Sales Ratio:
-        td(class="text-bg-warning fw-bold text-start" colspan=4)= (tots["sales"] !== 0 ? "1:" + (parseFloat(tots["uniques"]) / parseFloat(tots["sales"])).toFixed(2) : "-")
+        td(class="text-bg-warning fw-bold text-start" colspan=4)= (tots["sales"] !== 0 ? "1:" + (parseFloat(tots["uniques"]) / parseFloat(tots["sales"])).toFixed(2) : "0:" + parseFloat(tots["uniques"]).toFixed(2))
 
   script(src="javascripts/stats.pug.js")
           
