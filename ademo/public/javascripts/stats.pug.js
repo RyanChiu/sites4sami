@@ -37,7 +37,7 @@ $(document).ready(function() {
             break;
         }
     }
-    var caption = (post_params !== "" ? "<u class='me-1'>From " + post_params.datePeriod.replace("-", "To") + "</u>" : "");
+    var caption = (post_params !== "" ? "<u class='me-2'>From " + post_params.datePeriod.replace("-", "To") + "</u>" : "");
     var _site = (caption != "" ? (post_params.selSite != -111 ? ("Site:"+ $("#selSite option[value='" + post_params.selSite + "']").text()) : "Site:All") : "Site:All");
     var _type = (caption != "" ? (post_params.selType != -111 ? ("Type:"+ post_params.selType) : "Type:All") : "Type:All");
     var _office = (caption != "" ? (post_params.selOffice != -111 ? ("Office:"+ $("#selOffice option[value='" + post_params.selOffice + "']").text()) : "Office:All") : "Office:All");
