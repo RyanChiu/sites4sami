@@ -168,7 +168,8 @@ function __zShowClock() {
     var nowStr = now.toUTCString();
     nowStr = nowStr.replace("GMT", "EDT"); //for firefox browser
     nowStr = nowStr.replace("UTC", "EDT"); //for IE browser
-    jQuery("#divLiveClock").html(nowStr);
+    nowStr = '<i class="bi bi-clock-fill text-primary me-1"></i>' + nowStr;
+    jQuery("#lblLiveClock").html(nowStr);
     setTimeout("__zShowClock()", 1000);
 }
 __zShowClock();
