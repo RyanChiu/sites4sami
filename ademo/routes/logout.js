@@ -11,7 +11,7 @@ router.get('/', async function(req, res, next) {
   req.session.captcha = captcha.text;
   console.log("[z.debug.logout]"); console.log(captcha.text);
 
-  if (req.session) {
+  if (req.session && req.session.loggedin) {
     req.session.loggedin = false;
     req.session.username = '';
     var rst = await tricks.queryData(
