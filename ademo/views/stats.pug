@@ -218,22 +218,6 @@ block content
       tr
         case viewBy
           when 'detail'
-            td(class="text-bg-warning fw-bold text-end" colspan=5) Overall Totals:
-            break
-        case viewBy
-          when 'agent'
-          when 'office'
-          when 'day'
-            td(class="text-bg-warning fw-bold text-end" colspan=2) Overall Totals:
-        td(class="text-bg-warning fw-bold")= tots['raws']
-        td(class="text-bg-warning fw-bold")= tots['uniques']
-        td(class="text-bg-warning fw-bold")= tots['sales']
-        case role
-          when 0
-            td(class="text-bg-warning fw-bold")= '$' + tots['earnings'].toFixed(2)
-      tr
-        case viewBy
-          when 'detail'
             td(class="text-bg-warning fw-bold text-end" colspan=5) Page Totals:
             break
         case viewBy
@@ -247,6 +231,22 @@ block content
         case role
           when 0
             td(class="text-bg-warning fw-bold" id="tdPageEarning") earning
+      tr
+        case viewBy
+          when 'detail'
+            td(class="text-bg-warning fw-bold text-end" colspan=5) Overall Totals:
+            break
+        case viewBy
+          when 'agent'
+          when 'office'
+          when 'day'
+            td(class="text-bg-warning fw-bold text-end" colspan=2) Overall Totals:
+        td(class="text-bg-warning fw-bold")= tots['raws']
+        td(class="text-bg-warning fw-bold")= tots['uniques']
+        td(class="text-bg-warning fw-bold")= tots['sales']
+        case role
+          when 0
+            td(class="text-bg-warning fw-bold")= '$' + tots['earnings'].toFixed(2)
       tr 
         case viewBy
           when 'detail'
