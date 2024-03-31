@@ -387,7 +387,10 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
                         })
                         .hide();
                         
-                    if(val == '') paginate();
+                    if(val == '') {
+                        paginate();
+                        get4Tots();
+                    }
                 });
             }
 
@@ -591,6 +594,47 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
         }
 
         /**
+         * D.I.Y. FOR THIS VERY SITE
+         */
+        function get4Tots() {
+            if ($("#tblStats").length > 0) {
+                let rows = $("#tblStats").find("tbody tr:visible");
+                //console.log(`${rows.length} rows`);
+                let tots = [0, 0, 0, 0];
+                for (let i = 0; i < rows.length; i++) {
+                    let cells = rows.eq(i).find("td"); 
+                    tots[0] += parseInt(cells.eq(cells.length - 4).html());
+                    tots[1] += parseInt(cells.eq(cells.length - 3).html());
+                    tots[2] += parseInt(cells.eq(cells.length - 2).html());
+                    tots[3] += parseFloat(cells.eq(cells.length - 1).html().replace("$", ""));
+                    /*
+                    if (i == 0) {
+                        var last_row = cells.eq(0).html()
+                            + ", " + cells.eq(cells.length - 4).html()
+                            + ", " + cells.eq(cells.length - 3).html()
+                            + ", " + cells.eq(cells.length - 2).html()
+                            + ", " + cells.eq(cells.length - 1).html();
+                        alert(last_row);
+                    }
+                    */
+                    //console.log(`1:${JSON.stringify(cells)}`);
+                }
+                if (isNaN(tots[0]) || tots[0] === null) {
+                    if ($("#tdPageRaws").length > 0) $("#tdPageRaws").html(tots[1]);
+                    if ($("#tdPageUniques").length > 0) $("#tdPageUniques").html(tots[2]);
+                    if ($("#tdPageSales").length > 0) $("#tdPageSales").html(tots[3]);
+                    //console.log(`[debug from tableManager.js tots(when #0 is NaN/null):]${JSON.stringify(tots)}`);
+                } else {
+                    if ($("#tdPageRaws").length > 0) $("#tdPageRaws").html(tots[0]);
+                    if ($("#tdPageUniques").length > 0) $("#tdPageUniques").html(tots[1]);
+                    if ($("#tdPageSales").length > 0) $("#tdPageSales").html(tots[2]);
+                    if ($("#tdPageEarning").length > 0) $("#tdPageEarning").html("$" + tots[3].toFixed(2));
+                    //console.log(`[debug from tableManager.js tots(normally):]${JSON.stringify(tots)}`);
+                }
+            }
+        }
+
+        /**
         Append sorted table
         arr = array with table html
         **/
@@ -605,6 +649,7 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
             tbody.html("<tr>" + arr.join("</tr><tr>") + "</tr>");
             // then launch paginate function (if options.paginate = false it will not do anything)
             paginate();
+            get4Tots();
         }
 
         /**
@@ -679,7 +724,7 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
             appendPageControllers(numPages);
             // Give currentPage class to first page number
             $(".pagecontroller-num").eq(0).addClass("currentPage");
-            paginate(currentPage, numPerPage);
+            paginate(currentPage, numPerPage);get4Tots();
             pagecontrollersClick();
             filterPages();
         }
@@ -760,23 +805,23 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
                 // on click on button do something
                 if ($(this).val() == "first") {
                     currentPage = 0;
-                    paginate(currentPage, numPerPage);
+                    paginate(currentPage, numPerPage);get4Tots();
                 } else if ($(this).val() == "last") {
                     currentPage = numPages - 1;
-                    paginate(currentPage, numPerPage);
+                    paginate(currentPage, numPerPage);get4Tots();
                 } else if ($(this).val() == "prev") {
                     if (currentPage != 0) {
                         currentPage = currentPage - 1;
-                        paginate(currentPage, numPerPage);
+                        paginate(currentPage, numPerPage);get4Tots();
                     }
                 } else if ($(this).val() == "next") {
                     if (currentPage != numPages - 1) {
                         currentPage = currentPage + 1;
-                        paginate(currentPage, numPerPage);
+                        paginate(currentPage, numPerPage);get4Tots();
                     }
                 } else {
                     currentPage = $(this).val() - 1;
-                    paginate(currentPage, numPerPage);
+                    paginate(currentPage, numPerPage);get4Tots();
                 }
                 // Reset class and give to currentPage
                 $(".pagecontroller-num").removeClass("currentPage");
