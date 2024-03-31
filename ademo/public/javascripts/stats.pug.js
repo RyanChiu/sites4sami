@@ -52,6 +52,13 @@ $(document).ready(function() {
         console.log("[debug from stats.pug.js(1):]" + $("#selPeriod").val());
         setDatePicker();
         //$("#iptLoadReport").click();
+    } else {
+        $("#datePeriod").val(post_params.datePeriod);
+        let dates = post_params.datePeriod.split("-");
+        dates[0] = dates[0].replace(" ", "");
+        dates[1] = dates[1].replace(" ", "");
+        datePicker.data('daterangepicker').setStartDate(dates[0]);
+        datePicker.data('daterangepicker').setEndDate(dates[1]);
     }
 });
 
@@ -119,8 +126,8 @@ for (let i = 0; i < 11; i++) {
     var me = moment(monstart).add(1, 'month').subtract(1, 'day').format("MM/DD/YYYY");
     selPeriod.append("<option value='" + ms + "," + me + "'>[month]" + ms + " to " + me + "</option>");
 }
-$("#selPeriod")[0].selectedIndex = 3;
-setDatePicker();
+//$("#selPeriod")[0].selectedIndex = 3;
+//setDatePicker();
 
 function setDatePicker() {
     let dates = $('#selPeriod').val().split(",");

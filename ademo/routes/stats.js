@@ -122,11 +122,11 @@ router.get('/', async function(req, res, next) {
 
     // to get an "This week" at EDT
     var now = new Date();
-    now.setHours(now.getHours() - 5);
+    now.setHours(now.getHours() - 4);
     var nowTime = now.getTime();
     var day = now.getDay();
     var oneDayTime = 24 * 60 * 60 * 1000;
-    var SundayTime = nowTime + (day - 6) * oneDayTime;
+    var SundayTime = (day == 0 ? nowTime : (nowTime + (day - 6) * oneDayTime));
     var SaturdayTime = SundayTime + 6 * oneDayTime;
     var sunday = new Date(SundayTime);
     var saturday = new Date(SaturdayTime);
