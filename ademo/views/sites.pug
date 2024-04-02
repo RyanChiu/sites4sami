@@ -50,7 +50,7 @@ block content
                       - try {
                       -   _link = JSON.parse(JSON.stringify(link))
                       -   _str += _link.url
-                      -   var append = row['abbr'] + "_" + _link.abbr;
+                      -   var append = "_" + row['abbr'] + "_" + _link.abbr;
                           label(for class="mt-0 mb-1")= "[" + _link.name + "] Abbr:" + _link.abbr + ", Payout:" + _link.payout
                           a(class="pe-1 float-end" href="#" onClick='$("#divLink' + append +'").removeClass("d-none");')
                             i(class="bi bi-pencil-square text-primary")

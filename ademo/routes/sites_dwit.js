@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
                     + " (name, short, abbr, url, clickparam, type, status)"
                     + " values (?, ?, ?, ?, ?, ?, ?)";
                 params = [
-                    req.body.iptName, req.body.iptShort, req.body.iptAbbr, req.body.iptUrl,
+                    req.body.iptName, req.body.iptShort, req.body.iptAbbr.replace(" ", ""), req.body.iptUrl,
                     req.body.iptClickparam, req.body.iptType, req.body.chkStatus
                 ];
                 rst = await tricks.queryData(sql, params);
@@ -62,7 +62,7 @@ router.post('/', async (req, res) => {
                     + " clickparam = ?, type = ?, status = ?"
                     + " where id = ?";
                 params = [
-                    req.body.iptName, req.body.iptShort, req.body.iptAbbr, req.body.iptUrl,
+                    req.body.iptName, req.body.iptShort, req.body.iptAbbr.replace(" ", ""), req.body.iptUrl,
                     req.body.iptClickparam, req.body.iptType, req.body.chkStatus,
                     req.body.iptId
                 ];
