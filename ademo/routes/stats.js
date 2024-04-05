@@ -126,11 +126,11 @@ router.get('/', async function(req, res, next) {
     var nowTime = now.getTime();
     var day = now.getDay();
     var oneDayTime = 24 * 60 * 60 * 1000;
-    var SundayTime = (day == 0 ? nowTime : (nowTime + (day - 6) * oneDayTime));
+    var SundayTime = (day == 0 ? nowTime : (nowTime - (day) * oneDayTime));
     var SaturdayTime = SundayTime + 6 * oneDayTime;
     var sunday = new Date(SundayTime);
     var saturday = new Date(SaturdayTime);
-    console.log(`[debug from stats page(period):]${formatDate(sunday)}-${formatDate(saturday)}`);
+    console.log(`[debug from stats page(period):]${formatDate(sunday)}-${formatDate(saturday)},day:${day}`);
     let params = {};
     params.selType = -111;
     params.selSite = -111;
