@@ -190,6 +190,7 @@ exports.queryLogs = async function(role, userid, cond="", orderBy=" order by int
 }
 
 exports.getIP4 = function(req) {
+    /*
     var ip = req.headers['x-forwarded-for'] ||
         req.ip ||
         req.connection.remoteAddress ||
@@ -200,6 +201,9 @@ exports.getIP4 = function(req) {
     }
     ip = ip.substr(ip.lastIndexOf(':')+1,ip.length);
     return ip;
+    */
+   let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+   return ip;
 }
 
 exports.getTitle = function (t) {
