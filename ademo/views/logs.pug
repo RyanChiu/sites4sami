@@ -39,6 +39,7 @@ block content
         th #
         th Username
         th Office
+        th IP
         th Login 
         th Logout
     - var i = 0
@@ -49,6 +50,7 @@ block content
           td= i
           td= row['username']
           td= row['office'] == null ? "-" : row['office']
+          td= row['ip4']
           td(name='uTimeStr')= row['intime']
           td(name='uTimeStr')= row['outtime']
     tfoot 
