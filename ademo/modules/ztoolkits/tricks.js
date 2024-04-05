@@ -189,6 +189,19 @@ exports.queryLogs = async function(role, userid, cond="", orderBy=" order by int
     return logs;
 }
 
+exports.getIP4 = function(req) {
+    var ip = req.headers['x-forwarded-for'] ||
+        req.ip ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress || '';
+    if(ip.split(',').length>0){
+        ip = ip.split(',')[0]
+    }
+    ip = ip.substr(ip.lastIndexOf(':')+1,ip.length);
+    return ip;
+}
+
 exports.getTitle = function (t) {
     t = t.split('\\').pop().split('/').pop();
     t = t.substring(0, t.indexOf("."));
