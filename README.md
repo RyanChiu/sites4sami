@@ -1,2 +1,6 @@
 # sites4sami
 new sites since 2024
+import local db from maxmind.com: GeoLite2 Country, and store it locally in path "../maxmind.com".
+which could be used in other node.js projects, too. THAT'S WHAT IT COUNTS.
+follow the guidance from "https://dev.maxmind.com/geoip/geolocate-an-ip/databases/#1-install-the-geoip2-client-library" and using the "Synchronous database opening" way to check visitor's ip, successfully get return like the following lines:
+{"continent":{"code":"AS","geonameId":6255147,"names":{"de":"Asien","en":"Asia","es":"Asia","fr":"Asie","ja":"アジア","pt-BR":"Ásia","ru":"Азия","zh-CN":"亚洲"}},"country":{"geonameId":1814991,"isoCode":"CN","names":{"de":"China","en":"China","es":"China","fr":"Chine","ja":"中国","pt-BR":"China","ru":"Китай","zh-CN":"中国"}},"registeredCountry":{"geonameId":1814991,"isoCode":"CN","names":{"de":"China","en":"China","es":"China","fr":"Chine","ja":"中国","pt-BR":"China","ru":"Китай","zh-CN":"中国"},"isInEuropeanUnion":false},"traits":{"isAnonymous":false,"isAnonymousProxy":false,"isAnonymousVpn":false,"isAnycast":false,"isHostingProvider":false,"isLegitimateProxy":false,"isPublicProxy":false,"isResidentialProxy":false,"isSatelliteProvider":false,"isTorExitNode":false,"ipAddress":"xxx.xxx.xxx.xxx","network":"xxx.xxx.0.0/12"}}

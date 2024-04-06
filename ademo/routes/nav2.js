@@ -2,6 +2,16 @@ var express = require('express');
 var router = express.Router();
 const tricks = require('../modules/ztoolkits/tricks');
 
+// Synchronous database opening
+const fs = require('fs');
+const Reader = require('@maxmind/geoip2-node').Reader;
+
+const dbBuffer = fs.readFileSync('../../maxmind.com/GeoLite2-Country_20240405/GeoLite2-Country.mmdb');
+
+// This reader object should be reused across lookups as creation of it is
+// expensive.
+const reader = Reader.openBuffer(dbBuffer);
+
 tricks.useSession(router);
 
 /* deal with get */
@@ -24,8 +34,10 @@ router.get('/', async function(req, res, next) {
                 }
             }
         if (url != "") {
+            var ip4 = tricks.getIP4(req);
+            let geo = response = reader.country(ip4);
             url = url.replace("__agent__", tos[2]).replace("__abbr__", tos[1]);
-            console.log(`[debug from page nav(2):${url}`);
+            console.log(`[debug from page nav(2):${url}, and it's visited from: <ip>${ip4}, and <geo>${geo.country.isoCode}`);
             res.redirect(url);
         } else {
             res.send("Illegal visit.");
