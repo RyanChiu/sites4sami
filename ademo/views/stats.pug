@@ -190,7 +190,7 @@ block content
         - tots['raws'] += parseInt(row['raws'])
         - tots['uniques'] += parseInt(row['uniques'])
         - tots['sales'] += parseInt(row['sales_type0']) + parseInt(row['sales_type1'])
-        - tots['earnings'] += parseInt(row['sales_type0']) * parseFloat(row['sales_type0_earning']) + parseInt(row['sales_type1']) * parseFloat(row['sales_type1_earning'])
+        - tots['earnings'] += parseFloat(row['sales_type0_earning']) + parseFloat(row['sales_type1_earning'])
         tr 
           td= i 
           case viewBy
@@ -213,7 +213,7 @@ block content
           td= row['sales_type0'] + row['sales_type1']
           case role
             when 0
-              td= '$' + parseFloat(row['sales_type0'] * row['sales_type0_earning'] + row['sales_type1'] * row['sales_type1_earning']).toFixed(2)
+              td= '$' + parseFloat(row['sales_type0_earning'] + row['sales_type1_earning']).toFixed(2)
     tfoot 
       tr
         case viewBy

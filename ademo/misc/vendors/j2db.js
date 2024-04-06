@@ -126,10 +126,10 @@ exports.cherry2DB = async function (
             );
             switch (abbr.indexOf(abbr)) {
                 case 0:
-                    sales0 = [row.reporting.cv, links[0].payout * row.reporting.cv, links[0].earning * row.reporting.cv];
+                    sales0 = [row.reporting.cv, links[0].payout, links[0].earning];
                     break;
                 case 1:
-                    sales1 = [row.reporting.cv, links[1].payout * row.reporting.cv, links[1].earning * row.reporting.cv];
+                    sales1 = [row.reporting.cv, links[1].payout, links[1].earning];
                     break;
             }
             // step 1, delete it. step 2, insert the latest
