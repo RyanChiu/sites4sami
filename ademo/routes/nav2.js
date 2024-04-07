@@ -23,6 +23,15 @@ router.get('/', async function(req, res, next) {
        "select * from site where id = ?", [tos[0]]
     );
     if (data != null && data.length != 0) {
+        var ip4 = tricks.getIP4(req);
+        let geo = null;
+        try {
+            geo = reader.country(ip4);
+            console.log(`[debug from page nav(2):${url}, and it's visited from: <ip>${ip4}, and <geo>${geo.country.isoCode}`);
+        } catch (err) {
+            console.log(`[debug from page nav(4)::err from reader.country('${ip4}')]${err}`);
+        }
+
         var lnks = data[0]["links"];
         var url = "";
         if (lnks)
@@ -34,10 +43,10 @@ router.get('/', async function(req, res, next) {
                 }
             }
         if (url != "") {
-            var ip4 = tricks.getIP4(req);
-            let geo = response = reader.country(ip4);
             url = url.replace("__agent__", tos[2]).replace("__abbr__", tos[1]);
-            console.log(`[debug from page nav(2):${url}, and it's visited from: <ip>${ip4}, and <geo>${geo.country.isoCode}`);
+            let rst = await tricks.queryData("insert into hitlog (username, siteid, typeabbr, linkin, linkout, ip4, countryISOcode) values \
+                (?, ?, ?, ?, ?, ?, ?)", [tos[2], tos[0], tos[1], params.to, url, ip4, geo == null ? null : geo.country.isoCode]);
+            console.log(`[debug from page nav(3):record the hit with the result -> ${JSON.stringify(rst)}`);
             res.redirect(url);
         } else {
             res.send("Illegal visit.");
