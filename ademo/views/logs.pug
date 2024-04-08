@@ -1,64 +1,163 @@
 extends layout
 
 block content
-  form(id="formSearchLog" action="logs" method="post")
-    div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
-      div(class="row p-2")
-        div(class="col")
-          i(class="bi bi-search fs-6 p-1 text-light")
-          b(class="text-light") Search 
-      div(class="row p-1")
-        div(class="col-1 text-light") Username 
-        div(class="col-3")
-          input(
-            class="w-100 h-80 rounded-2"
-            type="text"
-            name="iptUsername"
-            id="iptUsername"
-            placeholder="Username"
-          )
-        div(class="col-8")
-      div(class="row p-1")
-        div(class="col-2")
-          input(
-            type="submit"
-            class="btn btn-primary mb-2 w-100"
-            value="Search"
-          )
-        div(class="col-2")
-          a(
-            role="button"
-            class="btn btn-secondary mb-1"
-            href="logs"
-          ) Reset
-        div(class="col-8")
+  ul(class="nav nav-tabs border-0" id="logTab" role="tablist")
+    li( class="nav-item" role="presentation")
+      button(class="nav-link ps-2 pe-2 pt-0 pb-0 border-bottom bg-dark text-light active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-tab-pane" type="button" role="tab" aria-controls="login-tab-pane" aria-selected="true") logins
+    li( class="nav-item" role="presentation")
+      button(class="nav-link ps-2 pe-2 pt-0 pb-0 border-bottom bg-dark text-light" id="hit-tab" data-bs-toggle="tab" data-bs-target="#hit-tab-pane" type="button" role="tab" aria-controls="hit-tab-pane" aria-selected="false") clicks
+  hr(class="p-0 m-0")
+  div(class="tab-content" id="logTabContent")
+    div(class="tab-pane fade show active" id="login-tab-pane" role="tabpanel" aria-labelledby="login-tab" tabindex="0")
+      form(id="formSearchLog" action="logs" method="post")
+        div(class="container w-100 mb-1 bg-primary-dark border border-secondary-subtle rounded-2")
+          div(class="row p-1")
+            div(class="col")
+              i(class="bi bi-search fs-6 p-1 text-light")
+              b(class="text-light") Search 
+          div(class="row p-1")
+            div(class="col-1 text-light") Username 
+            div(class="col-3")
+              input(
+                class="w-100 h-80 rounded-2"
+                type="text"
+                name="iptUsername"
+                id="iptUsername"
+                placeholder="Username"
+              )
+            div(class="col-8")
+          div(class="row p-1")
+            div(class="col-2")
+              input(
+                type="submit"
+                class="btn btn-primary mb-2 w-100"
+                value="Search"
+              )
+            div(class="col-2")
+              a(
+                role="button"
+                class="btn btn-secondary mb-1"
+                href="logs"
+              ) Reset
+            div(class="col-8")
 
-  table(class="w-100 tablemanager" id="tblLogs")
-    thead 
-      tr 
-        th #
-        th Username
-        th Office
-        th IP
-        th Login 
-        th Logout
-    - var i = 0
-    tbody
-      each row in data 
-        - i++
-        tr 
-          td= i
-          td= row['username']
-          td= row['office'] == null ? "-" : row['office']
-          td= row['ip4']
-          td(name='uTimeStr')= row['intime']
-          td(name='uTimeStr')= row['outtime']
-    tfoot 
-      tr 
-        td
-        td
-        td
-        td(class="text-bg-warning text-end") Login Tots:
-        td(class="text-bg-warning")= i
+      table(class="w-100 tablemanager" id="tblLogs")
+        thead 
+          tr 
+            th #
+            th Username
+            th Office
+            th IP
+            th Login 
+            th Logout
+        - var i = 0
+        tbody
+          each row in data 
+            - i++
+            tr 
+              td= i
+              td= row['username']
+              td= row['office'] == null ? "-" : row['office']
+              td= row['ip4']
+              td(name='uTimeStr')= row['intime']
+              td(name='uTimeStr')= row['outtime']
+        tfoot 
+          tr 
+            td
+            td
+            td
+            td
+            td(class="text-bg-warning text-end") Login Tots:
+            td(class="text-bg-warning")= i
+    div(class="tab-pane fade text-light" id="hit-tab-pane" role="tabpanel" aria-labelledby="hit-tab" tabindex="0")
+      form(id="formSearchHitlog" action="logs" method="post")
+        div(class="container w-100 mb-1 bg-primary-dark border border-secondary-subtle rounded-2")
+          div(class="row p-1")
+            div(class="col")
+              i(class="bi bi-search fs-6 p-1 text-light")
+              b(class="text-light") Search 
+          div(class="row p-1")
+            div(class="col-1 text-light") Agent 
+            div(class="col-3")
+              input(
+                class="w-100 h-80 rounded-2"
+                type="text"
+                name="iptUsername1"
+                id="iptUsername1"
+                placeholder="Agent's username"
+              )
+            div(class="col-8")
+          div(class="row p-1")
+            div(class="col-2")
+              input(
+                type="submit"
+                class="btn btn-primary mb-2 w-100"
+                value="Search"
+              )
+            div(class="col-2")
+              a(
+                role="button"
+                class="btn btn-secondary mb-1"
+                href="logs"
+              ) Reset
+            div(class="col-8")
+
+      table(class="w-100 tablemanager1" id="tblHitlogs")
+        thead 
+          tr 
+            th #
+            th Office
+            th Agent
+            th Site
+            th Type(abbr) 
+            th Link 
+            th Time 
+            th IP from
+            th Country
+            th Passed
+        - var i1 = 0
+        tbody
+          each row in data1 
+            - i1++
+            tr 
+              td= i1
+              td= row['office']
+              td= row['agent']
+              td= row['site']
+              td= row['typeabbr']
+              td= row['linkin']
+              td(name='uTimeStr')= row['time']
+              td= row['ip4']
+              td= row['country']
+              case row['passed']
+                when 0
+                  td 
+                    i(class="bi bi-sign-stop text-danger fs-4")
+                when 1
+                  td 
+                    i(class="bi bi-check-circle text-success fs-4")
+                default 
+                  td 
+                    label(for) -
+        tfoot 
+          tr 
+            td
+            td
+            td
+            td
+            td
+            td
+            td
+            td
+            td(class="text-bg-warning text-end") Click Tots:
+            td(class="text-bg-warning")= i1
+
+  case parseInt(tab)
+    when 0
+      script.
+        $("#login-tab").click();
+    when 1
+      script.
+        $("#hit-tab").click();
 
   script(src="javascripts/logs.pug.js")

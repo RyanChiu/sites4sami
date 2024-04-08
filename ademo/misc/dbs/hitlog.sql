@@ -10,3 +10,4 @@ CREATE TABLE `hitlog` (
   `countryISOcode` char(2) DEFAULT NULL COMMENT 'the country ISO code that shows where the ip4 come from',
   PRIMARY KEY (`id`)
 );
+alter table hitlog add passed tinyint default null comment '1 means the click was passed, 0 means the click was blocked';

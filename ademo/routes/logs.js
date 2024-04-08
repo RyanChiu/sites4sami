@@ -7,12 +7,15 @@ tricks.useSession(router);
 /* render the page */
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
-    var data = await tricks.queryLogs(req.session.role, req.session.userid)
+    var data = await tricks.queryLogs(req.session.role, req.session.userid);
+    var data1 = await tricks.queryHitlogs(req.session.role, req.session.userid);
     res.render('logs', { 
       title: "Logs",
       navs: req.session.navs,
       user: req.session.username,
-      data: data
+      data: data,
+      data1: data1,
+      tab: 0
     });
   } else {
     res.redirect('logout');
@@ -22,15 +25,29 @@ router.get('/', async function(req, res, next) {
 /* deal with post data */
 router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
-    var data = await tricks.queryLogs(
-      req.session.role, req.session.userid, 
-      "username like '%" + req.body.iptUsername + "%'"
-    );
+    var data = data1 = [];
+    var tab = 0;
+    if (req.body.iptUsername != undefined) {
+      data = await tricks.queryLogs(
+        req.session.role, req.session.userid, 
+        "username like '%" + req.body.iptUsername + "%'"
+      );
+      tab = 0;
+    }
+    if (req.body.iptUsername1 != undefined) {
+      data1 = await tricks.queryHitlogs(
+        req.session.role, req.session.userid, 
+        "agent like '%" + req.body.iptUsername1 + "%'"
+      );
+      tab = 1;
+    }
     res.render('logs', { 
       title: "Logs",
       navs: req.session.navs,
       user: req.session.username,
-      data: data
+      data: data,
+      data1: data1,
+      tab: tab
     });
   } else {
     res.redirect('logout');

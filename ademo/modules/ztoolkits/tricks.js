@@ -189,6 +189,38 @@ exports.queryLogs = async function(role, userid, cond="", orderBy=" order by int
     return logs;
 }
 
+exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by time desc") {
+    var sql = "select * from view_hitlog ";
+    var logs, where = "";
+    switch (role) {
+        case 0:
+        case 1:
+                if (cond != "") {
+                where = " where " + cond;
+            }
+            console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy}`);
+            logs = await queryData(sql + where + orderBy);
+            break;
+        case 2:
+            where = " where (officeid = ?) ";
+            if (cond != "") {
+                where += " and (" + cond + ") "
+            }
+            console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy}`);
+            logs = await queryData(sql + where + orderBy, [userid]);
+            break;
+        case 3:
+            where = " where agentid = ? ";
+            if (cond != "") {
+                where += " and (" + cond + ") "
+            }
+            console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy}`);
+            logs = await queryData(sql + where + orderBy, [userid]);
+            break;
+    }
+    return logs;
+}
+
 exports.getIP4 = function(req) {
     var ip = req.headers['x-forwarded-for'] ||
         req.ip ||

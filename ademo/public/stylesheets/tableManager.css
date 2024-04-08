@@ -25,6 +25,9 @@
 button.pagecontroller {
 	color: green;
 }
+button.pagecontroller1 {
+	color: green;
+}
 button.pagecontroller-p:after {
 	content: " \f060";
 	font-family: "Font Awesome 6 Free";
@@ -48,6 +51,9 @@ button.pagecontroller-l:after {
 button.pagecontroller-num {
 	color: black;
 }
+button.pagecontroller-num1 {
+	color: black;
+}
 button.currentPage {
 	color: red;
 }
@@ -60,6 +66,10 @@ button.currentPage {
 	float: right;
 }
 #pagesControllers {
+	display: block;
+	text-align: right;
+}
+#pagesControllers1 {
 	display: block;
 	text-align: right;
 }
