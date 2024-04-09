@@ -12,6 +12,11 @@ const dbBuffer = fs.readFileSync('../../maxmind.com/GeoLite2-Country_20240405/Ge
 // expensive.
 const reader = Reader.openBuffer(dbBuffer);
 
+/**
+ * 50 "rich" countries in isoCode
+ */
+const richOnes = ["LU","IE","SG","QA","MO","CH","AE","SM","NO","US","DK","NL","HK","BN","TW","IS","AT","SA","AD","SE","DE","BE","AU","MT","GY","BH","FI","CA","FR","GB","KR","IL","IT","CY","NZ","JP","KW","SI","AW","ES","LT","CZ","PL","EE","PT","BS","HU","PH","PA","SK"];
+
 tricks.useSession(router);
 
 /* deal with get */
@@ -43,11 +48,22 @@ router.get('/', async function(req, res, next) {
                 }
             }
         if (url != "") {
-            url = url.replace("__agent__", tos[2]).replace("__abbr__", tos[1]);
-            let rst = await tricks.queryData("insert into hitlog (username, siteid, typeabbr, linkin, linkout, ip4, countryISOcode) values \
-                (?, ?, ?, ?, ?, ?, ?)", [tos[2], tos[0], tos[1], params.to, url, ip4, geo == null ? null : geo.country.isoCode]);
+            var rst = null;
+            var passed = null;
+            if (geo == null || richOnes.indexOf(geo.country.isoCode) !== -1) {//if allowed to redirect to the real link
+                passed = 1;
+            } else {
+                passed = 0;
+            }
+            rst = await tricks.queryData("insert into hitlog (username, siteid, typeabbr, linkin, linkout, ip4, countryISOcode, passed) values \
+                (?, ?, ?, ?, ?, ?, ?, ?)", [tos[2], tos[0], tos[1], params.to, url, ip4, geo == null ? null : geo.country.isoCode, passed]);
             console.log(`[debug from page nav(3):record the hit with the result -> ${JSON.stringify(rst)}`);
-            res.redirect(url);
+            if (passed) {
+                url = url.replace("__agent__", tos[2]).replace("__abbr__", tos[1]);
+                res.redirect(url);
+            } else {
+                res.send("404");
+            }
         } else {
             res.send("Illegal visit.");
         }
