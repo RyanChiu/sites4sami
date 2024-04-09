@@ -15,7 +15,7 @@ const reader = Reader.openBuffer(dbBuffer);
 /**
  * 50 "rich" countries in isoCode
  */
-const richOnes = ["LU","IE","SG","QA","MO","CH","AE","SM","NO","US","DK","NL","HK","BN","TW","IS","AT","SA","AD","SE","DE","BE","AU","MT","GY","BH","FI","CA","FR","GB","KR","IL","IT","CY","NZ","JP","KW","SI","AW","ES","LT","CZ","PL","EE","PT","BS","HU","PH","PA","SK"];
+const richOnes = ["LU","IE","SG","QA","MO","CH","AE","SM","NO","US","DK","NL","HK","BN","TW","IS","AT","SA","AD","SE","DE","BE","AU","MT","GY","BH","FI","CA","FR","GB","KR","IL","IT","CY","NZ","JP","KW","SI","AW","ES","LT","CZ","PL","EE","PT","BS","HU","HR","PA","SK"];
 
 tricks.useSession(router);
 
