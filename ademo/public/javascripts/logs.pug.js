@@ -7,7 +7,7 @@ $('#tblLogs').tablemanager({
 $('#tblHitlogs').tablemanager1({
     pagination: true,
     //numOfPages: "8",
-    //disable: [1, 10, "last"]
+    disable: [6, "last"]
 });
 
 /*
