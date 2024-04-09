@@ -102,6 +102,7 @@ block content
               ) Reset
             div(class="col-8")
 
+      label(class="text-warning m-0 p-0" style="font-size:12px;") Showing 5000 rows top here. For more infos, please contact the administrator.
       table(class="w-100 tablemanager1" id="tblHitlogs")
         thead 
           tr 
@@ -127,7 +128,8 @@ block content
               td= row['typeabbr']
               td= row['linkin']
               td(name='uTimeStr')= row['time']
-              td= row['ip4']
+              td
+                a(href='https://whatismyipaddress.com/ip/' + row['ip4'] target='_blank')= row['ip4']
               td= row['country']
               case row['passed']
                 when 0

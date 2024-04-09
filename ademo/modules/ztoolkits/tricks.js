@@ -189,7 +189,7 @@ exports.queryLogs = async function(role, userid, cond="", orderBy=" order by int
     return logs;
 }
 
-exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by time desc") {
+exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by time desc", limit=" limit 5000") {
     var sql = "select * from view_hitlog ";
     var logs, where = "";
     switch (role) {
@@ -198,24 +198,24 @@ exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by 
                 if (cond != "") {
                 where = " where " + cond;
             }
-            console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy}`);
-            logs = await queryData(sql + where + orderBy);
+            console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy + limit}`);
+            logs = await queryData(sql + where + orderBy + limit);
             break;
         case 2:
             where = " where (officeid = ?) ";
             if (cond != "") {
                 where += " and (" + cond + ") "
             }
-            console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy}`);
-            logs = await queryData(sql + where + orderBy, [userid]);
+            console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy + limit}`);
+            logs = await queryData(sql + where + orderBy + limit, [userid]);
             break;
         case 3:
             where = " where agentid = ? ";
             if (cond != "") {
                 where += " and (" + cond + ") "
             }
-            console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy}`);
-            logs = await queryData(sql + where + orderBy, [userid]);
+            console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy + limit}`);
+            logs = await queryData(sql + where + orderBy + limit, [userid]);
             break;
     }
     return logs;

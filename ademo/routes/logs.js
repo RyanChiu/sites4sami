@@ -13,6 +13,7 @@ router.get('/', async function(req, res, next) {
       title: "Logs",
       navs: req.session.navs,
       user: req.session.username,
+      role: req.session.role,
       data: data,
       data1: data1,
       tab: 0
@@ -45,6 +46,7 @@ router.post('/', async (req, res) => {
       title: "Logs",
       navs: req.session.navs,
       user: req.session.username,
+      role: req.session.role,
       data: data,
       data1: data1,
       tab: tab
