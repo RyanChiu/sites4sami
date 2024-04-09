@@ -21,6 +21,28 @@
 .tablemanager th.disableSort {
 	content: "";
 }
+.tablemanager1 th.sorterHeader {
+	cursor: pointer;
+}
+.tablemanager1 th.sorterHeader:after {
+	content: " \f0dc";
+	font-family: "Font Awesome 6 Free";
+}
+/*Style sort desc*/
+.tablemanager1 th.sortingDesc:after {
+	content: " \f0dd";
+	font-family: "Font Awesome 6 Free";
+	/*color: black;*/
+}
+/*Style sort asc*/
+.tablemanager1 th.sortingAsc:after {
+	content: " \f0de";
+	font-family: "Font Awesome 6 Free";
+}
+/*Style sort disabled*/
+.tablemanager1 th.disableSort {
+	content: "";
+}
 /* ++ page controller style*/
 button.pagecontroller {
 	color: green;
