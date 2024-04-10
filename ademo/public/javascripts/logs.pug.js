@@ -10,6 +10,13 @@ $('#tblHitlogs').tablemanager1({
     disable: [6, "last"]
 });
 
+$('[name="uLinkin"]').each(function() {
+    var linkin = window.location.href.replace("logs", "nav2?to=") + $(this).html();
+    var html = '<a href="#" onclick="alert(\'' + linkin + '\');return false;">' 
+        + '<i class="bi bi-link"></i>' 
+        + '</a>';
+    $(this).html(html);
+});
 /*
 $("#login-tab").click(function() {
     alert("login-tab");

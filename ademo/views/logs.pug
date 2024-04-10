@@ -126,7 +126,7 @@ block content
               td= row['agent']
               td= row['site']
               td= row['typeabbr']
-              td= row['linkin']
+              td(name='uLinkin')= row['linkin']
               td(name='uTimeStr')= row['time']
               td
                 a(href='https://whatismyipaddress.com/ip/' + row['ip4'] target='_blank')= row['ip4']
