@@ -7,6 +7,7 @@ block content
     li( class="nav-item" role="presentation")
       button(class="nav-link ps-2 pe-2 pt-0 pb-0 border-bottom bg-dark text-info fw-normal fs-5" id="hit-tab" data-bs-toggle="tab" data-bs-target="#hit-tab-pane" type="button" role="tab" aria-controls="hit-tab-pane" aria-selected="false") Clicks
   hr(class="p-0 m-0")
+  label(class="text-warning m-0 p-0" style="font-size:12px;") Showing 2000 rows top here. For more infos, please contact the administrator.
   div(class="tab-content" id="logTabContent")
     div(class="tab-pane fade show active" id="login-tab-pane" role="tabpanel" aria-labelledby="login-tab" tabindex="0")
       form(id="formSearchLog" action="logs" method="post")
@@ -102,7 +103,6 @@ block content
               ) Reset
             div(class="col-8")
 
-      label(class="text-warning m-0 p-0" style="font-size:12px;") Showing 5000 rows top here. For more infos, please contact the administrator.
       table(class="w-100 tablemanager1" id="tblHitlogs")
         thead 
           tr 

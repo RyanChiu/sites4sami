@@ -149,7 +149,8 @@ exports.queryAgents = async function(role, userid, cond="1=1", orderBy = " order
     return agents;
 }
 
-exports.queryLogs = async function(role, userid, cond="", orderBy=" order by intime desc") {
+const LOGS_LIMIT = " limit 2000";
+exports.queryLogs = async function(role, userid, cond="", orderBy=" order by intime desc", limit=LOGS_LIMIT) {
     var sql = "select * from view_log ";
     var logs, where = "";
     switch (role) {
@@ -157,8 +158,8 @@ exports.queryLogs = async function(role, userid, cond="", orderBy=" order by int
             if (cond != "") {
                 where = " where " + cond;
             }
-            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy}`);
-            logs = await queryData(sql + where + orderBy);
+            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy + limit}`);
+            logs = await queryData(sql + where + orderBy + limit);
             break;
         case 1:
         default:
@@ -166,30 +167,30 @@ exports.queryLogs = async function(role, userid, cond="", orderBy=" order by int
             if (cond != "") {
                 where += " and (" + cond + ") "
             }
-            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy}`);
-            logs = await queryData(sql + where + orderBy);
+            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy + limit}`);
+            logs = await queryData(sql + where + orderBy + limit);
             break;
         case 2:
             where = " where (role > 1 and office = (select username from user where id = ?) or userid = ?) ";
             if (cond != "") {
                 where += " and (" + cond + ") "
             }
-            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy}`);
-            logs = await queryData(sql + where + orderBy, [userid, userid]);
+            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy + limit}`);
+            logs = await queryData(sql + where + orderBy + limit, [userid, userid]);
             break;
         case 3:
             where = " where userid = ? ";
             if (cond != "") {
                 where += " and (" + cond + ") "
             }
-            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy}`);
-            logs = await queryData(sql + where + orderBy, [userid]);
+            console.log(`[debug from queryLogs():<role:${role}>]${sql + where + orderBy + limit}`);
+            logs = await queryData(sql + where + orderBy + limit, [userid]);
             break;
     }
     return logs;
 }
 
-exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by time desc", limit=" limit 5000") {
+exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by time desc", limit=LOGS_LIMIT) {
     var sql = "select * from view_hitlog ";
     var logs, where = "";
     switch (role) {

@@ -102,7 +102,13 @@ $(document).ready(function() {
     dayjs.extend(window.dayjs_plugin_utc);
     dayjs.extend(window.dayjs_plugin_timezone);
     $('[name="uTimeStr"]').each(function() {
-        var str = new dayjs($(this).html()).tz("America/New_York").format('MM/DD/YYYY HH:mm:ss');
+        var dt = new dayjs($(this).html());
+        var str = null;
+        if (dt.isValid()) {
+            str = dt.tz("America/New_York").format('MM/DD/YYYY HH:mm:ss');
+        } else {
+            str = "-";
+        }
         $(this).html(str)
     })
     $('[name="uDateStr"]').each(function() {
