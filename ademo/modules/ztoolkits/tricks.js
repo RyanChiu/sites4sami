@@ -222,6 +222,15 @@ exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by 
     return logs;
 }
 
+exports.queryCountries = async function() {
+    var data = await queryData("select * from country");
+    var countries = [];
+    for (let row of data) {
+        countries[row['isoCode']] = row['name'];
+    }
+    return countries;
+}
+
 exports.getIP4 = function(req) {
     var ip = req.headers['x-forwarded-for'] ||
         req.ip ||

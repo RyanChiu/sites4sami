@@ -130,7 +130,8 @@ block content
               td(name='uTimeStr')= row['time']
               td
                 a(href='https://whatismyipaddress.com/ip/' + row['ip4'] target='_blank')= row['ip4']
-              td= row['country']
+              - var title = countries[row['country']];
+              td(title=(typeof(title) !== undefined ? title : "") style="cursor:default;")= row['country']
               case row['passed']
                 when 0
                   td 

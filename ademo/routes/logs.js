@@ -9,6 +9,7 @@ router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     var data = await tricks.queryLogs(req.session.role, req.session.userid);
     var data1 = await tricks.queryHitlogs(req.session.role, req.session.userid);
+    var countries = await tricks.queryCountries();
     res.render('logs', { 
       title: "Logs",
       navs: req.session.navs,
@@ -16,6 +17,7 @@ router.get('/', async function(req, res, next) {
       role: req.session.role,
       data: data,
       data1: data1,
+      countries: countries,
       tab: 0
     });
   } else {
@@ -27,6 +29,7 @@ router.get('/', async function(req, res, next) {
 router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
     var data = data1 = [];
+    var countries = await tricks.queryCountries();
     var tab = 0;
     if (req.body.iptUsername != undefined) {
       data = await tricks.queryLogs(
@@ -49,6 +52,7 @@ router.post('/', async (req, res) => {
       role: req.session.role,
       data: data,
       data1: data1,
+      countries: countries,
       tab: tab
     });
   } else {
