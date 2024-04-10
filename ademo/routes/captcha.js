@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     var captcha = svgCaptcha.createMathExpr( {
         noise: 1,
         color: true,
-        background: '#333',
+        background: '#ddd',
         mathMin: 2,
         mathMax: 21
     });
