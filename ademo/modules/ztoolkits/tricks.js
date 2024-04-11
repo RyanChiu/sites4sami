@@ -231,6 +231,21 @@ exports.queryCountries = async function() {
     return countries;
 }
 
+exports.querySites = async function() {
+    var data = await queryData("select id, name, short, abbr, status from site");
+    var sites = [];
+    for (let site of data) {
+        sites.push({
+            id: site['id'],
+            name: site['name'],
+            short: site['short'],
+            abbr: site['abbr'],
+            status: site['status']
+        })
+    }
+    return sites;
+}
+
 exports.getIP4 = function(req) {
     var ip = req.headers['x-forwarded-for'] ||
         req.ip ||

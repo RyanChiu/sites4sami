@@ -11,7 +11,7 @@ tricks.useSession(router);
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     if (req.session.role == 3) {
-      res.redirect('home?tips=Now allowed.');
+      res.redirect('home?tips=Not allowed.');
     }
     var params = req.query;
     console.log("params from get:"); console.log(params); // debug
@@ -25,8 +25,9 @@ router.get('/', async function(req, res, next) {
       paramId = params["id"];
       paramRef = params["ref"];
     }
-    var title, data, offices, status = null;
+    var title, data, offices, sites, status = null;
     offices = await tricks.queryOffices(req.session.role, req.session.userid);
+    sites = await tricks.querySites();
     console.log("debug[add agent]"); console.log(offices); //debug
     switch (paramOp) {
       case "":
@@ -38,6 +39,7 @@ router.get('/', async function(req, res, next) {
           navs: req.session.navs,
           user: req.session.username,
           offices: offices,
+          sites: sites,
           data: data
         });
         break;
@@ -57,6 +59,7 @@ router.get('/', async function(req, res, next) {
           navs: req.session.navs,
           user: req.session.username,
           offices: offices_edit,
+          sites: sites,
           data: data
         });
         break;
@@ -93,6 +96,7 @@ router.get('/', async function(req, res, next) {
           navs: req.session.navs,
           user: req.session.username,
           offices: offices,
+          sites: sites,
           data: data
         });
       }
@@ -106,11 +110,21 @@ router.get('/', async function(req, res, next) {
 router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
     if (req.session.role == 3) {
-      res.redirect('home?tips=Now allowed.');
+      res.redirect('home?tips=Not allowed.');
     }
     var title = "Agents";
     var params = [];
-    console.log("[debug for agent_dwit post] params:"); console.log(params); // debug
+    let iptSites = req.body.iptSites;
+    console.log(`[debug from agents_dwit(update):]${JSON.stringify(req.body)}<--------->${iptSites}`);
+    req.body.iptSites = [];
+    if (iptSites != undefined) {
+      for (let iptSite of iptSites) {
+        req.body.iptSites.push(parseInt(iptSite))
+      }
+      iptSites = '"[' + req.body.iptSites.join(",") + ']"';
+    } else {
+      iptSites= '"[]"';
+    }
     var rst = null;
     var sql = "";
     if (req.body.submitType == "add") {
@@ -120,13 +134,13 @@ router.post('/', async (req, res) => {
         + params[4] + "', '" + tricks.cryptIt(params[4]) + "', 3, 0, '" + params[5] + "')";
       rst = await tricks.queryData(sql);
       */
-      sql = "insert into user (officeid, 1stname, lstname, username, password, pwd_crypted, type, status, note) values ("
-        + "?, ?, ?, ?, ?, ?, 3, 0, ?)";
+      sql = "insert into user (officeid, 1stname, lstname, username, password, pwd_crypted, type, status, note, sites) values ("
+        + "?, ?, ?, ?, ?, ?, 3, 0, ?, ?)";
       params = [
         parseInt(req.body.selOffice), 
         req.body.ipt1stName, req.body.iptLstName, 
         req.body.iptUsername, req.body.iptPassword, tricks.cryptIt(req.body.iptPassword),
-        req.body.txtNote
+        req.body.txtNote, iptSites
       ];
       rst = await tricks.queryData(sql, params);
     } else if (req.body.submitType == "edit") {
@@ -138,22 +152,25 @@ router.post('/', async (req, res) => {
       rst = await tricks.queryData(sql);
       */
       sql = "update user set 1stname = ?, lstname = ?, username = ?, "
-        + "password = ?, pwd_crypted = ?, note = ?, status = ? where id = ?";
+        + "password = ?, pwd_crypted = ?, note = ?, status = ?, sites = ? where id = ?";
       params = [
         req.body.ipt1stName, req.body.iptLstName, 
         req.body.iptUsername, req.body.iptPassword, tricks.cryptIt(req.body.iptPassword),
-        req.body.txtNote, req.body.chkStatus == 1 ? 1 : 0, parseInt(req.body.iptId)
+        req.body.txtNote, req.body.chkStatus == 1 ? 1 : 0, iptSites,
+        parseInt(req.body.iptId)
       ];
       rst = await tricks.queryData(sql, params);
     }
-    console.log("[debug for agent_dwit db op] rst/sql:"); console.log(rst); console.log(sql); console.log(params) //debug
+    console.log("[debug for agent_dwit db op] rst/sql:"); console.log(rst); console.log(sql); console.log(params); //debug
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var data = await tricks.queryAgents(req.session.role, req.session.userid);
+    var sites = await tricks.querySites();
     res.render('agents', { 
       title: title,
       navs: req.session.navs,
       user: req.session.username,
       offices: offices,
+      sites: sites,
       data: data
     });
   } else {

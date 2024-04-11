@@ -37,7 +37,7 @@ block content
                         type="text"
                         id="ipt1stName"
                         name="ipt1stName"
-                        value=(data=="" ? "" : data[0]["1stname"])
+                        value=(data == "" ? "" : data[0]["1stname"])
                         required
                     )
             div(class="row m-2")
@@ -51,7 +51,7 @@ block content
                         type="text"
                         id="iptLstName"
                         name="iptLstName"
-                        value=(data=="" ? "" : data[0]["lstname"])
+                        value=(data == "" ? "" : data[0]["lstname"])
                         required
                     )
             div(class="row m-2")
@@ -63,7 +63,7 @@ block content
                         type="hidden" 
                         name="iptId" 
                         id="iptId"
-                        value=(data=="" ? -1 : data[0]["id"])
+                        value=(data == "" ? -1 : data[0]["id"])
                     )
                     input(
                         class="form-input w-75 rounded-2"
@@ -71,7 +71,7 @@ block content
                         type="text"
                         id="iptUsername"
                         name="iptUsername"
-                        value=(data=="" ? "" : data[0]["username"])
+                        value=(data == "" ? "" : data[0]["username"])
                         required
                     )
             div(class="row m-2")
@@ -85,7 +85,7 @@ block content
                         type="password"
                         id="iptPassword"
                         name="iptPassword"
-                        value=(data=="" ? "" : data[0]["password"])
+                        value=(data == "" ? "" : data[0]["password"])
                         required
                     )
             div(class="row m-2")
@@ -99,7 +99,7 @@ block content
                         type="password"
                         id="iptPassword2"
                         name="iptPassword2"
-                        value=(data=="" ? "" : data[0]["password"])
+                        value=(data == "" ? "" : data[0]["password"])
                         required
                     )
             div(class="row m-2")
@@ -111,7 +111,27 @@ block content
                         rows="5"
                         id="txtNote"
                         name="txtNote"
-                    )= (data=="" ? "" : data[0]["note"])
+                    )= (data == "" ? "" : data[0]["note"])
+            div(class="row m-2")
+                div(class="col-3")
+                    label(class="text-light" for="iptSites") Sites
+                    label(class="text-danger ms-2")
+                div(class="col-9")
+                    div(class="row")
+                        each site in sites 
+                            - var siteChecked = true 
+                            if data !== "" && typeof(data[0]['sites']) !== undefined
+                                - siteChecked = (data[0]['sites'].indexOf(site.id) !== -1)
+                            div(class="col-4 text-light ms-2 form-check form-switch")
+                                input(class="form-check-input" type="checkbox" role="switch" 
+                                    value=site.id 
+                                    id="iptSite_" + site.id
+                                    name="iptSites"
+                                    checked=siteChecked
+                                )
+                                label(class="form-check-label" for="iptSite_" + site.id)= "[" + site.abbr + "] " + site.name
+                                    
+
             div(class="row m-2")
                 div(class="col-3")
                     div(class="form-check")

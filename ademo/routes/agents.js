@@ -8,7 +8,7 @@ tricks.useSession(router);
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     if (req.session.role == 3) {
-      res.redirect('home?tips=Now allowed.');
+      res.redirect('home?tips=Not allowed.');
     }
     var params = req.query;
     var title = "Agents", data = null, offices = null;
@@ -53,7 +53,7 @@ router.get('/', async function(req, res, next) {
 router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
     if (req.session.role == 3) {
-      res.redirect('home?tips=Now allowed.');
+      res.redirect('home?tips=Not allowed.');
     }
     var title = "Agents";
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
