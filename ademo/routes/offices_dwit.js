@@ -40,7 +40,7 @@ router.get('/', async function(req, res, next) {
         data: ""
       });
     } else {
-      res.redirect('home?tips=Now allowed.');
+      res.redirect('home?tips=Not allowed.');
     }
   } else {
     res.redirect('logout');
@@ -82,7 +82,7 @@ router.post('/', async (req, res) => {
         data: data
       });
     } else {
-      res.redirect('home?tips=Now allowed.');
+      res.redirect('home?tips=Not allowed.');
     }
   } else {
     res.redirect('logout');
