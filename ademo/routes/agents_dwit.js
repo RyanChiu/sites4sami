@@ -38,6 +38,7 @@ router.get('/', async function(req, res, next) {
           title: title,
           navs: req.session.navs,
           user: req.session.username,
+          role: req.session.role,
           offices: offices,
           sites: sites,
           data: data
@@ -58,6 +59,7 @@ router.get('/', async function(req, res, next) {
           title: title,
           navs: req.session.navs,
           user: req.session.username,
+          role: req.session.role,
           offices: offices_edit,
           sites: sites,
           data: data
@@ -96,7 +98,6 @@ router.get('/', async function(req, res, next) {
           navs: req.session.navs,
           user: req.session.username,
           offices: offices,
-          sites: sites,
           data: data
         });
       }
@@ -164,13 +165,11 @@ router.post('/', async (req, res) => {
     console.log("[debug for agent_dwit db op] rst/sql:"); console.log(rst); console.log(sql); console.log(params); //debug
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var data = await tricks.queryAgents(req.session.role, req.session.userid);
-    var sites = await tricks.querySites();
     res.render('agents', { 
       title: title,
       navs: req.session.navs,
       user: req.session.username,
       offices: offices,
-      sites: sites,
       data: data
     });
   } else {
