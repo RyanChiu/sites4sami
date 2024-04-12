@@ -127,7 +127,8 @@ block content
                                     value=site.id 
                                     id="iptSite_" + site.id
                                     name="iptSites"
-                                    checked=siteChecked
+                                    checked=(site.status == 1 ? siteChecked : false)
+                                    disabled=(site.status == 1 ? false : true)
                                 )
                                 label(class="form-check-label" for="iptSite_" + site.id)= "[" + site.abbr + "] " + site.name
                                     

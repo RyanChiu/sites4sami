@@ -162,7 +162,7 @@ router.post('/', async (req, res) => {
       ];
       rst = await tricks.queryData(sql, params);
     }
-    console.log("[debug for agent_dwit db op] rst/sql:"); console.log(rst); console.log(sql); console.log(params); //debug
+    console.log("[debug for agents_dwit db op] rst/sql:"); console.log(rst); console.log(sql); console.log(params); //debug
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var data = await tricks.queryAgents(req.session.role, req.session.userid);
     res.render('agents', { 
