@@ -14,7 +14,7 @@ $(document)
 
 $(document).ready(function() {
     var post_params = JSON.parse($("#iptPost_params").val());
-    console.log(`[debug from stats.pug.js(0):]${JSON.stringify(post_params)}`)
+    //console.log(`[debug from stats.pug.js(0):]${JSON.stringify(post_params)}`)
     if (JSON.stringify(post_params) !== "{}" && JSON.stringify(post_params) !== "") {
         $("#selSite option[value='" + post_params.selSite + "']").attr("selected", "selected");
         //type ....... undergoing
@@ -49,7 +49,7 @@ $(document).ready(function() {
 
     if (post_params == "") {
         $("#selPeriod")[0].selectedIndex = 3;
-        console.log("[debug from stats.pug.js(1):]" + $("#selPeriod").val());
+        //console.log("[debug from stats.pug.js(1):]" + $("#selPeriod").val());
         setDatePicker();
         //$("#iptLoadReport").click();
     } else {

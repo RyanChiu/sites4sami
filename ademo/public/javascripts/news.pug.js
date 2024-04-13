@@ -16,8 +16,8 @@ $("#iptUpload").change(function(e) {
     //formData.append('file', files);
     formData.append('files', files);
     formData.append('image', files.item(0));
-    console.log(`[debug from news.pug.js(formData):]${JSON.stringify(formData.get('file'))},${value}`);
-    console.log(`[debug from news.pug.js:]${JSON.stringify(files)}`);
+    //console.log(`[debug from news.pug.js(formData):]${JSON.stringify(formData.get('file'))},${value}`);
+    //console.log(`[debug from news.pug.js:]${JSON.stringify(files)}`);
     $.ajax({
         url: "upload_nov",
         type: "post",
