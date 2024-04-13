@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
         var rst = [];
         if (data) {
             for (let row of data) {
-                rst.push({"id": row.id, "username": row.username});
+                rst.push({"id": row.id, "username": row.username, "sites": row.sites});
             }
         }
         res.set('Content-Type', 'text/html');

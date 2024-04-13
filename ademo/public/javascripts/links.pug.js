@@ -70,9 +70,31 @@ $('#selOffice').on("change", function() {
             let agents = $.parseJSON(rst.rst);
             for (let agent of agents) {
                 $('#selAgent').html($('#selAgent').html() 
-                    + "<option value='" + agent.username + "'>" + agent.username + "</option>");
+                    + "<option value='" + agent.username + "' data-sites='" + agent.sites + "'>" + agent.username + "</option>");
             }
             //console.log("[debug from links page of ajax:]"); console.log(rst); console.log(agents);// debug;
         }
     })
+})
+
+$("#selAgent").on("change", function() {
+    let opt = $("#selAgent option:selected");
+    let siteids = (opt.data("sites")+ "").split(",");
+    let sites = $.parseJSON($("#iptSites").val());
+    let selSite = $("#selSite");
+    /*
+    if (siteids.length > 1)
+        selSite.html("<option value=''>-Pick a site-</option>");
+    else selSite.html("");
+    */
+    selSite.html("<option value=''>-Pick a site-</option>");
+    console.log(`[debug from link.pug.js(sties):]${JSON.stringify(sites)}`);
+    console.log(`[debug from link.pug.js(siteids):]${JSON.stringify(siteids)} from ***${opt.data("sites")}***`);
+    for (let site of sites) {
+        console.log(`[debug from link.pug.js(site.name):]${site.name}`);
+        if (siteids.indexOf(site.id + "") !== -1) {
+            selSite.html(selSite.html()
+                + "<option value='" + site.id + "'>" + site.name + "</option>");
+        }
+    }console.log(`[debug from link.pug.js(options):]${selSite.html()}`);
 })

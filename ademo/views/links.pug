@@ -22,49 +22,17 @@ block content
                 i(class="bi bi-link fs-3 text-light float-start")
         div(class="row p-1")
             div(class="col-3")
-                label(for="selSite") Site 
-                - var len = Object.keys(sites).length
-                case len
+                label(for="selOffice") Office 
+                case Object.keys(offices).length
                     when 1
-                        input(
-                            type="hidden"
-                            value=sites[0]["id"]
-                            name="selSite"
-                            id="selSite"
-                        )
-                        input(
-                            class="form-select w-75 rounded-2 ps-1 pe-0 pt-0 pb-0"
-                            value=sites[0]["name"]
-                            readonly
-                            required
-                        )
-                    default
                         select(
                             class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
-                            name="selSite"
-                            id="selSite"
-                            required
-                        )
-                            option(selected value="") -Pick a site-
-                            each site in sites  
-                                option(value=site["id"])= site["name"]
-            div(class="col-3")
-                label(for="selOffice") Office 
-                - var len = Object.keys(offices).length
-                case len
-                    when 1
-                        input(
-                            type="hidden"
-                            value=offices[0]["id"]
                             name="selOffice"
                             id="selOffice"
-                        )
-                        input(
-                            class="form-select w-75 rounded-2 ps-1 pe-0 pt-0 pb-0"
-                            value=offices[0]["username"]
                             readonly
                             required
                         )
+                            option(selected value=offices[0]["id"])= offices[0]["username"]
                     default
                         select(
                             class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
@@ -75,19 +43,22 @@ block content
                             option(selected value=0) All
                             each office in offices  
                                 option(value=office["id"])= office["username"]
+            - var len = Object.keys(agents).length
             div(class="col-3")
                 label(for="selAgent") Agent
-                - var len = Object.keys(agents).length
                 case len
                     when 1
-                        input(
-                            class="form-select w-75 rounded-2 ps-1 pe-0 pt-0 pb-0"
+                        select(
+                            class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
                             name="selAgent"
                             id="selAgent"
-                            value=agents[0]["username"]
                             readonly
                             required
                         )
+                            option(
+                                selected value=agents[0]["username"]
+                                data-sites=agents[0]['sites']
+                            )= agents[0]["username"]
                     default
                         select(
                             class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
@@ -97,7 +68,42 @@ block content
                         )
                             option(selected value="") -Pick an agent-
                             each agent in agents  
-                                option(value=agent["username"])= agent["username"]
+                                option(value=agent["username"] data-sites=agent['sites'])= agent["username"]
+            div(class="col-3")
+                input(id="iptSites" type="hidden" value=sites)
+                label(for="selSite") Site 
+                if len !== 1
+                    case Object.keys(sites).length
+                        when 1
+                            select(
+                                class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                                name="selSite"
+                                id="selSite"
+                                readonly
+                                required
+                            )
+                                option(selected value=sites[0]["id"])= sites[0]["name"]
+                        default
+                            select(
+                                class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                                name="selSite"
+                                id="selSite"
+                                required
+                            )
+                                option(selected value="") -Pick a site-
+                                each site in sites  
+                                    option(value=site["id"])= site["name"]
+                else 
+                    select(
+                            class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                            name="selSite"
+                            id="selSite"
+                            required
+                        )
+                            option(selected value="") -Pick a site-
+                            each site in sites  
+                                if (agents[0]['sites'].indexOf(site['id']) !== -1)
+                                    option(value=site["id"])= site["name"]
         div(class="row p-1")
             div(class="col-3")
                 input(class="btn btn-primary w-75" type="submit" id="btnLinks" value="Get Link(s)")
