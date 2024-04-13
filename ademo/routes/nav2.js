@@ -27,7 +27,7 @@ router.get('/', async function(req, res, next) {
     var agents = await tricks.queryAgents(req.session.role, req.session.userid, " username = '" + tos[2] + "'");
     console.log(`[debug from page nav(1,agents):${JSON.stringify(agents)}`);
     var data = await tricks.queryData(
-       "select * from site where id = ? and id in ?", [tos[0], agents[0]["sites"]]
+       "select * from site where id = ? ", [tos[0]]
     );
     if (data != null && data.length != 0) {
         var ip4 = tricks.getIP4(req);
