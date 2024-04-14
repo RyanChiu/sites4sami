@@ -1,3 +1,67 @@
 extends layout
 
 block content
+  ul(class="nav nav-tabs" id="settingsTab" role="tablist")
+    li( class="nav-item" role="presentation")
+      button(
+        class="nav-link ps-2 pe-2 pt-0 pb-0 bg-dark text-light fw-normal fs-6 active" 
+        id="countries-tab" type="button" role="tab" 
+        data-bs-toggle="tab" data-bs-target="#countries-tab-pane"
+        aria-controls="countries-tab-pane" aria-selected="true"
+      ) Rich Countries
+  div(class="tab-content" id="settingsTabContent")
+    div(class="tab-pane fade show active" id="countries-tab-pane" role="tabpanel" aria-labelledby="countries-tab" tabindex="0")
+      form(id="formCountries" action="settings" method="post")
+        input(type="hidden" id="iptTab" value="countries")
+        - var showCountries = (typeof(countries) !== undefined ? true: false)
+        case showCountries
+          when false 
+            break
+          when true 
+            div(class="row pt-1")
+              div(class="col-4")
+                div(class="form-check form-switch")
+                  input(
+                    class="form-check-input" type="checkbox" role="switch" 
+                    id="iptAllCountries"
+                    check=false
+                  )
+                  label(class="form-check-label btn btn-primary fs-6 pt-0 pb-0 ps-1 pe-1" for="iptAllCountries") Check All
+                  script.
+                    let allCountries = $("#iptAllCountries");
+                    let allCountriesLabel = $("label[for='iptAllCountries']");
+                    allCountries.click(function(){
+                      $("input[name='iptCountries']").each(function(){
+                        if (allCountries.is(':checked')) {
+                          $(this).prop("checked", true);
+                          allCountriesLabel.html("Uncheck All");
+                        } else {
+                          $(this).prop("checked", false);
+                          allCountriesLabel.html("Check All");
+                        }
+                      })
+                    })
+            div(class="row m-0")
+              hr(class="border mt-1 mb-1")
+            div(class="row")
+              - var i = 0
+              - //var richOnes = ["LU","IE","SG","QA","MO","CH","AE","SM","NO","US","DK","NL","HK","BN","TW","IS","AT","SA","AD","SE","DE","BE","AU","MT","GY","BH","FI","CA","FR","GB","KR","IL","IT","CY","NZ","JP","KW","SI","AW","ES","LT","CZ","PL","EE","PT","BS","HU","HR","PA","SK"];
+              each row in countries
+                - i++
+                div(class="col-4")
+                    div(class="form-check form-switch")
+                      - var id = "country_" + row['isoCode']
+                      input(
+                        class="form-check-input" type="checkbox" role="switch" 
+                        name="iptCountries" id=id value=row['isoCode']
+                        checked=(row['rich'] == 0 ? (richOnes.indexOf(row['isoCode']) !== -1) : true)
+                      )
+                      - var num = "(" + (i < 10 ? ("00" + i) : (i < 100 ? ("0" + i) : i)) + ")"
+                      label(class="form-check-label" for=id)= num + " [" + row['isoCode'] + "] " + row['name']
+            div(class="row")
+              div(class="col-4")
+                input(
+                  class="w-50 btn btn-primary mb-3"
+                  type="submit"
+                  value="Apply"
+                )
