@@ -15,7 +15,7 @@ const reader = Reader.openBuffer(dbBuffer);
 /**
  * 50 "rich" countries in isoCode
  */
-const richOnes = ["LU","IE","SG","QA","MO","CH","AE","SM","NO","US","DK","NL","HK","BN","TW","IS","AT","SA","AD","SE","DE","BE","AU","MT","GY","BH","FI","CA","FR","GB","KR","IL","IT","CY","NZ","JP","KW","SI","AW","ES","LT","CZ","PL","EE","PT","BS","HU","HR","PA","SK"];
+//const richOnes = ["LU","IE","SG","QA","MO","CH","AE","SM","NO","US","DK","NL","HK","BN","TW","IS","AT","SA","AD","SE","DE","BE","AU","MT","GY","BH","FI","CA","FR","GB","KR","IL","IT","CY","NZ","JP","KW","SI","AW","ES","LT","CZ","PL","EE","PT","BS","HU","HR","PA","SK"];
 
 tricks.useSession(router);
 
@@ -39,6 +39,14 @@ router.get('/', async function(req, res, next) {
        "select * from site where id = ? ", [tos[0]]
     );
     if (data != null && data.length != 0) {
+        let countries = await tricks.queryData("select * from country");
+        let richOnes = [];
+        for (let c of countries) {
+            if (c["rich"] == 1) {
+            richOnes.push(c["isoCode"]);
+            }
+        }
+
         var ip4 = tricks.getIP4(req);
         let geo = null;
         try {
