@@ -26,6 +26,15 @@ router.get('/', async function(req, res, next) {
     console.log(`[debug from page nav(0,tos):${tos}`);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid, " username = '" + tos[2] + "'");
     console.log(`[debug from page nav(1,agents):${JSON.stringify(agents)}`);
+    if (agents != null && agents.length != 0) {
+        let siteids = agents[0]["sites"].replace("[", "").replace("]", "").split(",");
+        console.log(`[debug from nav for siteids(1.0):]${siteids}`);
+        if (siteids.indexOf(tos[0]) == -1) {
+            // could record a hitlog here with this baned site.
+            res.send("Invalid visit.");
+            return;
+        }
+    }
     var data = await tricks.queryData(
        "select * from site where id = ? ", [tos[0]]
     );
@@ -72,12 +81,7 @@ router.get('/', async function(req, res, next) {
             res.send("Illegal visit.");
         }
     } else {
-        if (agents[0]["sites"].indexOf(tos[0]) !== -1) {
-            // could record a hitlog here with this baned site.
-            res.send("Invalid visit.");
-        } else {
-            res.send("Invalid site.");
-        }
+        res.send("Invalid site.");
     }
     /*
     if (typeof(params.to) == undefined || isNaN(params.to)) {
