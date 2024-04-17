@@ -17,6 +17,7 @@ router.get('/', async function(req, res, next) {
     }
     res.render('settings', { 
       title: title,
+      tips: req.query.tips,
       navs: req.session.navs,
       user: req.session.username,
       countries: countries,
@@ -38,7 +39,7 @@ router.post('/', async (req, res, next) => {
       rst = await tricks.queryData("update country set rich = 0");
     }
     //console.log(`[debug from settings:]${JSON.stringify(rst)}`);
-    res.redirect('settings');
+    res.redirect('settings?tips=Rich countries updated.');
   } else {
     res.redirect('logout');
   }
