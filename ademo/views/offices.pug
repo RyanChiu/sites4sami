@@ -59,19 +59,218 @@ block content
     - var i = 0
     each row in data 
       - i++
-      - var iptID = "<input type='checkbox' class='form-check-input me-1' value='" + row['id'] + "' name='chkID" + row['id'] + "'/>"
-      - iptID += "<label class='form-check-label' for='chkID" + row['id'] + "'>" + i + "</label>"
       tr
-        td !{iptID}
-        td= row['username']
-        td= row['1stname']
-        td= row['lstname']
-        td= row['password']
+        td 
+          input(type='checkbox' class='form-check-input me-1' value=row['id'] name='chkIDs' id='chkID_' + row['id'])
+          label(class='form-check-label' for='chkID_' + row['id'])= i
+          button(id="btnEdit_"+row['id'] class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#editModal_"+row['id']) edit
+          div(class="modal fade" id="editModal_"+row['id'] tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true")
+            div(class="modal-dialog modal-dialog-centered modal-lg")
+                div(class="modal-content text-bg-dark")
+                  div(class="modal-header")
+                    h5 Office
+                  div(class="modal-body")
+                    form(id="formOfficeEdit_"+row['id'] data-id=row['id'] name="formOfficeEdit" action="offices_dwit" method="post")
+                      div(class="container w-100")
+                        div(class="row m-2")
+                            div(class="col-3")
+                                label(for) First Name
+                                label(class="text-danger ms-2") *
+                            div(class="col-9")
+                                input(
+                                    class="form-input w-75 rounded-2"
+                                    style="height:39px;"
+                                    type="text"
+                                    id="ipt1stName_"+row['id']
+                                    name="ipt1stName_"+row['id']
+                                    value=row["1stname"]
+                                    required
+                                )
+                        div(class="row m-2")
+                            div(class="col-3")
+                                label(for) Last Name
+                                label(class="text-danger ms-2") *
+                            div(class="col-9")
+                                input(
+                                    class="form-input w-75 rounded-2"
+                                    style="height:39px;"
+                                    type="text"
+                                    id="iptLstName_"+row['id']
+                                    name="iptLstName_"+row['id']
+                                    value=row["lstname"]
+                                    required
+                                )
+                        div(class="row m-2")
+                            div(class="col-3")
+                                label(for) Username
+                                label(class="text-danger ms-2") *
+                            div(class="col-9")
+                                input(
+                                    type="hidden" 
+                                    name="iptId_"+row['id'] 
+                                    id="iptId_"+row['id']
+                                    value=row["id"]
+                                )
+                                input(
+                                    class="form-input w-75 rounded-2"
+                                    style="height:39px;"
+                                    type="text"
+                                    id="iptUsername_"+row['id']
+                                    name="iptUsername_"+row['id']
+                                    value=row["username"]
+                                    required
+                                )
+                        div(class="row m-2")
+                            div(class="col-3")
+                                label(for) Password
+                                label(class="text-danger ms-2") *
+                            div(class="col-9")
+                                input(
+                                    class="form-input w-75 rounded-2"
+                                    style="height:39px;"
+                                    type="password"
+                                    id="iptPassword_"+row['id']
+                                    name="iptPassword_"+row['id']
+                                    value=row["password"]
+                                    required
+                                )
+                        div(class="row m-2")
+                            div(class="col-3")
+                                label(for) Confirm Password
+                                label(class="text-danger ms-2") *
+                            div(class="col-9")
+                                input(
+                                    class="form-input w-75 rounded-2"
+                                    style="height:39px;"
+                                    type="password"
+                                    id="iptPassword2_"+row['id']
+                                    name="iptPassword2_"+row['id']
+                                    value=row["password"]
+                                    required
+                                )
+                        div(class="row m-2")
+                            div(class="col-3")
+                                label(for) Must Read (optional)
+                            div(class="col-9")
+                                textarea(
+                                    class="form-control w-75 mb-1 rounded-2"
+                                    rows="5"
+                                    id="txtNote_"+row['id']
+                                    name="txtNote_"+row['id']
+                                )= row["note"]
+                        div(class="row m-2")
+                            div(class="col-3")
+                                div(class="form-check")
+                                    - var status = (row["status"] == 1 ? 1 : 0);
+                                    input(
+                                        checked=(status == 1 ? true : false)
+                                        class="form-check-input"
+                                        value=(status == 1 ? 1: 0)
+                                        type="checkbox"
+                                        id="chkStatus_"+row['id']
+                                        name="chkStatus_"+row['id']
+                                        onclick="$('#chkStatus_"+row['id']+"').val($('#chkStatus_"+row['id']+"').is(':checked') ? 1 : 0);"
+                                    )
+                                    label(for="chkStatus_"+row['id'] class="form-check-label") Activated
+                            div(class="col-9")
+                                input(
+                                    class="w-25 btn btn-primary mb-3"
+                                    type="submit"
+                                    value="Edit"
+                                )
+                                a(
+                                    role="button"
+                                    class="btn btn-secondary mb-3 ms-2"
+                                    href="#" + 'chkID_' + row['id']
+                                    onClick='$("#'+'btnEnd_'+row['id']+'").click();'
+                                ) Cancel
+                        
+                  div(class="modal-footer d-none")
+                    button(id="btnEnd_"+row['id'] class="btn btn-primary" data-bs-dismiss="modal") Got it
+        td(id="tdUsername_"+row['id'])= row['username']
+        td(id="td1stName_"+row['id'])= row['1stname']
+        td(id="tdLstName_"+row['id'])= row['lstname']
+        td(id="tdPassword_"+row['id'])= row['password']
         td(name="uTimeStr")= row['lastlogintime']
         td(name="uTimeStr")= row['registered']
         td
           a(href="agents?office=" + row['username'])= row['agents']
-        td(name="uStatus")= row['status']
+        td(id="tdStatus_"+row['id'] name="uStatus")= row['status']
         td
-          a(class="pe-1" href="offices_dwit?op=edit&id=" + row['id'])
+          - //a(class="pe-1" href="offices_dwit?op=edit&id=" + row['id'])
+          - // i(class="bi bi-pencil-square text-primary")
+          a(class="pe-1" href="#" + 'chkID_' + row['id'] onClick='$("#' + ("btnEdit_"+row['id']) + '").click();')
             i(class="bi bi-pencil-square text-primary")
+  
+  script.
+    $("form[name='formOfficeEdit'").each(function() {
+      let id = $(this).data("id");
+      //alert(id);
+      //validate every form
+      $(this).validate({
+        errorClass: 'text-danger',
+        rules: {
+            ['ipt1stName_'+id]: "required",
+            ['iptLstName_'+id]: "required",
+            ['iptUsername_'+id]: {
+                required: true,
+                minlength: 3
+            },
+            ['iptPassword_'+id]: {
+                required: true,
+                minlength: 5
+            },
+            ['iptPassword2_'+id]: {
+                required: true,
+                minlength: 5,
+                equalTo: "#iptPassword_"+id
+            }
+        },
+        message: {
+            //
+        },
+        submitHandler:function(form){
+          var fstName = $("#ipt1stName_" + id).val();
+          var lstName = $("#iptLstName_" + id).val();
+          var username = $("#iptUsername_" + id).val();
+          var password = $("#iptPassword_" + id).val();
+          var status = $("#chkStatus_" + id).val();
+          var note = $("#txtNote_" + id).val();
+          $.ajax({
+            url: "offices_dwit",
+            type: "post",
+            data: {
+              submitType: "ajax_edit",
+              iptId: id,
+              ipt1stName: fstName,
+              iptLstName: lstName,
+              iptUsername: username,
+              iptPassword: password,
+              chkStatus: status,
+              txtNote: note
+            },
+            dataType: "json",
+            success: function(data) {
+              if (data.rst == 1) {
+                $("#ipt1stName_" + id).val(fstName);
+                $("#iptLstName_" + id).val(lstName);
+                $("#iptUsername_" + id).val(username);
+                $("#iptPassword_" + id).val(password);
+                $("#chkStatus_" + id).val(status);
+                $("#txtNote_" + id).val(note);
+                $("#td1stName_" + id).html(fstName);
+                $("#tdLstName_" + id).html(lstName);
+                $("#tdUsername_" + id).html(username);
+                $("#tdPassword_" + id).html(password);
+                $("#tdStatus_" + id).html(status);
+                setuStatusIcon("#tdStatus_" + id);
+                //console.log(`[debug from office.pug:script:ajax:(1)]${JSON.stringify(data)}`);
+                $("#btnEnd_"+id).click();
+              } else {
+                //console.log(`[debug from office.pug:script:ajax:(2)]${JSON.stringify(data)}`);
+              }
+            }
+          })
+        }
+      });
+    })

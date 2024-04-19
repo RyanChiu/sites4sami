@@ -71,6 +71,26 @@ router.post('/', async (req, res) => {
           req.body.txtNote, req.body.chkStatus == 1 ? 1: 0, parseInt(req.body.iptId) 
         ];
         rst = await tricks.queryData(sql, params);
+      } else if (req.body.submitType == "ajax_edit") {
+        sql = "update user set 1stname = ?, lstname = ?, username = ?, password = ?, pwd_crypted = ?, note = ?, status = ? where id = ?";
+        params = [
+          req.body.ipt1stName, req.body.iptLstName, 
+          req.body.iptUsername, req.body.iptPassword, tricks.cryptIt(req.body.iptPassword),
+          req.body.txtNote, req.body.chkStatus == 1 ? 1: 0, parseInt(req.body.iptId) 
+        ];
+        rst = await tricks.queryData(sql, params);
+        res.set('Content-Type', 'text/html');
+        if (rst) {
+          res.send({
+            "rst": 1
+          })
+        } else {
+          res.send({
+            "rst": 0
+          })
+        }
+      } else if (req.body.submitType == "ajax_add") {
+
       }
       console.log(rst); //debug
       var data = await tricks.queryOffices(req.session.role, req.session.userid);

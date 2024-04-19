@@ -1,3 +1,43 @@
+function setuStatusIcon(element) {
+    $(element).addClass("fs-4 pt-1 pb-0");
+        let status = $(element).html();
+        switch (status) {
+            case "-1":
+                $(element).html("<i class='bi bi-person-slash text-danger'></i>");
+                break;
+            case "0":
+                $(element).html("<i class='bi bi-person-exclamation text-warning'></i>");
+                break;
+            case "1":
+                $(element).html("<i class='bi bi-person-check text-success'></i>");
+                break;
+            default:
+                $(element).html("-");
+        }
+}
+function setuStatusIcons() {
+    $('[name="uStatus"]').each(function() {
+        setuStatusIcon(this);
+        /*
+        $(this).addClass("fs-4 pt-1 pb-0");
+        let status = $(this).html();
+        switch (status) {
+            case "-1":
+                $(this).html("<i class='bi bi-person-slash text-danger'></i>");
+                break;
+            case "0":
+                $(this).html("<i class='bi bi-person-exclamation text-warning'></i>");
+                break;
+            case "1":
+                $(this).html("<i class='bi bi-person-check text-success'></i>");
+                break;
+            default:
+                $(this).html("-");
+        }
+        */
+    })
+}
+
 $(document).ready(function() {
     $("#captchaImg").click(function(){
         d = new Date();
@@ -116,23 +156,7 @@ $(document).ready(function() {
         $(this).html(str)
     })
     // format a status into a reffered icon in tds or other components with the same name 'uStatus'
-    $('[name="uStatus"]').each(function() {
-        $(this).addClass("fs-4 pt-1 pb-0");
-        let status = $(this).html();
-        switch (status) {
-            case "-1":
-                $(this).html("<i class='bi bi-person-slash text-danger'></i>");
-                break;
-            case "0":
-                $(this).html("<i class='bi bi-person-exclamation text-warning'></i>");
-                break;
-            case "1":
-                $(this).html("<i class='bi bi-person-check text-success'></i>");
-                break;
-            default:
-                $(this).html("-");
-        }
-    })
+    setuStatusIcons();
     // format a status into a reffered icon in tds or other components with the same name 'sStatus'
     $('[name="sStatus"]').each(function() {
         $(this).addClass("fs-6 pt-1 pb-0");
