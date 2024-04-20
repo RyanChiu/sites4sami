@@ -89,8 +89,19 @@ router.post('/', async (req, res) => {
             "rst": 0
           })
         }
-      } else if (req.body.submitType == "ajax_add") {
-
+      } else if (req.body.submitType == "ajax_hide") {
+        sql = "update user set status = ? where id = ?";
+        rst = await tricks.queryData(sql, [req.body.hidden ? -1 : 1, req.body.officeid]);
+        res.set('Content-Type', 'text/html');
+        if (rst) {
+          res.send({
+            "rst": 1
+          })
+        } else {
+          res.send({
+            "rst": 0
+          })
+        }
       }
       console.log(rst); //debug
       var data = await tricks.queryOffices(req.session.role, req.session.userid);

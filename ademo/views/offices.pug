@@ -195,13 +195,45 @@ block content
         td(name="uTimeStr")= row['registered']
         td
           a(href="agents?office=" + row['username'])= row['agents']
-        td(id="tdStatus_"+row['id'] name="uStatus")= row['status']
+        td(id="tdStatus_"+row['id'] name="uStatus" data-status=row['status'])= row['status']
         td
           - //a(class="pe-1" href="offices_dwit?op=edit&id=" + row['id'])
           - // i(class="bi bi-pencil-square text-primary")
           a(class="pe-1" href="#" + 'chkID_' + row['id'] onClick='$("#' + ("btnEdit_"+row['id']) + '").click();')
             i(class="bi bi-pencil-square text-primary")
-  
+
+          script.
+            function hideOffi(id, hidden) {
+              $.ajax({
+                url: "offices_dwit",
+                type: "post",
+                data: {submitType: "ajax_hide", officeid: id, hidden: hidden},
+                dataType: "json",
+                success: function(data) {
+                  console.log(`[debug from office.pug:(hidden)]${hidden}`);
+                  if (data.rst == 1) {
+                    $("#tdStatus_" + id).data("status", hidden ? -1 : 1);
+                    $("#tdStatus_" + id).html(hidden ? -1 : 1);
+                    $("#chkStatus_" + id).val(hidden ? -1 : 1);
+                    $("#chkStatus_" + id).prop("checked", !hidden);
+                    $("#lnkHide_" + id).html(hidden ? "<i class='bi bi-eye-slash fs-5 text-secondary'></i>" : "<i class='bi bi-eye fs-5 text-primary'></i>");
+                    setuStatusIcon("#tdStatus_" + id);
+                  } else {
+                  }
+                }
+              })
+            }
+          a(
+            class="pe-1" 
+            id="lnkHide_"+row['id']
+            href="#" + 'chkID_' + row['id'] 
+            onClick="hideOffi(" + row['id'] + ", $('#tdStatus_' + " + row['id'] + ").data('status') != -1)"
+          )
+            if row['status'] == 1
+              i(class="bi bi-eye fs-5 text-primary")
+            else 
+              i(class="bi bi-eye-slash fs-5 text-secondary")
+
   script.
     $("form[name='formOfficeEdit'").each(function() {
       let id = $(this).data("id");
