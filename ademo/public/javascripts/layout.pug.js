@@ -3,13 +3,13 @@ function setuStatusIcon(element) {
         let status = $(element).html();
         switch (status) {
             case "-1":
-                $(element).html("<i class='bi bi-person-slash text-danger'></i>");
+                $(element).html("<i class='bi bi-person-slash fs-5 text-danger'>(hidden)</i>");
                 break;
             case "0":
-                $(element).html("<i class='bi bi-person-exclamation text-warning'></i>");
+                $(element).html("<i class='bi bi-person-exclamation fs-5 text-warning'>(deactivated)</i>");
                 break;
             case "1":
-                $(element).html("<i class='bi bi-person-check text-success'></i>");
+                $(element).html("<i class='bi bi-person-check fs-5' style='color:#A8D61B'>(activated)</i>");
                 break;
             default:
                 $(element).html("-");
