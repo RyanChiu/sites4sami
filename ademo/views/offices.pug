@@ -295,6 +295,7 @@ block content
                 $("#tdUsername_" + id).html(username);
                 $("#tdPassword_" + id).html(password);
                 $("#tdStatus_" + id).html(status);
+                $("#lnkHide_" + id).html(status == 1 ? "<i class='bi bi-eye fs-5 text-primary'></i>" : "<i class='bi bi-eye-slash fs-5 text-secondary'></i>");
                 setuStatusIcon("#tdStatus_" + id);
                 //console.log(`[debug from office.pug:script:ajax:(1)]${JSON.stringify(data)}`);
                 $("#btnEnd_"+id).click();
