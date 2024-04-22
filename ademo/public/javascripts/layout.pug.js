@@ -191,15 +191,3 @@ $(document).ready(function() {
         $(this).addClass("table-primary");
     })
 });
-
-function __zShowClock() {
-    var now = new Date();
-    now.setHours(now.getHours() - 4);
-    var nowStr = now.toUTCString();
-    nowStr = nowStr.replace("GMT", "EDT"); //for firefox browser
-    nowStr = nowStr.replace("UTC", "EDT"); //for IE browser
-    nowStr = '<i class="bi bi-clock-fill fs-3 text-light me-1"></i>' + nowStr;
-    jQuery("#lblLiveClock").html(nowStr);
-    setTimeout("__zShowClock()", 1000);
-}
-__zShowClock();
