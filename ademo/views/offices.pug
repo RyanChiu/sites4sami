@@ -40,7 +40,7 @@ block content
           class="btn btn-outline-info p-0"
           href="offices_dwit"
         )
-          i(class="bi bi-person-add fs-4 p-1")
+          i(class="bi bi-person-add fs-5 p-1")
           label(class="ps-0 pt-0 pb-0 pe-2") Add
 
   table(style='width:100%', border='1')
@@ -194,7 +194,7 @@ block content
         td(name="uTimeStr")= row['lastlogintime']
         td(name="uTimeStr")= row['registered']
         td
-          a(href="agents?office=" + row['username'])= row['agents']
+          a(class="text-info" href="agents?office=" + row['username'])= row['agents']
         td(id="tdStatus_"+row['id'] name="uStatus" data-status=row['status'])= row['status']
         td
           - //a(class="pe-1" href="offices_dwit?op=edit&id=" + row['id'])
