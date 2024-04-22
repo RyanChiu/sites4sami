@@ -227,7 +227,7 @@ block content
             class="pe-1" 
             id="lnkHide_"+row['id']
             href="#" + 'chkID_' + row['id'] 
-            onClick="hideOffi(" + row['id'] + ", $('#tdStatus_' + " + row['id'] + ").data('status') != -1)"
+            onClick="hideOffi(" + row['id'] + ", parseInt($('#tdStatus_' + " + row['id'] + ").data('status')) == 1)"
           )
             if row['status'] == 1
               i(class="bi bi-eye fs-5 text-info")

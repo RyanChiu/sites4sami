@@ -90,8 +90,12 @@ router.post('/', async (req, res) => {
           })
         }
       } else if (req.body.submitType == "ajax_hide") {
+        var st;
+        if (req.body.hidden.toString() === "true") st = -1;
+        else st = 1;
         sql = "update user set status = ? where id = ?";
-        rst = await tricks.queryData(sql, [req.body.hidden ? -1 : 1, req.body.officeid]);
+        rst = await tricks.queryData(sql, [st, req.body.officeid]);
+        console.log(`[debug from offices_dwit(ajax_hid):]with status is:${st}("hidden":${req.body.hidden})`);
         res.set('Content-Type', 'text/html');
         if (rst) {
           res.send({
