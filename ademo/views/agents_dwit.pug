@@ -120,7 +120,7 @@ block content
                     div(class="row")
                         each site in sites 
                             - var siteChecked = true 
-                            if data !== "" && typeof(data[0]['sites']) !== undefined
+                            if data !== "" && typeof(data[0]['sites']) !== undefined && data[0]['sites'] !== undefined && data[0]['sites'] !== null
                                 - siteChecked = (data[0]['sites'].indexOf(site.id) !== -1)
                             div(class="col-4 text-light ms-2 form-check form-switch")
                                 input(class="form-check-input" type="checkbox" role="switch" 

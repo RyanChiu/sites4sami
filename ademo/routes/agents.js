@@ -16,6 +16,7 @@ router.get('/', async function(req, res, next) {
     if (JSON.stringify(params) == '{}' || !params.office || isNaN(params.office)) {
       data = await tricks.queryAgents(req.session.role, req.session.userid); //queryData("select * from view_agent");
       offices = await tricks.queryOffices(req.session.role, req.session.userid);
+      sites = await tricks.querySites();
       if (JSON.stringify(params) !== '{}' && (!params.office || isNaN(params.office))) {
         var data0 = [];
         var offices0 = [];
@@ -28,12 +29,14 @@ router.get('/', async function(req, res, next) {
         data = data0;
         offices = offices0;
       }
-      console.log("[debug 202403091456]:"); console.log(offices0); console.log(data0); //debug
+      //console.log("[debug 202403091456]:"); console.log(offices0); console.log(data0); //debug
       res.render('agents', { 
         title: title,
         navs: req.session.navs,
         user: req.session.username,
+        role: req.session.role,
         offices: offices,
+        sites: sites,
         data: data
       });
     } else {

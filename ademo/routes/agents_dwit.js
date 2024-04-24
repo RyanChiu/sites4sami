@@ -116,7 +116,7 @@ router.post('/', async (req, res) => {
     var title = "Agents";
     var params = [];
     let iptSites = req.body.iptSites;
-    console.log(`[debug from agents_dwit(update):]${JSON.stringify(req.body)}<--------->${iptSites}`);
+    console.log(`[debug from agents_dwit(update):]${JSON.stringify(req.body)}`);
     req.body.iptSites = [];
     if (iptSites != undefined) {
       for (let iptSite of iptSites) {
@@ -161,8 +161,41 @@ router.post('/', async (req, res) => {
         parseInt(req.body.iptId)
       ];
       rst = await tricks.queryData(sql, params);
+    } else if (req.body.submitType == "ajax_edit_") {
+      let ags = await tricks.queryAgents(req.session.role, req.session.userid, " id = " + req.body.iptId);
+      res.set('Content-Type', 'text/html');
+      if (ags) {
+        res.send({
+          "rst": 1,
+          "ags": ags[0]
+        })
+      } else {
+        res.send({
+          "rst": 0
+        })
+      }
+    } else if (req.body.submitType == "ajax_edit") {
+      sql = "update user set officeid = ?, 1stname = ?, lstname = ?, username = ?, "
+        + "password = ?, pwd_crypted = ?, note = ?, status = ?, sites = JSON_ARRAY(" + req.body.selSites + ") where id = ?";
+      params = [
+        parseInt(req.body.selOffice), req.body.ipt1stName, req.body.iptLstName, 
+        req.body.iptUsername, req.body.iptPassword, tricks.cryptIt(req.body.iptPassword),
+        req.body.txtNote, parseInt(req.body.chkStatus) == 1 ? 1 : 0,
+        parseInt(req.body.iptId)
+      ];
+      rst = await tricks.queryData(sql, params);
+      res.set('Content-Type', 'text/html');
+      if (rst) {
+        res.send({
+          "rst": 1
+        })
+      } else {
+        res.send({
+          "rst": 0
+        })
+      }
     }
-    console.log("[debug for agents_dwit db op] rst/sql:"); console.log(rst); console.log(sql); console.log(params); //debug
+    console.log("[debug for agents_dwit db op] rst/body:"); console.log(rst); console.log(req.body); //debug
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var data = await tricks.queryAgents(req.session.role, req.session.userid);
     res.render('agents', { 

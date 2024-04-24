@@ -1,6 +1,20 @@
 extends layout
 
 block content
+  button(id="btnStartLoading" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#spinnerModal") loading
+  div(class="modal" id="spinnerModal" tabindex="-1" aria-labelledby="spinnerModalLabel" aria-hidden="true")
+    div(class="modal-dialog modal-dialog-centered")
+        div(class="modal-content text-bg-dark")
+            div(class="modal-header d-none")
+                
+            div(class="modal-body")
+                button(class="btn p-0 w-100" type="button" id="btnLoading" disabled)
+                    span(class="spinner-border spinner-border-sm" aria-hidden="true")
+                    span(class="pe-1" role="status") Loading...
+                
+            div(class="modal-footer d-none")
+                button(id="btnEndLoading" class="btn btn-primary" data-bs-dismiss="modal") Got it
+
   form(id="formSearchAgent" action="agents" method="post")
     div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
       div(class="row p-2")
@@ -97,6 +111,7 @@ block content
         - //th Last Name 
         th Password 
         th Office 
+        th Usable Sites
         th Registered 
         th Last Logged in 
         th freq
@@ -106,27 +121,246 @@ block content
       tbody
         each row in data 
           - i++
-          - var iptID = "<input type='checkbox' class='form-check-input me-1' value='" + row['id'] + "' id='chkID" + row['id'] + "'/>"
-          - iptID += "<label class='form-check-label' for='chkID" + row['id'] + "'>" + i + "</label>"
+          - // var iptID = "<input type='checkbox' class='form-check-input me-1' value='" + row['id'] + "' id='chkID" + row['id'] + "'/>"
+          - // iptID += "<label class='form-check-label' for='chkID" + row['id'] + "'>" + i + "</label>"
           tr
-            td !{iptID}
-            td= row['username']
+            - var checkedSitesNum = 0
+            td 
+              input(type='checkbox' class='form-check-input me-1' value=row['id'] id='chkID_' + row['id'])
+              label(class='form-check-label' for='chkID_' + row['id'])= i
+              each site in sites 
+                - var siteChecked = true 
+                if data !== "" && typeof(row['sites']) !== undefined && row['sites'] !== null
+                  - siteChecked = (row['sites'].indexOf(site.id) !== -1)
+                - checkedSitesNum += (site.status == 1 ? siteChecked : false) ? 1 : 0
+            td(id="tdUsername_"+row['id'])= row['username']
             - //td= row['1stname']
             - //td= row['lstname']
-            td= row['password']
-            td= row['office']
+            td(id="tdPassword_"+row['id'])= row['password']
+            td(id="tdOffice_"+row['id'])= row['office']
+            td(id="tdUsableSites_"+row['id'] data-num=checkedSitesNum)= checkedSitesNum
             td(name="uTimeStr")= row['registered']
             td(name="uTimeStr")= row['lastlogintime']
             td= row['logintimes']
-            td(name="uStatus")= row['status']
+            td(id="tdStatus_"+row['id'] name="uStatus")= row['status']
             td
-              a(class="pe-1" href="agents_dwit?op=edit&id=" + row['id'])
+              - // a(class="pe-1" href="agents_dwit?op=edit&id=" + row['id'])
+              - //  i(class="bi bi-pencil-square text-info")
+              a(class="pe-1" href="#" + 'chkID_' + row['id'] onClick='getAgent(' + row['id'] + ');$("#btnEdit").click();')
                 i(class="bi bi-pencil-square text-info")
               a(class="pe-1" href="agents_dwit?op=approve&id=" + row['id'])
                 i(class="bi bi-check2-square text-info")
               a(class="pe-2" href="agents_dwit?op=hide&id=" + row['id'])
                 i(class="bi bi-eye-slash text-info")
-              a(class="pe-1" href="agents_dwit?op=suspend&id=" + row['id'])
-                i(class="bi bi-ban text-danger")
+              - // a(class="pe-1" href="agents_dwit?op=suspend&id=" + row['id'])
+              - //  i(class="bi bi-ban text-danger")
   
+    button(id="btnEdit" class="btn btn-info d-none" data-bs-toggle="modal" data-bs-target="#editModal") edit
+    div(class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true")
+      div(class="modal-dialog modal-dialog-centered modal-lg")
+          div(class="modal-content text-bg-dark")
+            div(class="modal-header")
+              h5 Agent
+            div(class="modal-body")
+              form(id="formAgentEdit" name="formAgentEdit" action="agents_dwit" method="post")
+                div(class="container w-100")
+                  div(class="row m-2")
+                    div(class="col-3")
+                      label(class="text-light" for="selOffi") Office
+                      label(class="text-danger ms-2") *
+                    div(class="col-9")
+                      select(
+                        class="form-select w-75"
+                        name="selOffi"
+                        id="selOffi"
+                        required
+                      )
+                        each offi in offices
+                          option(value=offi["id"])= offi["username"]
+        
+                  div(class="row m-2")
+                    div(class="col-3")
+                      label(class="text-light" for="ipt1stName") First Name
+                      label(class="text-danger ms-2") *
+                    div(class="col-9")
+                      input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="ipt1stName"
+                        name="ipt1stName"
+                        value=""
+                        required
+                      )
+                  div(class="row m-2")
+                    div(class="col-3")
+                      label(class="text-light" for="iptLstName") Last Name
+                      label(class="text-danger ms-2") *
+                    div(class="col-9")
+                      input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptLstName"
+                        name="iptLstName"
+                        value=""
+                        required
+                      )
+                  div(class="row m-2")
+                    div(class="col-3")
+                      label(class="text-light" for="iptUsername") Username
+                      label(class="text-danger ms-2") *
+                    div(class="col-9")
+                      input(
+                        type="hidden" 
+                        name="iptId" 
+                        id="iptId"
+                        value=""
+                      )
+                      input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="text"
+                        id="iptUsername"
+                        name="iptUsername"
+                        value=""
+                        required
+                      )
+                  div(class="row m-2")
+                    div(class="col-3")
+                      label(class="text-light" for="iptPassword") Password
+                      label(class="text-danger ms-2") *
+                    div(class="col-9")
+                      input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="password"
+                        id="iptPassword"
+                        name="iptPassword"
+                        value=""
+                        required
+                      )
+                  div(class="row m-2")
+                    div(class="col-3")
+                      label(class="text-light" for="iptPassword2") Confirm Password
+                      label(class="text-danger ms-2") *
+                    div(class="col-9")
+                      input(
+                        class="form-input w-75 rounded-2"
+                        style="height:39px;"
+                        type="password"
+                        id="iptPassword2"
+                        name="iptPassword2"
+                        value=""
+                        required
+                      )
+                  div(class="row m-2")
+                    div(class="col-3")
+                      label(class="text-light" for="txtNote") Must Read (optional)
+                    div(class="col-9")
+                      textarea(
+                        class="form-control w-75 mb-1 rounded-2"
+                        rows="5"
+                        id="txtNote"
+                        name="txtNote"
+                      )= ""
+                  div(class="row m-2" + (role == 0 ? "" : " d-none" ))
+                    div(class="col-3")
+                      label(class="text-light" for="iptSites") Sites
+                      label(class="text-danger ms-2")
+                    div(class="col-9")
+                      div(class="row")
+                        each site in sites 
+                          div(class="col-4 text-light ms-2 form-check form-switch" id="divSite_"+site.id)
+                            input(class="form-check-input" type="checkbox" role="switch" 
+                              value=site.id 
+                              id="iptSite_" + site.id
+                              name="iptSite"
+                              checked=false
+                              disabled=(site.status == 1 ? false : true)
+                            )
+                            label(class="form-check-label" for="iptSite_" + site.id)= "[" + site.abbr + "] " + site.name
+                  div(class="row m-2")
+                    div(class="col-3")
+                      div(class="form-check")
+                        input(
+                          checked=false
+                          class="form-check-input"
+                          value=0
+                          type="checkbox"
+                          id="chkStatus"
+                          name="chkStatus"
+                          onclick="$('#chkStatus').val($('#chkStatus').is(':checked') ? 1 : 0));"
+                        )
+                        label(class="text-light" for="chkStatus" class="form-check-label") Activated
+                    div(class="col-9")
+                      input(
+                        class="w-25 btn btn-primary mb-3"
+                        type="submit"
+                        value="Edit"
+                      )
+                      a(
+                        role="button"
+                        class="btn btn-secondary mb-3 ms-2"
+                        onClick="$('#btnEnd').click();"
+                      ) Cancel
+            div(class="modal-footer d-none")
+              button(id="btnEnd" class="btn btn-info" data-bs-dismiss="modal") Got it
+  
+  script.
+    function getAgent(id) {
+        $.ajax({
+            url: "agents_dwit",
+            type: "post",
+            data: {
+                submitType: "ajax_edit_",
+                iptId: id,
+            },
+            dataType: "json",
+            success: function(data) {
+                if (data.rst == 1) {
+                    console.log(`[debug from agent.pug.js:script:ajax:(1)]${JSON.stringify(data)}`);
+                    $('#iptId').val(data.ags.id);
+                    $('#selOffi').val(data.ags.officeid);
+                    $("#ipt1stName").val(data.ags["1stname"]);
+                    $("#iptLstName").val(data.ags.lstname);
+                    $("#iptUsername").val(data.ags.username);
+                    $("#iptPassword").val(data.ags.password);
+                    $("#iptPassword2").val(data.ags.password);
+                    $("#chkStatus").val(data.ags.status);
+                    $("#chkStatus").prop("checked", data.ags.status == 1 ? true : false);
+                    $("#txtNote").val(data.ags.note);
+                    $('input[name="iptSite"]').each(function() {
+                      if (data.ags.sites.indexOf(parseInt($(this).val())) !== -1) {
+                        //$("#divSite_" + $(this).val()).removeClass("d-none");
+                        //$(this).attr("disabled", false);
+                        $(this).prop("checked", $(this).is(':disabled') ? false : true);
+                      } else {
+                        //$(this).attr("disabled", true);
+                        $(this).prop("checked", false);
+                        //$("#divSite_" + $(this).val()).addClass("d-none");
+                      }
+                    })
+                    /*
+                    $('#selOffi_' + id).val(officeid);
+                    $("#ipt1stName_"+id).val(fstName);
+                    $("#iptLstName_"+id).val(lstName);
+                    $("#iptUsername_" + id).val(username);
+                    $("#iptPassword_" + id).val(password);
+                    $("#chkStatus_" + id).val(status);
+                    $("#chkStatus_" + id).prop("checked", status == 1 ? true : false);
+                    $("#txtNote_" + id).val(note);
+                    $("#tdOffice_"+id).html(officename);
+                    $("#tdUsableSites_"+id).html(selsites.length);
+                    $("#tdUsername_" + id).html(username);
+                    $("#tdPassword_" + id).html(password);
+                    $("#tdStatus_" + id).html(status);
+                    setuStatusIcon("#tdStatus_" + id);
+                    $("#btnEnd_"+id).click();*/
+                } else {
+                    console.log(`[debug from agent.pug.js:script:ajax:(0)]${JSON.stringify(data)}`);
+                }
+            }
+        })
+    }
   script(src="javascripts/agents.pug.js")
