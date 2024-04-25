@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  button(id="btnStartLoading" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#spinnerModal") loading
+  button(id="btnStartLoading" class="btn btn-info d-none" data-bs-toggle="modal" data-bs-target="#spinnerModal") loading
   div(class="modal" id="spinnerModal" tabindex="-1" aria-labelledby="spinnerModalLabel" aria-hidden="true")
     div(class="modal-dialog modal-dialog-centered")
       div(class="modal-content text-bg-dark")
@@ -11,15 +11,15 @@ block content
             span(class="spinner-border spinner-border-sm" aria-hidden="true")
             span(class="pe-1" role="status") Uploading...    
         div(class="modal-footer d-none")
-          button(id="btnEndLoading" class="btn btn-primary" data-bs-dismiss="modal") GotIt!
-  button(id="btnShowIt" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#showItModal") loading
+          button(id="btnEndLoading" class="btn btn-info" data-bs-dismiss="modal") GotIt!
+  button(id="btnShowIt" class="btn btn-info d-none" data-bs-toggle="modal" data-bs-target="#showItModal") loading
   div(class="modal" id="showItModal" tabindex="-1" aria-labelledby="showItModalLabel" aria-hidden="true")
     div(class="modal-dialog modal-dialog-centered")
       div(class="modal-content text-bg-dark" style="width:420px;")
         div(class="modal-header d-none")
         div(class="modal-body text-center" id="divShowIt")  
         div(class="modal-footer d-block")
-          button(id="btnEndIt" class="btn btn-primary" data-bs-dismiss="modal") OK
+          button(id="btnEndIt" class="btn btn-info" data-bs-dismiss="modal") OK
 
   - var soe = (data == "" ? 0 : 1)
   case soe
@@ -61,7 +61,7 @@ block content
           div(class="row")
             div(class="col-2")
               input(
-                class="btn btn-primary mb-1 w-100"
+                class="btn btn-info mb-1 w-100"
                 type="submit"
                 value="Update"
               )

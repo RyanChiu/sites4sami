@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  button(id="btnStartLoading" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#spinnerModal") loading
+  button(id="btnStartLoading" class="btn btn-info d-none" data-bs-toggle="modal" data-bs-target="#spinnerModal") loading
   div(class="modal" id="spinnerModal" tabindex="-1" aria-labelledby="spinnerModalLabel" aria-hidden="true")
     div(class="modal-dialog modal-dialog-centered")
         div(class="modal-content text-bg-dark")
@@ -13,10 +13,10 @@ block content
                     span(class="pe-1" role="status") Loading...
                 
             div(class="modal-footer d-none")
-                button(id="btnEndLoading" class="btn btn-primary" data-bs-dismiss="modal") Got it
+                button(id="btnEndLoading" class="btn btn-info" data-bs-dismiss="modal") Got it
 
   form(id="formSearchAgent" action="agents" method="post")
-    div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
+    div(class="container w-100 mb-2 bg-info-dark border border-secondary-subtle rounded-3")
       div(class="row p-2")
         div(class="col")
           i(class="bi bi-search fs-6 p-1 text-light")
@@ -295,7 +295,7 @@ block content
                         label(class="text-light" for="chkStatus" class="form-check-label") Activated
                     div(class="col-9")
                       input(
-                        class="w-25 btn btn-primary mb-3"
+                        class="w-25 btn btn-info mb-3"
                         type="submit"
                         value="Edit"
                       )
@@ -319,7 +319,7 @@ block content
             dataType: "json",
             success: function(data) {
                 if (data.rst == 1) {
-                    console.log(`[debug from agent.pug.js:script:ajax:(1)]${JSON.stringify(data)}`);
+                    //console.log(`[debug from agent.pug.js:script:ajax:(1)]${JSON.stringify(data)}`);
                     $('#iptId').val(data.ags.id);
                     $('#selOffi').val(data.ags.officeid);
                     $("#ipt1stName").val(data.ags["1stname"]);

@@ -7,7 +7,7 @@ block content
         div(class="col-2")
           a(
             role="button"
-            class="btn btn-outline-primary p-0"
+            class="btn btn-outline-info p-0"
             href="sites_dwit"
           )
             i(class="bi bi-bookmark-plus fs-5 p-1")
@@ -33,7 +33,7 @@ block content
           td= row['type']
           td= row['abbr']
           td 
-            a(href="#foo" data-bs-toggle="modal" data-bs-target="#linksModal" + row['id'])= row['lksamount']
+            a(href="#foo" class="text-info" data-bs-toggle="modal" data-bs-target="#linksModal" + row['id'])= row['lksamount']
             div(class="modal fade" id="linksModal" + row['id'] tabindex="-1" aria-labelledby="linksModalLabel" + row['id'] aria-hidden="true")
               div(class="modal-dialog modal-dialog-centered modal-dialog-scrollable")
                 div(class="modal-content text-bg-dark")
@@ -53,7 +53,7 @@ block content
                       -   var append = "_" + row['abbr'] + "_" + _link.abbr;
                           label(for class="mt-0 mb-1")= "[" + _link.name + "] Abbr:" + _link.abbr
                           a(class="pe-1 float-end" href="#" onClick='$("#divLink' + append +'").removeClass("d-none");')
-                            i(class="bi bi-pencil-square text-primary")
+                            i(class="bi bi-pencil-square text-info")
                           div(class="row w-100 border border-secondary-subtle rounded-3 d-none" id="divLink" + append)
                             div(class="col-2")
                               label(for) Name:
@@ -87,12 +87,12 @@ block content
                       - }
   
                   div(class="modal-footer")
-                    button(type="button" class="btn btn-primary m-0 pt-0 pb-0" data-bs-dismiss="modal") Got it
+                    button(type="button" class="btn btn-info m-0 pt-0 pb-0" data-bs-dismiss="modal") Got it
           td(name="sStatus")= row['status']
           case role 
             when 0
               td
                 a(class="pe-1" href="sites_dwit?op=edit&id=" + row['id'])
-                    i(class="bi bi-pencil-square text-primary")
+                    i(class="bi bi-pencil-square text-info")
 
     

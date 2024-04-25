@@ -159,7 +159,7 @@ $(document).ready(function() {
     setuStatusIcons();
     // format a status into a reffered icon in tds or other components with the same name 'sStatus'
     $('[name="sStatus"]').each(function() {
-        $(this).addClass("fs-6 pt-1 pb-0");
+        $(this).addClass("fs-5 pt-1 pb-0");
         let status = $(this).html();
         switch (status) {
             case "0":

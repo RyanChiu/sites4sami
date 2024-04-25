@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  button(id="btnStartLoading" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#spinnerModal") loading
+  button(id="btnStartLoading" class="btn btn-info d-none" data-bs-toggle="modal" data-bs-target="#spinnerModal") loading
   div(class="modal" id="spinnerModal" tabindex="-1" aria-labelledby="spinnerModalLabel" aria-hidden="true")
     div(class="modal-dialog modal-dialog-centered")
         div(class="modal-content text-bg-dark")
@@ -13,10 +13,10 @@ block content
                     span(class="pe-1" role="status") Loading...
                 
             div(class="modal-footer d-none")
-                button(id="btnEndLoading" class="btn btn-primary" data-bs-dismiss="modal") Got it
+                button(id="btnEndLoading" class="btn btn-info" data-bs-dismiss="modal") Got it
 
   form(id="formLinks" action="links" method="post" onSubmit="return false;")
-    div(class="container w-100 mb-2 bg-primary-dark border border-secondary-subtle rounded-3")
+    div(class="container w-100 mb-2 bg-info-dark border border-secondary-subtle rounded-3")
         div(class="row")
             div(class="col")
                 i(class="bi bi-link fs-3 text-light float-start")
@@ -106,7 +106,7 @@ block content
                                     option(value=site["id"])= site["name"]
         div(class="row p-1")
             div(class="col-3")
-                input(class="btn btn-primary w-75" type="submit" id="btnLinks" value="Get Link(s)")
+                input(class="btn btn-info w-75" type="submit" id="btnLinks" value="Get Link(s)")
 
         div(class="row p-1 mt-2 mb-2 text-light")
             hr
