@@ -169,7 +169,7 @@ $(document).ready(function() {
                 $(this).html("<i class='bi bi-bookmark-check text-success'></i>");
                 break;
             default:
-                $(this).html("-");
+                $(this).html("<i class='bi bi-bookmark-dash text-danger'></i>");
         }
     })
 

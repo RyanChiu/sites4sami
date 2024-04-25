@@ -46,14 +46,7 @@ $("#formLinks").on("submit", function() {
                             + link.name + "(" + link.abbr + "): " 
                             + window.location.href.replace("links", "nav2?to=") + link.param + "<br/>"
                     );
-                    /*
-                    $('#divLinks').html(
-                        $('#divLinks').html() + link.url + "<a href='" + window.location.href + "/nav2?to=" + link.params + "'>" + index + "</a><br/>"
-                    )
-                    */
-                    //console.log("[debug from links page of submit ajax (links):]"); console.log(link); //debug
                 })
-                //console.log("[debug from links page of submit ajax (rst):]"); console.log(rst); //debug
             }
         })
 })
