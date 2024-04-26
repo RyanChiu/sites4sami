@@ -27,7 +27,7 @@ router.get('/', async function(req, res, next) {
     var agents = await tricks.queryAgents(req.session.role, req.session.userid, " username = '" + tos[2] + "'");
     console.log(`[debug from page nav(1,agents):${JSON.stringify(agents)}`);
     if (agents != null && agents.length != 0) {
-        let siteids = agents[0]["sites"].replace("[", "").replace("]", "").split(",");
+        let siteids = agents[0]["sites"].toString().replace("[", "").replace("]", "").split(",");
         console.log(`[debug from nav for siteids(1.0):]${siteids}`);
         if (siteids.indexOf(tos[0]) == -1) {
             // could record a hitlog here with this baned site.
