@@ -47,39 +47,46 @@ block content
                       - j++
                       - var _str = "[err]"
                       - var _link = null
-                      - var suffix = null
                       - try {
                       -   _link = JSON.parse(JSON.stringify(link))
                       -   _str += _link.url
-                      -   var append = "_" + row['abbr'] + "_" + _link.abbr; suffix = append;
-                          label(for class="mt-0 mb-1")= "[" + _link.name + "] Abbr:" + _link.abbr + ", Payout:" + _link.payout + ", Earning:" + _link.earning
-                          a(class="pe-1 float-end" href="#foo" onClick='$("#divLink' + append +'").removeClass("d-none");')
-                            i(class="bi bi-pencil-square text-info")
+                      -   var append = "_" + row['id'] + "_" + _link.abbr;
+                          i(id="iStatus"+append class="me-2 bi " + (_link.status == 1 ? "text-success bi-check-circle" : "text-danger bi-slash-circle"))
+                          label(for class="mt-0 mb-1" id="lblTitle" + append)= "[" + _link.name + "] Abbr:" + _link.abbr + ", Payout:" + _link.payout + ", Earning:" + _link.earning
+                          if role == 0
+                            a(class="pe-1 float-end" href="#foo" onClick='$("#divLink' + append +'").removeClass("d-none");$("#btnSave_' + row['id'] + '").attr("disabled", false);')
+                              i(class="bi bi-pencil-square text-info")
                           div(class="row w-100 border border-secondary-subtle rounded-3 d-none" id="divLink" + append)
                             div(class="col-2")
                               label(for) Name:
                             div(class="col-10")
-                              input(type="text" class="w-100 h-75" id="iptLinkname" + append value=_link.name)
+                              input(type="text" class="w-100 h-75" id="iptLinkname" + append value=_link.name name="iptLinkname_"+row['id'])
                             div(class="col-2")
                               label(for) Abbr:
                             div(class="col-10")
-                              input(type="text" class="w-100 h-75" id="iptLinkabbr" + append value=_link.abbr)
+                              input(type="text" class="w-100 h-75" id="iptLinkabbr" + append value=_link.abbr name="iptLinkabbr_"+row['id'])
                             div(class="col-2")
                               label(for) URL:
                             div(class="col-10")
-                              input(type="text" class="w-100 h-75" id="iptLinkurl" + append value=_link.url)
+                              input(type="text" class="w-100 h-75" id="iptLinkurl" + append value=_link.url name="iptLinkurl_"+row['id'])
                             div(class="col-2")
                               label(for) Payout:
                             div(class="col-2")
-                              input(type="text" class="w-100 h-75"  id="iptLinkpayout" + append value=_link.payout)
+                              input(type="text" class="w-100 h-75"  id="iptLinkpayout" + append value=_link.payout name="iptLinkpayout_"+row['id'])
                             div(class="col-2")
                               label(for) Earning:
                             div(class="col-2")
-                              input(type="text" class="w-100 h-75" id="iptLinkearning" + append value=_link.earning)
+                              input(type="text" class="w-100 h-75" id="iptLinkearning" + append value=_link.earning name="iptLinkearning_"+row['id'])
                             div(class="col-2")
                               label(for) Activated:
                             div(class="col-2")
-                              input(type="checkbox" class="form-check-input" value=_link.status checked=(_link.status == 1 ? true : false))
+                              input(
+                                type="checkbox" class="form-check-input" 
+                                value=_link.status checked=(_link.status == 1 ? true : false)
+                                id="iptLinkstatus" + append
+                                name="iptLinkstatus_"+row['id']
+                                onClick="$('#iptLinkstatus" + append + "').val($('#iptLinkstatus" + append + "').is(':checked') ? 1 : 0)"
+                              )
                           hr
 
                       - } catch (e) {
@@ -87,7 +94,78 @@ block content
                       - }
   
                   div(class="modal-footer")
-                    button(type="button" class="btn btn-info m-0 pt-0 pb-0" data-bs-dismiss="modal") Got it
+                    if role == 0
+                      b(class="text-danger fw-bold fs-6") MAKE SURE, LIKE 100%, THAT YOU KNOW WHAT YOU'RE GOING TO SAVE, PLEASE! 
+                      button(
+                        id="btnSave_" + row['id']
+                        type="button" 
+                        class="btn btn-info mt-0 mb-0 mb-0 me-2 pt-0 pb-0 ps-5 pe-5" 
+                        data-bs-dismiss="modal" 
+                        onClick="saveLinks('" + row['id'] + "');"
+                        disabled=true
+                      ) Save
+                      button(type="button" class="btn btn-secondary m-0 pt-0 pb-0" data-bs-dismiss="modal") Cancel
+            if role == 0
+              script.
+                function saveLinks(siteid) {
+                  var names = [], abbrs = [], urls = [], payouts = [], earnings = [], statuses = [];
+                  $("input[name='iptLinkname_" + siteid + "']").each(function() {
+                    names.push($(this).val());
+                  })
+                  $("input[name='iptLinkabbr_" + siteid + "']").each(function() {
+                    abbrs.push($(this).val());
+                  })
+                  $("input[name='iptLinkurl_" + siteid + "']").each(function() {
+                    urls.push($(this).val());
+                  })
+                  $("input[name='iptLinkpayout_" + siteid + "']").each(function() {
+                    payouts.push($(this).val());
+                  })
+                  $("input[name='iptLinkearning_" + siteid + "']").each(function() {
+                    earnings.push($(this).val());
+                  })
+                  $("input[name='iptLinkstatus_" + siteid + "']").each(function() {
+                    statuses.push($(this).val());
+                  })
+                  //console.log(`[debug from ajax_edit (urls, statuses):]${JSON.stringify(urls)}, ${JSON.stringify(statuses)}`)
+                  $.ajax({
+                    url: "sites_dwit",
+                    type: "post",
+                    data: {
+                      submitType: "ajax_edit",
+                      siteId: siteid,
+                      linkNames: names.join(","),
+                      linkAbbrs: abbrs.join(","),
+                      linkUrls: urls.join(","),
+                      linkPayouts: payouts.join(","),
+                      linkEarnings: earnings.join(","),
+                      linkStatuses: statuses.join(",")
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                      //console.log(`at least it's in!`);
+                      if (data.suc == 1) {
+                        //console.log(`[debug from ajax_edit (success):]${JSON.stringify(data.rst)}`)
+                        for (var i = 0; i < names.length; i++) {
+                          $("#lblTitle_" + siteid + "_" + abbrs[i]).html(
+                            "[" + names[i] + "] Abbr:" + abbrs[i] + ", Payout:" + payouts[i] + ", Earning:" + earnings[i]
+                          );
+                          var iStatus = $("#iStatus_" + siteid + "_" + abbrs[i]);
+                          if (statuses[i] == 1) {
+                            iStatus.removeClass();
+                            iStatus.addClass("me-2 bi bi-check-circle text-success");
+                          } else {
+                            iStatus.removeClass();
+                            iStatus.addClass("me-2 bi bi-slash-circle text-danger");
+                          }
+                        }
+                      } else {
+                        //console.log(`[debug from ajax_edit (failed)]`)
+                      }
+                    }
+                  })
+                }
+
           td(name="sStatus")= row['status']
           case role 
             when 0
