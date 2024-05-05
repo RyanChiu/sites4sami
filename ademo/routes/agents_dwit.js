@@ -194,6 +194,23 @@ router.post('/', async (req, res) => {
           "rst": 0
         })
       }
+    } else if (req.body.submitType == "ajax_hide") {
+      var st;
+      if (req.body.hidden.toString() === "true") st = -1;
+      else st = 1;
+      sql = "update user set status = ? where id = ?";
+      rst = await tricks.queryData(sql, [st, req.body.agentid]);
+      console.log(`[debug from agents_dwit(ajax_hid):]with status is:${st}("hidden":${req.body.hidden})`);
+      res.set('Content-Type', 'text/html');
+      if (rst) {
+        res.send({
+          "rst": 1
+        })
+      } else {
+        res.send({
+          "rst": 0
+        })
+      }
     }
     console.log("[debug for agents_dwit db op] rst/body:"); console.log(rst); console.log(req.body); //debug
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);

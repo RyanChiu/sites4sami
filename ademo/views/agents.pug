@@ -142,18 +142,28 @@ block content
             td(name="uTimeStr")= row['registered']
             td(name="uTimeStr")= row['lastlogintime']
             td= row['logintimes']
-            td(id="tdStatus_"+row['id'] name="uStatus")= row['status']
+            td(id="tdStatus_"+row['id'] name="uStatus" data-status=row['status'])= row['status']
             td
               - // a(class="pe-1" href="agents_dwit?op=edit&id=" + row['id'])
               - //  i(class="bi bi-pencil-square text-info")
-              a(class="pe-1" href="#" + 'chkID_' + row['id'] onClick='getAgent(' + row['id'] + ');$("#btnEdit").click();')
+              a(class="pe-1" href="#foo" onClick='getAgent(' + row['id'] + ');$("#btnEdit").click();')
                 i(class="bi bi-pencil-square text-info")
               a(class="pe-1" href="agents_dwit?op=approve&id=" + row['id'])
                 i(class="bi bi-check2-square text-info")
-              a(class="pe-2" href="agents_dwit?op=hide&id=" + row['id'])
-                i(class="bi bi-eye-slash text-info")
+              - // a(class="pe-2" href="agents_dwit?op=hide&id=" + row['id'])
+              - //  i(class="bi bi-eye-slash text-info")
               - // a(class="pe-1" href="agents_dwit?op=suspend&id=" + row['id'])
               - //  i(class="bi bi-ban text-danger")
+              a(
+                class="pe-1" 
+                id="lnkHide_"+row['id']
+                href="#foo"
+                onClick="hideAgent(" + row['id'] + ", parseInt($('#tdStatus_' + " + row['id'] + ").data('status')) == 1)"
+              )
+                if row['status'] == 1
+                  i(class="bi bi-eye fs-6 text-info")
+                else 
+                  i(class="bi bi-eye-slash fs-6 text-secondary")
   
     button(id="btnEdit" class="btn btn-info d-none" data-bs-toggle="modal" data-bs-target="#editModal") edit
     div(class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true")
@@ -362,5 +372,25 @@ block content
                 }
             }
         })
+    }
+    function hideAgent(id, hidden) {
+      $.ajax({
+        url: "agents_dwit",
+        type: "post",
+        data: {submitType: "ajax_hide", agentid: id, hidden: hidden},
+        dataType: "json",
+        success: function(data) {
+          console.log(`[debug from agents.pug:(hidden)]${hidden}`);
+          if (data.rst == 1) {
+            $("#tdStatus_" + id).data("status", hidden ? -1 : 1);
+            $("#tdStatus_" + id).html(hidden ? -1 : 1);
+            //$("#chkStatus_" + id).val(hidden ? -1 : 1);
+            //$("#chkStatus_" + id).prop("checked", !hidden);
+            $("#lnkHide_" + id).html(hidden ? "<i class='bi bi-eye-slash fs-6 text-secondary'></i>" : "<i class='bi bi-eye fs-6 text-info'></i>");
+            setuStatusIcon("#tdStatus_" + id);
+          } else {
+          }
+        }
+      })
     }
   script(src="javascripts/agents.pug.js")
