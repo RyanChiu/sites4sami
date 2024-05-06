@@ -24,7 +24,7 @@ if (args.length == 2) {
   
     res.on("end", async function () {
       const body = Buffer.concat(chunks);
-      var suc = await j2db.cherry2DB(body, args[0], args[1]);
+      var suc = await j2db.eflow2DB(body, args[0], args[1]);
       if (suc) console.log("suc");
       else console.log("not suc");
       j2db.endPool();

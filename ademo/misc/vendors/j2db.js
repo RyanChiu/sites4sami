@@ -77,8 +77,8 @@ exports.endPool = function() {
     pool.end();
 }
 
-/* for cherry */
-exports.cherry2DB = async function (
+/* for data from api.eflow.team */
+exports.eflow2DB = async function (
     data/*json*/, siteId="", 
     date="2024-03-17"/*only a whole day allowed, such as '2024-02-01'*/) {
     var stats = null;
@@ -90,7 +90,7 @@ exports.cherry2DB = async function (
     }
     if (stats == null) return false;
 
-    /* get links for site cherry */
+    /* get links for site whoes id is siteId */
     var links = await getLinks(siteId);
     //console.log(`abbrs:${JSON.stringify(links)}`);
     var abbrs = [];
