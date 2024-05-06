@@ -12,6 +12,24 @@ $(document)
         //console.log("ajax request ends"); //debug
     })
 
+var datePicker = $('input[name="datePeriod"]').daterangepicker();
+function getTZDate(sDate) {
+    //var str = new dayjs(sDate).tz("America/New_York").format('MM/DD/YYYY');
+    /**
+     * since the datetime in database table stats is already "America/New_York",
+     * so we don't need to convert it specially.
+     */
+    var str = new dayjs(sDate).format('MM/DD/YYYY');
+    return str;
+}
+function drillDown(sDate) {
+    var str = getTZDate(sDate);
+    datePicker.data('daterangepicker').setStartDate(str);
+    datePicker.data('daterangepicker').setEndDate(str);
+    $("#rdioViewByOffice").click();
+    $("#formLoadStats").submit();
+}
+    
 $(document).ready(function() {
     var post_params = JSON.parse($("#iptPost_params").val());
     //console.log(`[debug from stats.pug.js(0):]${JSON.stringify(post_params)}`)
@@ -60,6 +78,12 @@ $(document).ready(function() {
         datePicker.data('daterangepicker').setStartDate(dates[0]);
         datePicker.data('daterangepicker').setEndDate(dates[1]);
     }
+    $('[name="uDateStr"]').each(function() {
+        $(this).html(getTZDate($(this).html()));
+    });
+    $('[name="aDay"]').each(function() {
+        $(this).html(getTZDate($(this).html()));
+    });
 });
 
 $("#formLoadStats").validate({
@@ -95,11 +119,6 @@ $('#selOffice').on("change", function() {
         }
     })
 })
-
-var datePicker = $('input[name="datePeriod"]').daterangepicker({
-    //endDate: moment(),
-    //startDate: moment().subtract(6, 'day')
-});
 
 var selPeriod =$('#selPeriod');
 var now = moment(), yesterday = moment().subtract(1, 'day');

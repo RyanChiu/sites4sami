@@ -195,8 +195,15 @@ block content
           td= i 
           case viewBy
             when 'detail'
-            when 'day'
               td(name="uDateStr")= row['day']
+            when 'day'
+              - // td(name="uDateStr" class="text-info")= row['day']
+              td 
+                a(
+                  name="aDay"
+                  href="#foo" class="text-info"
+                  onClick="drillDown('" + row['day'] + "')"
+                )= row['day']
           case viewBy
             when 'detail'
             when 'agent'

@@ -151,10 +151,6 @@ $(document).ready(function() {
         }
         $(this).html(str)
     })
-    $('[name="uDateStr"]').each(function() {
-        var str = new dayjs($(this).html()).tz("America/New_York").format('MM/DD/YYYY');
-        $(this).html(str)
-    })
     // format a status into a reffered icon in tds or other components with the same name 'uStatus'
     setuStatusIcons();
     // format a status into a reffered icon in tds or other components with the same name 'sStatus'
