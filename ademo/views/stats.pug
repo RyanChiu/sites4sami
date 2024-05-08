@@ -206,12 +206,22 @@ block content
                 )= row['day']
           case viewBy
             when 'detail'
-            when 'agent'
               td= row['agent']
+            when 'agent'
+              td
+                a(
+                  href="#foo" class="text-info"
+                  onClick="drillDownAgent('" + row['agentid'] + "')"
+                )= row['agent']
           case viewBy
             when 'detail'
+              td= row['office']
             when 'office'
-              td= row['office'] 
+              td
+                a(
+                  href="#foo" class="text-info"
+                  onClick="drillDownOffi('" + row['officeid'] + "')"
+                )= row['office']
           case viewBy
             when 'detail'
               td= row['site'] 

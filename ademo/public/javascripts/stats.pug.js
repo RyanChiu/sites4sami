@@ -29,6 +29,16 @@ function drillDown(sDate) {
     $("#rdioViewByOffice").click();
     $("#formLoadStats").submit();
 }
+function drillDownOffi(id) {
+    $("#selOffice").val(id);
+    $("#rdioViewByAgent").click();
+    $("#formLoadStats").submit();
+}
+function drillDownAgent(id) {
+    $("#selAgent").val(id);
+    $("#rdioViewByDetail").click();
+    $("#formLoadStats").submit();
+}
     
 $(document).ready(function() {
     var post_params = JSON.parse($("#iptPost_params").val());
