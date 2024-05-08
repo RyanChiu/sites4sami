@@ -191,7 +191,7 @@ block content
         - tots['uniques'] += parseInt(row['uniques'])
         - tots['sales'] += parseInt(row['sales_type0']) + parseInt(row['sales_type1'])
         - tots['earnings'] += parseFloat(row['sales_type0_earning']) + parseFloat(row['sales_type1_earning'])
-        tr 
+        tr(title=(viewBy != 'detail' ? "Before the drilldown, please make sure don't change any searching conditions." : ""))
           td= i 
           case viewBy
             when 'detail'
