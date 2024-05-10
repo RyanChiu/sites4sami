@@ -1,0 +1,3 @@
+following the instruction on page "https://dev.mysql.com/doc/refman/8.3/en/time-zone-support.html#time-zone-installation", locally using command "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql" to install timezone in myslq-server.
+now we could use convert_tz like this 'select trxtime, convert_tz(trxtime, "Asia/Jerusalem", "America/New_York") from stats limit 3;'.
+for the record, the pulling drivers script from now on, must complete the timze zone convertion into "Ameria/New_York", in order to make all the date/time consistent.
