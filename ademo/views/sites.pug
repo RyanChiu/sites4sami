@@ -52,7 +52,7 @@ block content
                       -   _str += _link.url
                       -   var append = "_" + row['id'] + "_" + _link.abbr;
                           i(id="iStatus"+append class="me-2 bi " + (_link.status == 1 ? "text-success bi-check-circle" : "text-danger bi-slash-circle"))
-                          label(for class="mt-0 mb-1" id="lblTitle" + append)= "[" + _link.name + "] Abbr:" + _link.abbr + ", Payout:" + _link.payout + ", Earning:" + _link.earning
+                          label(for class="mt-0 mb-1" id="lblTitle" + append)= "[" + _link.name + "] Abbr:" + _link.abbr + (role == 0 ? ", Payout:" + _link.payout + ", Earning:" + _link.earning : "")
                           if role == 0
                             a(class="pe-1 float-end" href="#foo" onClick='$("#divLink' + append +'").removeClass("d-none");$("#btnSave_' + row['id'] + '").attr("disabled", false);')
                               i(class="bi bi-pencil-square text-info")
