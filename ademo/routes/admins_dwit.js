@@ -49,7 +49,24 @@ router.post('/', async (req, res) => {
                 parseInt(req.body.iptId)
             ];
             rst = await tricks.queryData(sql, params);
-        }
+        } else if (req.body.submitType == "ajax_hide") {
+            var st;
+            if (req.body.hidden.toString() === "true") st = 2;
+            else st = 1;
+            sql = "update user set status = ? where id = ?";
+            rst = await tricks.queryData(sql, [st, req.body.adminid]);
+            console.log(`[debug from admins_dwit(ajax_hid):]with status is:${st}("hidden":${req.body.hidden})`);
+            res.set('Content-Type', 'text/html');
+            if (rst) {
+              res.send({
+                "rst": 1
+              })
+            } else {
+              res.send({
+                "rst": 2
+              })
+            }
+          }
         var data = await tricks.queryData("select * from user where type = 1");
         console.log("[debug from post in admins_dwit:]"); console.log(req.query); console.log(data); // debug
         res.render('admins', { 
