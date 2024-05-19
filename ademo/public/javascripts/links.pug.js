@@ -1,3 +1,4 @@
+/*
 $(document)
     .ajaxStart(function() {
         $('#btnStartLoading').click();
@@ -11,6 +12,7 @@ $(document)
         //$('#selAgent').removeClass("d-none");
         //console.log("ajax request ends"); //debug
     })
+*/
 
 $("#formLinks").validate({
     errorClass: 'text-danger',

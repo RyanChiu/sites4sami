@@ -1,20 +1,7 @@
 extends layout
 
 block content
-  button(id="btnStartLoading" class="btn btn-info d-none" data-bs-toggle="modal" data-bs-target="#spinnerModal") loading
-  div(class="modal" id="spinnerModal" tabindex="-1" aria-labelledby="spinnerModalLabel" aria-hidden="true")
-    div(class="modal-dialog modal-dialog-centered")
-        div(class="modal-content text-bg-dark")
-            div(class="modal-header d-none")
-                
-            div(class="modal-body")
-                button(class="btn p-0 w-100" type="button" id="btnLoading" disabled)
-                    span(class="spinner-border spinner-border-sm" aria-hidden="true")
-                    span(class="pe-1" role="status") Loading...
-                
-            div(class="modal-footer d-none")
-                button(id="btnEndLoading" class="btn btn-info" data-bs-dismiss="modal") Got it
-
+  include loading.pug
   form(id="formLinks" action="links" method="post" onSubmit="return false;")
     div(class="container w-100 mb-2 bg-info-dark border border-secondary-subtle rounded-3")
         div(class="row")
@@ -115,4 +102,3 @@ block content
             div(class="col-1")
 
     script(src="javascripts/links.pug.js")
-
