@@ -49,7 +49,7 @@ $("#formAgentEdit").validate({
             selsites.push(parseInt($(this).val()));
             //alert($(this).val());
         })
-        console.log(`[debug from agent.pug (selsites)]${JSON.stringify(selsites)}`)
+        // console.log(`[debug from agents.pug.js (selsites)]${JSON.stringify(selsites)}`)
         $.ajax({
                 url: "agents_dwit",
                 type: "post",
@@ -86,7 +86,7 @@ $("#formAgentEdit").validate({
                     setuStatusIcon("#tdStatus_" + id);
                     $("#btnEnd_"+id).click();
                 } else {
-                    console.log(`[debug from agent.pug:script:ajax:(2)]${JSON.stringify(data)}`);
+                    // console.log(`[debug from agents.pug.js:script:ajax:(2)]${JSON.stringify(data)}`);
                 }
             }
         })
