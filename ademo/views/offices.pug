@@ -183,7 +183,7 @@ block content
                                 a(
                                     role="button"
                                     class="btn btn-secondary mb-3 ms-2"
-                                    href="#" + 'chkID_' + row['id']
+                                    href="#box_" + i
                                     onClick='$("#'+'btnEnd_'+row['id']+'").click();'
                                 ) Cancel
                         
@@ -201,12 +201,12 @@ block content
         td
           - //a(class="pe-1" href="offices_dwit?op=edit&id=" + row['id'])
           - // i(class="bi bi-pencil-square text-info")
-          a(class="pe-1" href="#" + 'chkID_' + row['id'] onClick='$("#' + ("btnEdit_"+row['id']) + '").click();')
+          a(class="pe-1" href="#edit_" + i onClick='$("#' + ("btnEdit_"+row['id']) + '").click();')
             i(class="bi bi-pencil-square text-info")
           a(
             class="pe-1" 
             id="lnkHide_"+row['id']
-            href="#" + 'chkID_' + row['id'] 
+            href="#hide_" + i 
             onClick="hideOffi(" + row['id'] + ", parseInt($('#tdStatus_' + " + row['id'] + ").data('status')) == 1)"
           )
             if row['status'] == 1
