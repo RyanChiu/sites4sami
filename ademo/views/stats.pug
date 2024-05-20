@@ -191,7 +191,7 @@ block content
               td 
                 a(
                   name="aDay"
-                  href="#foo" class="text-info"
+                  href="#"+i class="text-info"
                   onClick="drillDown('" + row['day'] + "')"
                 )= row['day']
           case viewBy
@@ -200,7 +200,7 @@ block content
             when 'agent'
               td
                 a(
-                  href="#foo" class="text-info"
+                  href="#"+i class="text-info"
                   onClick="drillDownAgent('" + row['agentid'] + "')"
                 )= row['agent']
           case viewBy
@@ -209,7 +209,7 @@ block content
             when 'office'
               td
                 a(
-                  href="#foo" class="text-info"
+                  href="#"+i class="text-info"
                   onClick="drillDownOffi('" + row['officeid'] + "')"
                 )= row['office']
           case viewBy

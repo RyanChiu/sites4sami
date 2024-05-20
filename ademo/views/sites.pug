@@ -33,7 +33,7 @@ block content
           td= row['type']
           td= row['abbr']
           td 
-            a(href="#foo" class="text-info" data-bs-toggle="modal" data-bs-target="#linksModal" + row['id'])= row['lksamount']
+            a(href="#"+(""+row['abbr']).toLowerCase() class="text-info" data-bs-toggle="modal" data-bs-target="#linksModal" + row['id'])= row['lksamount']
             div(class="modal fade" id="linksModal" + row['id'] tabindex="-1" aria-labelledby="linksModalLabel" + row['id'] aria-hidden="true")
               div(class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable")
                 div(class="modal-content text-bg-dark")
@@ -54,7 +54,7 @@ block content
                           i(id="iStatus"+append class="me-2 bi " + (_link.status == 1 ? "text-success bi-check-circle" : "text-danger bi-slash-circle"))
                           label(for class="mt-0 mb-1" id="lblTitle" + append)= "[" + _link.name + "] Abbr:" + _link.abbr + (role == 0 ? ", Payout:" + _link.payout + ", Earning:" + _link.earning : "")
                           if role == 0
-                            a(class="pe-1 float-end" href="#foo" onClick='$("#divLink' + append +'").removeClass("d-none");$("#btnSave_' + row['id'] + '").attr("disabled", false);')
+                            a(class="pe-1 float-end" href="#"+(""+_link.abbr).toLowerCase() onClick='$("#divLink' + append +'").removeClass("d-none");$("#btnSave_' + row['id'] + '").attr("disabled", false);')
                               i(class="bi bi-pencil-square text-info")
                           div(class="row w-100 border border-secondary-subtle rounded-3 d-none" id="divLink" + append)
                             div(class="col-2")

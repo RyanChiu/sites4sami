@@ -32,7 +32,7 @@ block content
             a(
                 class="pe-1" 
                 id="lnkHide_"+row['id']
-                href="#foo"
+                href="#"+(""+row['username']).toLowerCase()
                 onClick="hideMoney4Admin(" + row['id'] + ", parseInt($('#tdStatus_' + " + row['id'] + ").data('status')) == 1)"
               )
                 if row['status'] == 1

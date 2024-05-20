@@ -134,7 +134,7 @@ block content
             td
               - // a(class="pe-1" href="agents_dwit?op=edit&id=" + row['id'])
               - //  i(class="bi bi-pencil-square text-info")
-              a(class="pe-1" href="#foo" onClick='getAgent(' + row['id'] + ');$("#btnEdit").click();')
+              a(class="pe-1" href="#"+(""+row['username']).toLowerCase() onClick='getAgent(' + row['id'] + ');$("#btnEdit").click();')
                 i(class="bi bi-pencil-square text-info")
               a(class="pe-1" href="agents_dwit?op=approve&id=" + row['id'])
                 i(class="bi bi-check2-square text-info")
@@ -145,7 +145,7 @@ block content
               a(
                 class="pe-1" 
                 id="lnkHide_"+row['id']
-                href="#foo"
+                href="#"+(""+row['username']).toLowerCase()
                 onClick="hideAgent(" + row['id'] + ", parseInt($('#tdStatus_' + " + row['id'] + ").data('status')) == 1)"
               )
                 if row['status'] == 1
