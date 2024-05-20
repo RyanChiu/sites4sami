@@ -1,14 +1,6 @@
 const editor = Jodit.make('#joditNews');
 //editor.value = '<p>start</p>';
 
-$(document)
-    .ajaxStart(function() {
-        $('#btnStartLoading').click();
-    })
-    .ajaxStop(function() {
-        $('#btnEndLoading').click();
-    })
-
 $("#iptUpload").change(function(e) {
     var files = $("#iptUpload")[0].files;
     var value = $("#iptUpload").val();

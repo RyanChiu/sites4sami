@@ -21,7 +21,8 @@ router.get('/', async function(req, res, next) {
         title: title,
         navs: req.session.navs,
         user: req.session.username,
-        data: data
+        data: data,
+        tipDoing: "Uploading"
       });
     } else {
       res.redirect('home?tips=Not allowed.');
@@ -47,7 +48,8 @@ router.post('/', async (req, res) => {
       title: "Home",
       navs: req.session.navs,
       user: req.session.username,
-      data: data
+      data: data,
+      tipDoing: "Uploading"
     });
   } else {
     res.redirect('logout');
