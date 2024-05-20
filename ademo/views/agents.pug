@@ -300,9 +300,9 @@ block content
                           type="checkbox"
                           id="chkStatus"
                           name="chkStatus"
-                          onclick="$('#chkStatus').val($('#chkStatus').is(':checked') ? 1 : 0));"
+                          onclick="$('#chkStatus').val(($('#chkStatus').is(':checked') ? 1 : 0));"
                         )
-                        label(class="text-light" for="chkStatus" class="form-check-label") Activated
+                        label(class="form-check-label text-light" for="chkStatus") Activated
                     div(class="col-9")
                       input(
                         class="w-25 btn btn-info mb-3"
@@ -368,7 +368,7 @@ block content
                     setuStatusIcon("#tdStatus_" + id);
                     $("#btnEnd_"+id).click();*/
                 } else {
-                    console.log(`[debug from agent.pug.js:script:ajax:(0)]${JSON.stringify(data)}`);
+                    // console.log(`[debug from agent.pug.js:script:ajax:(0)]${JSON.stringify(data)}`);
                 }
             }
         })
@@ -380,7 +380,7 @@ block content
         data: {submitType: "ajax_hide", agentid: id, hidden: hidden},
         dataType: "json",
         success: function(data) {
-          console.log(`[debug from agents.pug:(hidden)]${hidden}`);
+          // console.log(`[debug from agents.pug:(hidden)]${hidden}`);
           if (data.rst == 1) {
             $("#tdStatus_" + id).data("status", hidden ? -1 : 1);
             $("#tdStatus_" + id).html(hidden ? -1 : 1);
