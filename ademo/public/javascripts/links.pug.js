@@ -1,19 +1,3 @@
-/*
-$(document)
-    .ajaxStart(function() {
-        $('#btnStartLoading').click();
-        //$('#btnLoading').removeClass("d-none");
-        //$('#selAgent').addClass("d-none");
-        //console.log("ajax request starts"); //debug
-    })
-    .ajaxStop(function() {
-        $('#btnEndLoading').click();
-        //$('#btnLoading').addClass("d-none");
-        //$('#selAgent').removeClass("d-none");
-        //console.log("ajax request ends"); //debug
-    })
-*/
-
 $("#formLinks").validate({
     errorClass: 'text-danger',
     rules: {
