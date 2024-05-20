@@ -220,7 +220,7 @@ block content
         data: {submitType: "ajax_hide", officeid: id, hidden: hidden},
         dataType: "json",
         success: function(data) {
-          console.log(`[debug from office.pug:(hidden)]${hidden}`);
+          // console.log(`[debug from offices.pug:(hidden)]${hidden}`);
           if (data.rst == 1) {
             $("#tdStatus_" + id).data("status", hidden ? -1 : 1);
             $("#tdStatus_" + id).html(hidden ? -1 : 1);
