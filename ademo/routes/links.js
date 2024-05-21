@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
           links.push('{"param": "' + tricks.cipherIt(sites[0]["id"] + "," + link.abbr + "," + params.agent) + '", "name": "' + link.name + '", "abbr": "' + link.abbr + '"}');
         }
     }
-    console.log("[debug from links with post:]"); console.log(sites[0]["links"]); //debug
+    // console.log("[debug from links with post:]"); console.log(sites[0]["links"]); //debug
     res.set('Content-Type', 'text/html');
     res.send({
       "rst": links

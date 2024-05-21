@@ -131,7 +131,7 @@ router.get('/', async function(req, res, next) {
     var SaturdayTime = SundayTime + 6 * oneDayTime;
     var sunday = new Date(SundayTime);
     var saturday = new Date(SaturdayTime);
-    console.log(`[debug from stats page(period):]${formatDate(sunday)}-${formatDate(saturday)},day:${day}`);
+    // console.log(`[debug from stats page(period):]${formatDate(sunday)}-${formatDate(saturday)},day:${day}`);
     let params = {};
     params.selType = -111;
     params.selSite = -111;

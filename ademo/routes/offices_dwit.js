@@ -95,7 +95,7 @@ router.post('/', async (req, res) => {
         else st = 1;
         sql = "update user set status = ? where id = ?";
         rst = await tricks.queryData(sql, [st, req.body.officeid]);
-        console.log(`[debug from offices_dwit(ajax_hid):]with status is:${st}("hidden":${req.body.hidden})`);
+        // console.log(`[debug from offices_dwit(ajax_hid):]with status is:${st}("hidden":${req.body.hidden})`);
         res.set('Content-Type', 'text/html');
         if (rst) {
           res.send({
@@ -107,7 +107,7 @@ router.post('/', async (req, res) => {
           })
         }
       }
-      console.log(rst); //debug
+      // console.log(rst); //debug
       var data = await tricks.queryOffices(req.session.role, req.session.userid);
       res.render('offices', { 
         // title: title + "(" + params + ")",

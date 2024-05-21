@@ -38,7 +38,7 @@ router.post('/', async (req, res, next) => {
     } else {
       rst = await tricks.queryData("update country set rich = 0");
     }
-    //console.log(`[debug from settings:]${JSON.stringify(rst)}`);
+    // console.log(`[debug from settings:]${JSON.stringify(rst)}`);
     res.redirect('settings?tips=Rich countries updated.');
   } else {
     res.redirect('logout');

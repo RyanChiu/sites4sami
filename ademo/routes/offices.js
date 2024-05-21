@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
       ];
       var sql = "select * from view_office where username like ? order by username";
       var data = await tricks.queryData(sql, [params[0]]);
-      console.log("[debug from post in offices:]"); console.log(data); // debug
+      // console.log("[debug from post in offices:]"); console.log(data); // debug
       res.render('offices', {
         title: title,
         navs: req.session.navs,

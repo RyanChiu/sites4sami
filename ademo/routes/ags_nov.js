@@ -6,7 +6,7 @@ tricks.useSession(router);
 
 /* deal with post data */
 router.post('/', async (req, res) => {
-    console.log("[debug from ags_nov:]"); console.log(req.body); // debug
+    // console.log("[debug from ags_nov:]"); console.log(req.body); // debug
     let params = req.body;
     if (typeof(params.officeid) !== undefined) {
         var data = await tricks.queryAgents(

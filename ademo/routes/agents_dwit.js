@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
       res.redirect('home?tips=Not allowed.');
     }
     var params = req.query;
-    console.log("params from get:"); console.log(params); // debug
+    // console.log("params from get:"); console.log(params); // debug
     var paramOp = "", paramId = "", paramRef = null;
     if (JSON.stringify(params) == '{}' 
       || typeof(params["op"]) == "undefined" 
@@ -28,7 +28,7 @@ router.get('/', async function(req, res, next) {
     var title, data, offices, sites, status = null;
     offices = await tricks.queryOffices(req.session.role, req.session.userid);
     sites = await tricks.querySites();
-    console.log("debug[add agent]"); console.log(offices); //debug
+    // console.log("debug[add agent]"); console.log(offices); //debug
     switch (paramOp) {
       case "":
       case "add":
@@ -54,7 +54,7 @@ router.get('/', async function(req, res, next) {
             offices_edit[0]["username"] = offices[i]["username"];
           }
         } 
-        console.log("data for edit agent:"); console.log(data); // debug
+        // console.log("data for edit agent:"); console.log(data); // debug
         res.render('agents_dwit', { 
           title: title,
           navs: req.session.navs,
@@ -116,7 +116,7 @@ router.post('/', async (req, res) => {
     var title = "Agents";
     var params = [];
     let iptSites = req.body.iptSites;
-    console.log(`[debug from agents_dwit(update):]${JSON.stringify(req.body)}`);
+    // console.log(`[debug from agents_dwit(update):]${JSON.stringify(req.body)}`);
     req.body.iptSites = [];
     if (iptSites != undefined) {
       for (let iptSite of iptSites) {
@@ -200,7 +200,7 @@ router.post('/', async (req, res) => {
       else st = 1;
       sql = "update user set status = ? where id = ?";
       rst = await tricks.queryData(sql, [st, req.body.agentid]);
-      console.log(`[debug from agents_dwit(ajax_hid):]with status is:${st}("hidden":${req.body.hidden})`);
+      // console.log(`[debug from agents_dwit(ajax_hid):]with status is:${st}("hidden":${req.body.hidden})`);
       res.set('Content-Type', 'text/html');
       if (rst) {
         res.send({
@@ -212,7 +212,7 @@ router.post('/', async (req, res) => {
         })
       }
     }
-    console.log("[debug for agents_dwit db op] rst/body:"); console.log(rst); console.log(req.body); //debug
+    // console.log("[debug for agents_dwit db op] rst/body:"); console.log(rst); console.log(req.body); //debug
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var data = await tricks.queryAgents(req.session.role, req.session.userid);
     res.render('agents', { 

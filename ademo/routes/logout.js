@@ -9,7 +9,7 @@ var svgCaptcha = require('svg-captcha');
 router.get('/', async function(req, res, next) {
   var captcha = svgCaptcha.create();
   req.session.captcha = captcha.text;
-  console.log("[z.debug.logout]"); console.log(captcha.text);
+  // console.log("[z.debug.logout]"); console.log(captcha.text);
 
   if (req.session && req.session.loggedin) {
     req.session.loggedin = false;
@@ -19,7 +19,7 @@ router.get('/', async function(req, res, next) {
       req.session.loginsertid
     );
     req.session.userid = -1;
-    console.log(["debug from logout page:"]); console.log(rst); // debug
+    // console.log(["debug from logout page:"]); console.log(rst); // debug
   } 
   res.render('login', { 
     title: "",//tricks.getTitle(__filename),

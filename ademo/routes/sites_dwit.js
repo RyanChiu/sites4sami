@@ -88,7 +88,7 @@ router.post('/', async (req, res) => {
                 }
                 sql = sql.slice(0, -1);
                 sql += ') where id = ' + siteid;
-                //console.log(`[debug from sites_dwit (ajax_edit):]${sql}`);
+                // console.log(`[debug from sites_dwit (ajax_edit):]${sql}`);
                 rst = await tricks.queryData(sql);
                 res.set('Content-Type', 'text/html');
                 if (rst) {

@@ -20,8 +20,8 @@ tricks.useSession(router);
 /* deal with post data */
 router.post('/', async (req, res) => {
     let single = upload.single('image');
-    console.log(`[debug for upload_nov(body):]${JSON.stringify(req.body)}`)
-    console.log(`[debug for upload_nov(req):]${req}`)
+    // console.log(`[debug for upload_nov(body):]${JSON.stringify(req.body)}`)
+    // console.log(`[debug for upload_nov(req):]${req}`)
     single(req, res, function(err) {
         if (err instanceof multer.MulterError) {
             // A Multer error occurred when uploading.

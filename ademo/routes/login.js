@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
                 select a.id, a.username, a.type, a.status, a.officeid, null, null\
                 from user a where a.username = ? and type < 3 and a.pwd_crypted = ?;"
             data = await tricks.queryData(sql, [params[0], tricks.cryptIt(params[1]), params[0], tricks.cryptIt(params[1])]);
-            console.log(`[z.debug.login:]${JSON.stringify(data)}`);
+            // console.log(`[z.debug.login:]${JSON.stringify(data)}`);
             if (data != null && data.length > 0 
                 && (data[0]['status'] == 1 && data[0]['type'] < 3
                     || data[0]['status'] == 1 && data[0]['type'] == 3 && data[0]['offistatus'] == 1)
@@ -68,7 +68,7 @@ router.post('/', async (req, res) => {
                     && (data[0]['status'] != 1 && data[0]['type'] < 3
                         || data[0]['type'] == 3 && (data[0]['offistatus'] != 1 || data[0]['status'] != 1))
                 ) {
-                    console.log("~~~~~~~1~~~~~~");
+                    // console.log("~~~~~~~1~~~~~~");
                     res.render("login", {
                         title: "",
                         navs: [],
@@ -77,7 +77,7 @@ router.post('/', async (req, res) => {
                         tag: ''
                     });
                 } else {
-                    console.log("~~~~~~~2~~~~~~");
+                    // console.log("~~~~~~~2~~~~~~");
                     res.render("login", {
                         title: "",
                         navs: [],
@@ -89,7 +89,7 @@ router.post('/', async (req, res) => {
             }
             
         } else {
-            console.log("~~~~~~~3~~~~~~");
+            // console.log("~~~~~~~3~~~~~~");
             res.render("login", {
                 title: "",
                 navs: [],
@@ -99,7 +99,7 @@ router.post('/', async (req, res) => {
             });
         }
     } else {
-        console.log("~~~~~~~4~~~~~~");
+        // console.log("~~~~~~~4~~~~~~");
         res.render("login", {
             title: "",
             navs: [],

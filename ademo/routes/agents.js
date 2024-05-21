@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
     }
     var params = req.query;
     var title = "Agents", data = null, offices = null;
-    console.log("[debug] params/session from get:"); console.log(params); console.log(req.session); // debug
+    // console.log("[debug] params/session from get:"); console.log(params); console.log(req.session); // debug
     if (JSON.stringify(params) == '{}' || !params.office || isNaN(params.office)) {
       data = await tricks.queryAgents(req.session.role, req.session.userid); //queryData("select * from view_agent");
       offices = await tricks.queryOffices(req.session.role, req.session.userid);
@@ -73,7 +73,7 @@ router.post('/', async (req, res) => {
     } else {
       data = await tricks.queryData(sql, [params[0]]);
     }
-    console.log("[debug] sql for agent search:"); console.log(sql); // debug
+    // console.log("[debug] sql for agent search:"); console.log(sql); // debug
     
     res.render('agents', { 
       title: title,

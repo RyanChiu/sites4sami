@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
       "update news set content = ? where id = ?", 
       [req.body.joditNews, req.body.iptId]
     )
-    console.log("[debug from update in news page:]"); console.log(rst); // debug
+    // console.log("[debug from update in news page:]"); console.log(rst); // debug
     data = await tricks.queryData(
       "select * from news where id = ?;", req.body.iptId
     );

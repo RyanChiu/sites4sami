@@ -13,7 +13,7 @@ router.get('/', async function(req, res, next) {
       var title = "Admins";
       var id = req.query["id"];
       var data = await tricks.queryData("select * from user where id = ?", [id]);
-      console.log("[debug from get in admins_dwit:]"); console.log(req.query); console.log(data); // debug
+      // console.log("[debug from get in admins_dwit:]"); console.log(req.query); console.log(data); // debug
       res.render('admins_dwit', { 
         title: title,
         navs: req.session.navs,
@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
             else st = 1;
             sql = "update user set status = ? where id = ?";
             rst = await tricks.queryData(sql, [st, req.body.adminid]);
-            console.log(`[debug from admins_dwit(ajax_hid):]with status is:${st}("hidden":${req.body.hidden})`);
+            // console.log(`[debug from admins_dwit(ajax_hid):]with status is:${st}("hidden":${req.body.hidden})`);
             res.set('Content-Type', 'text/html');
             if (rst) {
               res.send({
@@ -68,7 +68,7 @@ router.post('/', async (req, res) => {
             }
           }
         var data = await tricks.queryData("select * from user where type = 1");
-        console.log("[debug from post in admins_dwit:]"); console.log(req.query); console.log(data); // debug
+        // console.log("[debug from post in admins_dwit:]"); console.log(req.query); console.log(data); // debug
         res.render('admins', { 
             title: title,
             navs: req.session.navs,

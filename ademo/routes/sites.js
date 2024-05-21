@@ -16,8 +16,8 @@ router.get('/', async function(req, res, next) {
       if (data && data.length != 0 && data[0]["links"])
         for (let row of data) {
           var lnks = "[" + row["links"] + "]";
-          console.log(`[debug from sites page in get(0):]${row["links"]}`);
-          console.log(`[debug from sites page in get(1):]${lnks}`);
+          // console.log(`[debug from sites page in get(0):]${row["links"]}`);
+          // console.log(`[debug from sites page in get(1):]${lnks}`);
           var _links = JSON.parse(lnks);
           row["links_json"] = [];
           for (let _link of _links) {

@@ -23,12 +23,12 @@ tricks.useSession(router);
 router.get('/', async function(req, res, next) {
     let params = req.query;
     const tos = tricks.decipherIt(params.to).split(",");// tos will be [{siteid}, {link.abbr}, {agent.username}]
-    console.log(`[debug from page nav(0,tos):${tos}`);
+    // console.log(`[debug from page nav(0,tos):${tos}`);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid, " username = '" + tos[2] + "'");
-    console.log(`[debug from page nav(1,agents):${JSON.stringify(agents)}`);
+    // console.log(`[debug from page nav(1,agents):${JSON.stringify(agents)}`);
     if (agents != null && agents.length != 0) {
         let siteids = agents[0]["sites"].toString().replace("[", "").replace("]", "").split(",");
-        console.log(`[debug from nav for siteids(1.0):]${siteids}`);
+        // console.log(`[debug from nav for siteids(1.0):]${siteids}`);
         if (siteids.indexOf(tos[0]) == -1) {
             // could record a hitlog here with this baned site.
             res.send("Invalid visit.");
@@ -51,9 +51,9 @@ router.get('/', async function(req, res, next) {
         let geo = null;
         try {
             geo = reader.country(ip4);
-            console.log(`[debug from page nav(2)]${url}, and it's visited from: <ip>${ip4}, and <geo>${geo.country.isoCode}`);
+            // console.log(`[debug from page nav(2)]${url}, and it's visited from: <ip>${ip4}, and <geo>${geo.country.isoCode}`);
         } catch (err) {
-            console.log(`[debug from page nav(4), err from reader.country('${ip4}')]${err}`);
+            // console.log(`[debug from page nav(4), err from reader.country('${ip4}')]${err}`);
         }
 
         var lnks = data[0]["links"];
@@ -76,10 +76,10 @@ router.get('/', async function(req, res, next) {
             }
             rst = await tricks.queryData("insert into hitlog (username, siteid, typeabbr, linkin, linkout, ip4, countryISOcode, passed) values \
                 (?, ?, ?, ?, ?, ?, ?, ?)", [tos[2], tos[0], tos[1], params.to, url, ip4, geo == null ? null : geo.country.isoCode, passed]);
-            console.log(`[debug from page nav(3):record the hit with the result -> ${JSON.stringify(rst)}`);
+            // console.log(`[debug from page nav(3):record the hit with the result -> ${JSON.stringify(rst)}`);
             if (passed) {
                 url = url.replace("__agent__", tos[2]).replace("__abbr__", tos[1]);
-                console.log(`[debug from page nav(5), the url:]${url}`);
+                // console.log(`[debug from page nav(5), the url:]${url}`);
                 //res.redirect("https://www.msn.com");//only for debug locally
                 res.redirect(url);
             } else {
