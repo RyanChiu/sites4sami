@@ -39,7 +39,8 @@ block content
                 div(class="modal-content text-bg-dark")
                   div(class="modal-header pt-2 pb-2 pe-3")
                     h3(class="modal-title fs-5 m-0 ps-0" id="exampleModalLabel")= "Link(s) of [" + row['name'] + "]"
-                    button(type="button m-0 p-0" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+                    button(type="button" class="btn m-0 p-0" style="color:white;" data-bs-dismiss="modal" aria-label="Close")
+                      i(class="bi bi-x-octagon")
                   - var links = row['links_json']
                   div(class="modal-body")
                     - var j = 0
