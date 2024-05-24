@@ -23,7 +23,7 @@ block content
       div(class="row p-1")
         div(class="col-1 text-light") Office 
         div(class="col-3")
-          - var len = Object.keys(offices).length
+          - var len = offices.length
           case len
             when 1
               input(
@@ -41,9 +41,11 @@ block content
                 id="selOffice"
                 required
               )
-                option(selected value="") 
-                each office in offices  
-                  option(value=office["username"])= office["username"]
+                - var offis = ["1", "2"]
+                option(selected value="")
+                - for (var i = 0; i < offices.length; i++)
+                  option(value=offices[i]['username'])= offices[i]['username']
+          
         div(class="col-8")
       div(class="row p-1")
         div(class="col-1 text-light") Status 
@@ -167,14 +169,14 @@ block content
                       label(class="text-light" for="selOffi") Office
                       label(class="text-danger ms-2") *
                     div(class="col-9")
-                      select(
+                       select(
                         class="form-select w-75"
                         name="selOffi"
                         id="selOffi"
                         required
                       )
-                        each offi in offices
-                          option(value=offi["id"])= offi["username"]
+                        - for (var i = 0; i < offices.length; i++)
+                          option(value=offices[i]["id"])= offices[i]["username"]
         
                   div(class="row m-2")
                     div(class="col-3")
