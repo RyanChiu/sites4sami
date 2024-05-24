@@ -107,7 +107,7 @@ exports.queryData = queryData = async function (sql, holders) {
     }
 }
 
-exports.queryOffices = async function(role, userid) {
+exports.queryOffices = async function(role, userid, cond="1=1") {
     var sql = "select * from view_office";
     var orderBy = " order by username";
     var offices;
@@ -115,13 +115,13 @@ exports.queryOffices = async function(role, userid) {
         case 0:
         case 1:
         default:
-          offices = await queryData(sql + orderBy);
+          offices = await queryData(sql + " where (" + cond + ")" + orderBy);
           break;
         case 2:
-          offices = await queryData(sql + " where id = ?" + orderBy, [userid]);
+          offices = await queryData(sql + " where id = ? and (" + cond + ")" + orderBy, [userid]);
           break;
         case 3:
-          offices = await queryData(sql + " where id = (select officeid from user where id = ?)" + orderBy, [userid]);
+          offices = await queryData(sql + " where id = (select officeid from user where id = ?) and ("  + cond + ")" + orderBy, [userid]);
           break;
       }
       return offices;
