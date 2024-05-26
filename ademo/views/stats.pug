@@ -79,7 +79,7 @@ block content
           div(class="col-1")
             label(for) Office
           div(class="col-4")
-            - var len = Object.keys(offices).length
+            - var len = offices.length
             case len
               when 1
                 select(
@@ -98,8 +98,8 @@ block content
                   required
                 )
                   option(selected value="-111") All
-                  each office in offices  
-                    option(value=office["id"])= office["username"]
+                  - for (var j = 0; j < offices.length; j++) 
+                    option(value=offices[j]['id'])= offices[j]['username']
                 
           div(class="col-1")
             i(class="bi bi-arrow-return-right fs-5 w-50 text-light float-end")

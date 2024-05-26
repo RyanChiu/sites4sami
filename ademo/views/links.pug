@@ -28,8 +28,8 @@ block content
                             required
                         )
                             option(selected value=0) All
-                            each office in offices  
-                                option(value=office["id"])= office["username"]
+                            - for (var i = 0; i < offices.length; i++)
+                                option(value=offices[i]["id"])= offices[i]["username"]
             - var len = Object.keys(agents).length
             div(class="col-3")
                 label(for="selAgent") Agent
