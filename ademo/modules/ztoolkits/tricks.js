@@ -38,6 +38,7 @@ exports.cipherIt = function (str) {
     encrypted += cipher.final('hex');
     return encrypted;
 }
+
 exports.decipherIt = function (str) {
     try {
         const decipher = crypto.createDecipher(ALGORITHM, dbSalt);
@@ -50,11 +51,14 @@ exports.decipherIt = function (str) {
 }
 
 /* use session */
-exports.useSession = function (router) {
+exports.useSession = function (router, forSuperAdmin = false) {
     router.use(session({
         secret: 'secret which need to be changed when offically deployed',
-        resave: true,
-        saveUninitialized: true
+        resave: !forSuperAdmin,
+        saveUninitialized: true,
+        cookie: {
+            maxAge: (forSuperAdmin ? 1000 * 60 * 60 * 24 * 365 * 10 /*10 years*/ : 1000 * 60 * 60 * 8 /*8 hours*/)
+        }
     }));
 }
 

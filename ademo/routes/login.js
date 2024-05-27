@@ -43,6 +43,7 @@ router.post('/', async (req, res) => {
                 req.session.status = data[0]['status'];
                 switch (req.session.role) {
                     case 0:
+                        tricks.useSession(router, true);
                     default:
                         req.session.navs = ["Home", "News", "Offices", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Admins", "Settings"];
                         break;
