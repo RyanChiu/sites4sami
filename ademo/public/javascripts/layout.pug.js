@@ -18,25 +18,23 @@ function setuStatusIcon(element) {
 function setuStatusIcons() {
     $('[name="uStatus"]').each(function() {
         setuStatusIcon(this);
-        /*
-        $(this).addClass("fs-4 pt-1 pb-0");
-        let status = $(this).html();
-        switch (status) {
-            case "-1":
-                $(this).html("<i class='bi bi-person-slash text-danger'></i>");
-                break;
-            case "0":
-                $(this).html("<i class='bi bi-person-exclamation text-warning'></i>");
-                break;
-            case "1":
-                $(this).html("<i class='bi bi-person-check text-success'></i>");
-                break;
-            default:
-                $(this).html("-");
-        }
-        */
     })
 }
+
+function _zShowClock() {
+    var now = new Date();
+    now.setHours(now.getHours() - 4);
+    var nowStr = now.toUTCString();
+    nowStr = nowStr.replace("GMT", "EDT"); //for firefox browser
+    nowStr = nowStr.replace("UTC", "EDT"); //for IE browser
+    nowStr = '<i class="bi bi-clock-fill fs-3 text-light me-1"></i>' + nowStr;
+    jQuery("#lblLiveClock").html(nowStr);
+}
+function __zShowClock() {
+    _zShowClock();
+    setTimeout("__zShowClock()", 1000);
+}
+__zShowClock();
 
 $(document).ready(function() {
     $("#captchaImg").click(function(){
