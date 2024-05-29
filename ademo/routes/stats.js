@@ -138,7 +138,7 @@ router.get('/', async function(req, res, next) {
     params.selAgent = (req.session.role == 3 ? req.session.userid : -111);
     params.selOffice = (req.session.role == 2 ? req.session.userid : -111);
     params.datePeriod = formatDate(sunday) + " - " + formatDate(saturday);
-    params.iptViewBy = 'detail';
+    params.iptViewBy = 'day';
     var stats = await tricks.queryData(getStatsSql(params.iptViewBy, req.session, params));
     res.render('stats', { 
       title: title,

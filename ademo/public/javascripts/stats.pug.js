@@ -1,4 +1,16 @@
 var datePicker = $('input[name="datePeriod"]').daterangepicker();
+var dateStart = $('#iptDateStart').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true
+}, function(start, end, label) {
+    datePicker.data('daterangepicker').setStartDate(start.format('MM/DD/YYYY'));
+});
+var dateEnd = $('#iptDateEnd').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true
+}, function(start, end, label) {
+    datePicker.data('daterangepicker').setEndDate(end.format('MM/DD/YYYY'));
+});
 function getTZDate(sDate) {
     //var str = new dayjs(sDate).tz("America/New_York").format('MM/DD/YYYY');
     /**
@@ -12,6 +24,8 @@ function drillDown(sDate) {
     var str = getTZDate(sDate);
     datePicker.data('daterangepicker').setStartDate(str);
     datePicker.data('daterangepicker').setEndDate(str);
+    dateStart.data('daterangepicker').setStartDate(str);
+    dateEnd.data('daterangepicker').setStartDate(str);
     $("#rdioViewByOffice").click();
     $("#formLoadStats").submit();
 }
@@ -73,6 +87,8 @@ $(document).ready(function() {
         dates[1] = dates[1].replace(" ", "");
         datePicker.data('daterangepicker').setStartDate(dates[0]);
         datePicker.data('daterangepicker').setEndDate(dates[1]);
+        dateStart.data('daterangepicker').setStartDate(dates[0]);
+        dateEnd.data('daterangepicker').setStartDate(dates[1]);
     }
     $('[name="uDateStr"]').each(function() {
         $(this).html(getTZDate($(this).html()));
@@ -148,6 +164,8 @@ function setDatePicker() {
     let dates = $('#selPeriod').val().split(",");
     datePicker.data('daterangepicker').setStartDate(dates[0]);
     datePicker.data('daterangepicker').setEndDate(dates[1]);
+    dateStart.data('daterangepicker').setStartDate(dates[0]);
+    dateEnd.data('daterangepicker').setStartDate(dates[1]);
 }
 
 $('#selPeriod').click(function() {
