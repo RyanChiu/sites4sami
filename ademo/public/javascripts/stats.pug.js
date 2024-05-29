@@ -169,7 +169,9 @@ function setDatePicker() {
 }
 
 $('#selPeriod').click(function() {
-    setDatePicker();
+    if ($('#selPeriod').prop('selectedIndex') != 0) {
+        setDatePicker();
+    }
 })
 
 $('#tblStats').tablemanager({
