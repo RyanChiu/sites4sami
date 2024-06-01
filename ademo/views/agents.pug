@@ -138,12 +138,15 @@ block content
               - //  i(class="bi bi-pencil-square text-info")
               a(class="pe-1" href="#"+(""+row['username']).toLowerCase() onClick='getAgent(' + row['id'] + ');$("#btnEdit").click();')
                 i(class="bi bi-pencil-square text-info")
-              a(class="pe-1" href="agents_dwit?op=approve&id=" + row['id'])
-                i(class="bi bi-check2-square text-info")
-              - // a(class="pe-2" href="agents_dwit?op=hide&id=" + row['id'])
-              - //  i(class="bi bi-eye-slash text-info")
-              - // a(class="pe-1" href="agents_dwit?op=suspend&id=" + row['id'])
-              - //  i(class="bi bi-ban text-danger")
+              - // a(class="pe-1" href="agents_dwit?op=approve&id=" + row['id'])
+              - //  i(class="bi bi-check2-square text-info")
+              a(
+                class="pe-1" 
+                id="lnkApprove_"+row['id']
+                href="#"+(""+row['username']).toLowerCase()
+                onClick="approveAgent(" + row['id'] + ", true)"
+              )
+                i(class="bi bi-check-circle fs-6 text-info")
               a(
                 class="pe-1" 
                 id="lnkHide_"+row['id']

@@ -159,3 +159,19 @@ function hideAgent(id, hidden) {
     }
   })
 }
+function approveAgent(id, approved) {
+    $.ajax({
+      url: "agents_dwit",
+      type: "post",
+      data: {submitType: "ajax_approve", agentid: id, approved: approved},
+      dataType: "json",
+      success: function(data) {
+        if (data.rst == 1) {
+          $("#tdStatus_" + id).data("status", approved ? 1 : 0);
+          $("#tdStatus_" + id).html(approved ? 1 : 0);
+          setuStatusIcon("#tdStatus_" + id);
+        } else {
+        }
+      }
+    })
+  }

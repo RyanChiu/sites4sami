@@ -200,7 +200,24 @@ router.post('/', async (req, res) => {
       else st = 1;
       sql = "update user set status = ? where id = ?";
       rst = await tricks.queryData(sql, [st, req.body.agentid]);
-      // console.log(`[debug from agents_dwit(ajax_hid):]with status is:${st}("hidden":${req.body.hidden})`);
+      // console.log(`[debug from agents_dwit(ajax_hide):]with status is:${st}("hidden":${req.body.hidden})`);
+      res.set('Content-Type', 'text/html');
+      if (rst) {
+        res.send({
+          "rst": 1
+        })
+      } else {
+        res.send({
+          "rst": 0
+        })
+      }
+    } else if (req.body.submitType == "ajax_approve") {
+      var st;
+      if (req.body.approved.toString() === "true") st = 1;
+      else st = 0;
+      sql = "update user set status = ? where id = ?";
+      rst = await tricks.queryData(sql, [st, req.body.agentid]);
+      // console.log(`[debug from agents_dwit(ajax_approve):]with status is:${st}("approved":${req.body.approved})`);
       res.set('Content-Type', 'text/html');
       if (rst) {
         res.send({

@@ -24,7 +24,7 @@ router.get('/', async function(req, res, next) {
         data = await tricks.queryAgents(req.session.role, req.session.userid);
         offices = await tricks.queryOffices(req.session.role, req.session.userid);
       }
-      console.log(`[debug from agents.js: offices[0]] ${JSON.stringify(offices[0]["username"])}`)
+      // console.log(`[debug from agents.js: offices[0]] ${JSON.stringify(offices[0]["username"])}`)
       res.render('agents', { 
         title: title,
         navs: req.session.navs,
