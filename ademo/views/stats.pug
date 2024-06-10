@@ -39,8 +39,8 @@ block content
                   each site in sites  
                     option(value=site["id"])= site["name"]
           div(class="col-1")
-            label(for) View By
-          div(class="col-4")
+            label(style="font-size:14px;" for) View By
+          div(class="col-6")
             input(type="hidden" id="iptViewBy" name="iptViewBy" value="detail")
             div(class="form-check form-check-inline")
                 input(class="form-check-input" type="radio" name="rdioViewBy" id="rdioViewByDay" value="day" onclick="$('#iptViewBy').val(this.value);")
@@ -67,9 +67,9 @@ block content
                 option(selected value="-111") All
           div(class="col-1")
             label(for) Periods
-          div(class="col-4")
+          div(class="col-6")
             select(
-                class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                class="form-select w-75 pe-0 pt-0 pb-0"
                 name="selPeriod"
                 id="selPeriod"
                 required
@@ -103,14 +103,14 @@ block content
                 
           div(class="col-1")
             i(class="bi bi-arrow-return-right fs-5 w-50 text-light float-end")
-          div(class="col-4")
+          div(class="col-6")
             input(class="d-none form-input w-75 rounded-2 pull-right" type="text" name="datePeriod")
-            div(class="row w-75")
-              div(class="" style="width:45%;")
+            div(class="row w-75 p-0")
+              div(class="pe-0" style="width:45%;")
                 input(class="form-input w-100 rounded-2 pull-right" type="text" id="iptDateStart")
-              div(class="p-0 m-0" style="width:10%;")
+              div(class="pe-0 m-0" style="width:10%;")
                 i(class="bi bi-arrow-right-circle text-light fs-5")
-              div(class="" style="width:45%;")
+              div(class="pe-0" style="width:45%;")
                 input(class="form-input w-100 rounded-2 pull-right" type="text" id="iptDateEnd")
         div(class="row p-1")
           div(class="col-1")
