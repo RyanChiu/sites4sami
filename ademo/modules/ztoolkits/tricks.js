@@ -17,6 +17,14 @@ const dbSettings = {
     }
 };
 
+exports.currentNewYorkTime = function(showTZ = false) {
+    let t = new Date();
+    let tz = "America/New_York";
+    let st = t.toLocaleString("en-US", {timeZone:tz});
+    if (showTZ) return st + " {" + tz + "}";
+    else return st;
+}
+
 exports.getMysql = function() {
     return mysql;
 }
