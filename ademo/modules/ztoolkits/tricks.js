@@ -244,7 +244,7 @@ exports.queryCountries = async function() {
 }
 
 exports.querySites = async function() {
-    var data = await queryData("select id, name, short, abbr, status from site");
+    var data = await queryData("select id, name, short, abbr, status from site order by name");
     var sites = [];
     for (let site of data) {
         sites.push({
