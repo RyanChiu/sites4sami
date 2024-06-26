@@ -10,7 +10,7 @@ router.get('/', async function(req, res, next) {
     if ((req.session.role == 0 || req.session.role == 1)) {
       var title = tricks.getTitle(__filename);
       var data = await tricks.queryData(
-        "select *, JSON_LENGTH(links) as lksamount from site"
+        "select *, JSON_LENGTH(links) as lksamount from site order by name"
       );
       var sites = [];
       if (data && data.length != 0 && data[0]["links"])
