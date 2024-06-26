@@ -129,7 +129,7 @@ block content
               td(name='uLinkin')= row['linkin']
               td(name='uTimeStr')= row['time']
               td
-                a(href='https://whatismyipaddress.com/ip/' + row['ip4'] target='_blank')= row['ip4']
+                a(class="text-info" href='https://whatismyipaddress.com/ip/' + row['ip4'] target='_blank')= row['ip4']
               - var title = countries[row['country']];
               td(title=(typeof(title) !== undefined ? title : "") style="cursor:default;")= row['country']
               case row['passed']

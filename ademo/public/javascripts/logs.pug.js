@@ -13,7 +13,7 @@ $('#tblHitlogs').tablemanager1({
 $('[name="uLinkin"]').each(function() {
     var linkin = window.location.href.replace("logs", "nav2?to=") + $(this).html();
     var html = '<a href="#" onclick="alert(\'' + linkin + '\');return false;">' 
-        + '<i class="bi bi-link"></i>' 
+        + '<i class="bi bi-link text-info"></i>' 
         + '</a>';
     $(this).html(html);
 });
