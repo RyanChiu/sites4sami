@@ -9,7 +9,7 @@ router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
-    var sites = await tricks.queryData("select id, name from site where status = 1");
+    var sites = await tricks.queryData("select id, name from site where status = 1 order by name");
     res.render('links', { 
       title: "Links",
       navs: req.session.navs,
