@@ -119,7 +119,7 @@ router.get('/', async function(req, res, next) {
     var title = tricks.getTitle(__filename);
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
-    var sites = await tricks.queryData("select * from site");
+    var sites = await tricks.queryData("select * from site order by name");
 
     // to get an "This week" at EDT
     var now = new Date();
