@@ -1,10 +1,13 @@
 function saveLinks(siteid) {
-    var names = [], abbrs = [], urls = [], payouts = [], earnings = [], statuses = [];
+    var names = [], abbrs = [], aliases = [], urls = [], payouts = [], earnings = [], statuses = [];
     $("input[name='iptLinkname_" + siteid + "']").each(function() {
       names.push($(this).val());
     })
     $("input[name='iptLinkabbr_" + siteid + "']").each(function() {
       abbrs.push($(this).val());
+    })
+    $("input[name='iptLinkalias_" + siteid + "']").each(function() {
+      aliases.push($(this).val());
     })
     $("input[name='iptLinkurl_" + siteid + "']").each(function() {
       urls.push($(this).val());
@@ -27,6 +30,7 @@ function saveLinks(siteid) {
         siteId: siteid,
         linkNames: names.join(","),
         linkAbbrs: abbrs.join(","),
+        linkAliases: aliases.join(","),
         linkUrls: urls.join(","),
         linkPayouts: payouts.join(","),
         linkEarnings: earnings.join(","),

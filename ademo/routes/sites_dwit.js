@@ -72,6 +72,7 @@ router.post('/', async (req, res) => {
                 var urls = req.body.linkUrls.split(",");
                 var names = req.body.linkNames.split(",");
                 var abbrs = req.body.linkAbbrs.split(",");
+                var aliases = req.body.linkAliases.split(",");
                 var payouts = req.body.linkPayouts.split(",");
                 var earnings = req.body.linkEarnings.split(",");
                 var statuses = req.body.linkStatuses.split(",");
@@ -81,6 +82,7 @@ router.post('/', async (req, res) => {
                     sql += '{"url":"' + urls[i] + '", '
                         + '"name":"' + names[i] + '", '
                         + '"abbr":"' + abbrs[i] + '", '
+                        + '"alias":"' + aliases[i] + '", '
                         + '"payout":' + (isNaN(parseFloat(payouts[i])) ? 0 : parseFloat(payouts[i])) + ', '
                         + '"earning":' + (isNaN(parseFloat(earnings[i])) ? 0 : parseFloat(earnings[i])) + ', '
                         + '"status":' + (isNaN(parseInt(statuses[i])) ? 0 : parseInt(statuses[i])) + '}'

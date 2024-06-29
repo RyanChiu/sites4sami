@@ -6,7 +6,7 @@ create table site (
     url varchar(256) not null,
     clickparam varchar(32) default null,
     type varchar(32) default "N/A",
-    links json default null comment 'show be like this: {[url, payout, earning], [url, payout, earning]}',
+    links json default null comment 'should be like this: {[url, name, abbr, alias, payout, earning, status], [url, name, abbr, alias, payout, earning, status]}',
     status tinyint default 0,
     primary key (id)
 )
@@ -18,7 +18,7 @@ it must quote with '' but not with "",
 **/
 update site 
 set links = JSON_ARRAY(
-    '{"url":"https://site.of.provider/?uid=xxx&sub1=__agent__&sub2=__abbr__", "name":"Live Sex Show", "abbr":"LSS", "payout":150.00, "earning":0, "status": 1}', 
-    '{"url":"https://site.of.provider/?uid=xxx&sub1=__agent__&sub2=__abbr__", "name":"Live Cam Models", "abbr":"LCM", "payout":150.00, "earning":0, "status": 1}',
-    '{"url":"https://site.of.provider/?uid=xxx&sub1=__agent__&sub2=__abbr__", "name":"Naugtiest Girls Live", "abbr":"NGL", "payout":150.00, "earning":0, "status": 1}'
+    '{"url":"https://site.of.provider/?uid=xxx&sub1=__agent__&sub2=__abbr__", "name":"Live Sex Show", "abbr":"LSS", "alias":"", "payout":150.00, "earning":0, "status": 1}', 
+    '{"url":"https://site.of.provider/?uid=xxx&sub1=__agent__&sub2=__abbr__", "name":"Live Cam Models", "abbr":"LCM", "alias":"", "payout":150.00, "earning":0, "status": 1}',
+    '{"url":"https://site.of.provider/?uid=xxx&sub1=__agent__&sub2=__abbr__", "name":"Naugtiest Girls Live", "abbr":"NGL", "alias":"", "payout":150.00, "earning":0, "status": 1}'
 ) where id = 1

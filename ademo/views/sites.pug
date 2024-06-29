@@ -67,7 +67,11 @@ block content
                             div(class="col-2")
                               label(for) Abbr:
                             div(class="col-10")
-                              input(type="text" class="w-100 h-75" id="iptLinkabbr" + append value=_link.abbr name="iptLinkabbr_"+row['id'])
+                              input(type="text" readonly class="w-100 h-75 bg-dark text-warning" id="iptLinkabbr" + append value=_link.abbr name="iptLinkabbr_"+row['id'])
+                            div(class="col-2")
+                              label(for) Alias:
+                            div(class="col-10")
+                              input(type="text" class="w-100 h-75" id="iptLinkalias" + append value=_link.alias name="iptLinkalias_"+row['id'])
                             div(class="col-2")
                               label(for) URL:
                             div(class="col-10")
