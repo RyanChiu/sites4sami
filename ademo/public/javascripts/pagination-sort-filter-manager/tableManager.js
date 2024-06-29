@@ -600,13 +600,15 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
             if ($("#tblStats").length > 0) {
                 let rows = $("#tblStats").find("tbody tr:visible");
                 //console.log(`${rows.length} rows`);
-                let tots = [0, 0, 0, 0];
+                let tots = [0, 0, 0, 0, 0, 0];
                 for (let i = 0; i < rows.length; i++) {
                     let cells = rows.eq(i).find("td"); 
-                    tots[0] += parseInt(cells.eq(cells.length - 4).html());
-                    tots[1] += parseInt(cells.eq(cells.length - 3).html());
-                    tots[2] += parseInt(cells.eq(cells.length - 2).html());
-                    tots[3] += parseFloat(cells.eq(cells.length - 1).html().replace("$", ""));
+                    tots[0] += parseInt(cells.eq(cells.length - 6).html());
+                    tots[1] += parseInt(cells.eq(cells.length - 5).html());
+                    tots[2] += parseInt(cells.eq(cells.length - 4).html());
+                    tots[3] += parseInt(cells.eq(cells.length - 3).html());
+                    tots[4] += parseInt(cells.eq(cells.length - 2).html());
+                    tots[5] += parseFloat(cells.eq(cells.length - 1).html().replace("$", ""));
                     /*
                     if (i == 0) {
                         var last_row = cells.eq(0).html()
@@ -622,13 +624,17 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
                 if (isNaN(tots[0]) || tots[0] === null) {
                     if ($("#tdPageRaws").length > 0) $("#tdPageRaws").html(tots[1]);
                     if ($("#tdPageUniques").length > 0) $("#tdPageUniques").html(tots[2]);
-                    if ($("#tdPageSales").length > 0) $("#tdPageSales").html(tots[3]);
+                    if ($("#tdPageSales0").length > 0) $("#tdPageSales0").html(tots[3]);
+                    if ($("#tdPageSales1").length > 0) $("#tdPageSales1").html(tots[4]);
+                    if ($("#tdPageSales").length > 0) $("#tdPageSales").html(tots[5]);
                     //console.log(`[debug from tableManager.js tots(when #0 is NaN/null):]${JSON.stringify(tots)}`);
                 } else {
                     if ($("#tdPageRaws").length > 0) $("#tdPageRaws").html(tots[0]);
                     if ($("#tdPageUniques").length > 0) $("#tdPageUniques").html(tots[1]);
-                    if ($("#tdPageSales").length > 0) $("#tdPageSales").html(tots[2]);
-                    if ($("#tdPageEarning").length > 0) $("#tdPageEarning").html("$" + tots[3].toFixed(2));
+                    if ($("#tdPageSales0").length > 0) $("#tdPageSales0").html(tots[2]);
+                    if ($("#tdPageSales1").length > 0) $("#tdPageSales1").html(tots[3]);
+                    if ($("#tdPageSales").length > 0) $("#tdPageSales").html(tots[4]);
+                    if ($("#tdPageEarning").length > 0) $("#tdPageEarning").html("$" + tots[5].toFixed(2));
                     //console.log(`[debug from tableManager.js tots(normally):]${JSON.stringify(tots)}`);
                 }
             }

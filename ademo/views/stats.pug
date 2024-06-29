@@ -174,19 +174,23 @@ block content
             th Site 
         th Raws 
         th Uniques
+        th Sales0 
+        th Sales1
         th Tot Sales
         case role 
           when 0
             th earning 
     - var i = 0
     - var tots = []
-    - tots['raws'] = tots['uniques'] = tots['sales'] = tots['earnings'] = 0
+    - tots['raws'] = tots['uniques'] = tots['sales0'] = tots['sales1'] = tots['sales'] = tots['earnings'] = 0
     tbody 
       each row in stats
         - i++
         - tots['raws'] += parseInt(row['raws'])
         - tots['uniques'] += parseInt(row['uniques'])
         - tots['sales'] += parseInt(row['sales_type0']) + parseInt(row['sales_type1'])
+        - tots['sales0'] += parseInt(row['sales_type0'])
+        - tots['sales1'] += parseInt(row['sales_type1'])
         - tots['earnings'] += parseFloat(row['sales_type0_earning']) + parseFloat(row['sales_type1_earning'])
         tr(title=(viewBy != 'detail' ? "Before the drilldown, please make sure don't change any searching conditions." : ""))
           td= i 
@@ -224,6 +228,8 @@ block content
               td= row['site'] 
           td= row['raws'] 
           td= row['uniques']
+          td= row['sales_type0']
+          td= row['sales_type1']
           td= row['sales_type0'] + row['sales_type1']
           case role
             when 0
@@ -241,6 +247,8 @@ block content
             td(class="text-bg-warning fw-bold text-end" colspan=2) Page Totals:
         td(class="text-bg-warning fw-bold" id="tdPageRaws") raws
         td(class="text-bg-warning fw-bold" id="tdPageUniques") uniques
+        td(class="text-bg-warning fw-bold" id="tdPageSales0") sales0
+        td(class="text-bg-warning fw-bold" id="tdPageSales1") sales1
         td(class="text-bg-warning fw-bold" id="tdPageSales") sales
         case role
           when 0
@@ -257,6 +265,8 @@ block content
             td(class="text-bg-warning fw-bold text-end" colspan=2) Overall Totals:
         td(class="text-bg-warning fw-bold")= tots['raws']
         td(class="text-bg-warning fw-bold")= tots['uniques']
+        td(class="text-bg-warning fw-bold")= tots['sales0']
+        td(class="text-bg-warning fw-bold")= tots['sales1'] 
         td(class="text-bg-warning fw-bold")= tots['sales']
         case role
           when 0
@@ -271,7 +281,7 @@ block content
           when 'office'
           when 'day'
             td(class="text-bg-warning fw-bold text-end" colspan=2) Uniques to Sales Ratio:
-        td(class="text-bg-warning fw-bold text-start" colspan=4)= (tots["sales"] !== 0 ? "1:" + (parseFloat(tots["uniques"]) / parseFloat(tots["sales"])).toFixed(2) : "0:" + parseFloat(tots["uniques"]).toFixed(2))
+        td(class="text-bg-warning fw-bold text-start" colspan=6)= (tots["sales"] !== 0 ? "1:" + (parseFloat(tots["uniques"]) / parseFloat(tots["sales"])).toFixed(2) : "0:" + parseFloat(tots["uniques"]).toFixed(2))
 
   script(src="javascripts/stats.pug.js")
           
