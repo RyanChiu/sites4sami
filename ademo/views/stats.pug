@@ -174,8 +174,34 @@ block content
             th Site 
         th Raws 
         th Uniques
-        th(style="background:#A3E4FF") Link-1 
-        th(style="background:#A3E4FF") Link-2
+        - var thTypes = ['LINK-1', 'LINK-2']
+        case post_params.selSite
+          when "-111"
+            - thTypes = ['Link-1', 'Link-2']
+            - break
+          default 
+            - var selSiteLinks = null
+            each site in sites 
+              if parseInt(site['id']) == parseInt(post_params.selSite)
+                - selSiteLinks = site['links']
+                - //p(class="text-warning")= JSON.stringify(site['links']) //for debug
+            if selSiteLinks != null
+              - var jj = 0
+              - var selSlnk = null 
+              each selSiteLink in selSiteLinks
+                - jj++;
+                - try {
+                  - selSlnk = JSON.parse(selSiteLink)
+                    if jj <= thTypes.length
+                      - thTypes[jj - 1] = selSlnk.alias
+                - } catch (e) {
+                    if jj <= thTypes.length
+                      - thTypes[jj - 1] = "L-" + jj
+                - }
+
+            - break
+        th(style="background:#A3E4FF")= thTypes[0] 
+        th(style="background:#A3E4FF")= thTypes[1]
         th(style="background:#A3E4FF") Tot Sales
         case role 
           when 0
