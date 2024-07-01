@@ -5,11 +5,13 @@ const tricks = require('../modules/ztoolkits/tricks');
 tricks.useSession(router);
 
 var cols = [];
-cols['detail'] = " convert(a.trxtime, date) as day, a.agentid, b.username as agent, \
+// cols['detail'] = " convert(a.trxtime, date) as day, a.agentid, b.username as agent, \
+cols['detail'] = " date_format(trxtime, '%m/%d/%Y') as day, a.agentid, b.username as agent, \
   a.officeid, (select username from user where a.officeid = user.id) as office, a.siteid, c.name as site ";
 cols['agent'] = " a.agentid, b.username as agent ";
 cols['office'] = " a.officeid, (select username from user where a.officeid = user.id) as office ";
-cols['day'] = " convert(a.trxtime, date) as day ";
+//cols['day'] = " convert(a.trxtime, date) as day ";
+cols['day'] = " date_format(trxtime, '%m/%d/%Y') as day ";
 var from = [];
 from['detail'] = " from stats a, user b, site c ";
 from['agent'] = " from stats a, user b "
@@ -25,12 +27,14 @@ var groupBy = [];
 groupBy['detail'] = " group by day, officeid, agentid, siteid ";
 groupBy['agent'] =  " group by agentid ";
 groupBy['office'] = " group by officeid ";
-groupBy['day'] = " group by convert(a.trxtime, date) ";
+//groupBy['day'] = " group by convert(a.trxtime, date) ";
+groupBy['day'] = " group by date_format(trxtime, '%m/%d/%Y') ";
 var orderBy = [];
 orderBy['detail'] = " order by day desc "; 
 orderBy['agent'] = " order by agent ";
 orderBy['office'] = " order by office ";
-orderBy['day'] = " order by convert(a.trxtime, date) desc ";
+//orderBy['day'] = " order by convert(a.trxtime, date) desc ";
+orderBy['day'] = " order by date_format(trxtime, '%m/%d/%Y') desc ";
 
 /**
  * 

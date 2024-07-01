@@ -11,21 +11,21 @@ var dateEnd = $('#iptDateEnd').daterangepicker({
 }, function(start, end, label) {
     datePicker.data('daterangepicker').setEndDate(end.format('MM/DD/YYYY'));
 });
-function getTZDate(sDate) {
+// function getTZDate(sDate) {
     //var str = new dayjs(sDate).tz("America/New_York").format('MM/DD/YYYY');
     /**
      * since the datetime in database table stats is already "America/New_York",
      * so we don't need to convert it specially.
      */
-    var str = new dayjs(sDate).format('MM/DD/YYYY');
-    return str;
-}
+//    var str = new dayjs(sDate).format('MM/DD/YYYY');
+//    return str;
+// }
 function drillDown(sDate) {
-    var str = getTZDate(sDate);
-    datePicker.data('daterangepicker').setStartDate(str);
-    datePicker.data('daterangepicker').setEndDate(str);
-    dateStart.data('daterangepicker').setStartDate(str);
-    dateEnd.data('daterangepicker').setStartDate(str);
+    //var str = getTZDate(sDate);
+    datePicker.data('daterangepicker').setStartDate(sDate);
+    datePicker.data('daterangepicker').setEndDate(sDate);
+    dateStart.data('daterangepicker').setStartDate(sDate);
+    dateEnd.data('daterangepicker').setStartDate(sDate);
     $("#rdioViewByOffice").click();
     $("#formLoadStats").submit();
 }
@@ -90,12 +90,14 @@ $(document).ready(function() {
         dateStart.data('daterangepicker').setStartDate(dates[0]);
         dateEnd.data('daterangepicker').setStartDate(dates[1]);
     }
+    /*
     $('[name="uDateStr"]').each(function() {
         $(this).html(getTZDate($(this).html()));
     });
     $('[name="aDay"]').each(function() {
         $(this).html(getTZDate($(this).html()));
     });
+    */
 });
 
 $("#formLoadStats").validate({

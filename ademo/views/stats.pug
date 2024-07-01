@@ -222,12 +222,12 @@ block content
           td= i 
           case viewBy
             when 'detail'
-              td(name="uDateStr")= row['day']
+              - // td(name="uDateStr")= row['day']
+              td= row['day']
             when 'day'
               - // td(name="uDateStr" class="text-info")= row['day']
               td 
                 a(
-                  name="aDay"
                   href="#"+i class="text-info"
                   onClick="drillDown('" + row['day'] + "')"
                 )= row['day']
