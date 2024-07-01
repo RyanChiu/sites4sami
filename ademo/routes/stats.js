@@ -27,10 +27,10 @@ groupBy['agent'] =  " group by agentid ";
 groupBy['office'] = " group by officeid ";
 groupBy['day'] = " group by convert(a.trxtime, date) ";
 var orderBy = [];
-orderBy['detail'] = " order by day "; 
+orderBy['detail'] = " order by day desc "; 
 orderBy['agent'] = " order by agent ";
 orderBy['office'] = " order by office ";
-orderBy['day'] = " order by convert(a.trxtime, date) ";
+orderBy['day'] = " order by convert(a.trxtime, date) desc ";
 
 /**
  * 
