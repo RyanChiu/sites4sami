@@ -124,7 +124,7 @@ exports.eflow2DB = async function (
                 "unique_click:" + row.reporting.unique_click + "," +
                 "convertion:" + row.reporting.cv
             );
-            switch (abbr.indexOf(abbr)) {
+            switch (abbrs.indexOf(abbr)) {
                 case 0:
                     sales0 = [row.reporting.cv, links[0].payout, links[0].earning];
                     break;
