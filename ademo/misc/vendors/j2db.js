@@ -41,6 +41,67 @@ async function getAgents() {
     return agents;
 }
 
+/**
+ * Get all the clicks/raws/uniques and sales by day for an agent.
+ * Right now, clicks/raws/uniques are sum of no mater how many types in a site, but
+ * separate sales into different cols.
+ * @param table means actually useful tracking data abstract from the API
+ * @returns array of rows that coud be inserted into DB 
+ */
+async function getAll4AgsByDay(table, siteId) {
+    var links = await getLinks(siteId);
+    var abbrs = [];
+    for (let link of links) {
+        abbrs.push(link.abbr);
+    }
+    var agents = await getAgents();
+
+    var ags = [];
+    for (let row of table) {
+        var agent = row.columns[1].label;
+        var abbr = row.columns[2].label;
+        if (abbrs.indexOf(abbr) !== -1 && agents.indexOf(agent) !== -1) {
+            if (ags.indexOf(agent) == -1) {
+                ags.push(agent);
+            }
+        }
+    }
+    var records = [];
+    for (let ag of ags) {
+        records.push(
+            {
+                "agent" : ag,
+                "sums": {
+                    "raws": 0,
+                    "uniques": 0,
+                    "sales0": [0, 0, 0],
+                    "sales1": [0, 0, 0] 
+                }
+            }
+        )
+    }
+    for (let row of table) {
+        var agent = row.columns[1].label;
+        var abbr = row.columns[2].label;
+        var raws = row.reporting.total_click;
+        var uniques = row.reporting.unique_click;
+        var idx = ags.indexOf(agent);
+        if (idx != -1) {
+            records[idx].sums.raws += raws;
+            records[idx].sums.uniques += uniques;
+            switch (abbrs.indexOf(abbr)) {
+                case 0:
+                    records[idx].sums.sales0 = [row.reporting.cv, links[0].payout, links[0].earning];
+                    break;
+                case 1:
+                    records[idx].sums.sales1 = [row.reporting.cv, links[1].payout, links[1].earning];
+                    break;
+            }
+        }
+    }
+    return records;
+}
+
 async function emptyDayRec(agent, siteId, date) {
     let where = "where convert(trxtime, date) = ? \
         and siteid = ? \
@@ -90,60 +151,22 @@ exports.eflow2DB = async function (
     }
     if (stats == null) return false;
 
-    /* get links for site whoes id is siteId */
-    var links = await getLinks(siteId);
-    //console.log(`abbrs:${JSON.stringify(links)}`);
-    var abbrs = [];
-    for (let link of links) {
-        abbrs.push(link.abbr);
+    console.log("start__________________");
+    let rows = await getAll4AgsByDay(stats.table, siteId);
+    var i = 0;
+    for (let row of rows) {
+        let effectedRows = await emptyDayRec(row.agent, siteId, date);
+        let rst = await executeSql(
+            "insert into stats (trxtime, agentid, officeid, siteid, raws, uniques, sales0, sales1) values ( \
+                ?, (select distinct id from user where username = ?), \
+                (select distinct officeid from user where username = ?), ?, ?, ?, \
+                JSON_ARRAY(?), JSON_ARRAY(?))",
+            [date + " 00:00:00", row.agent, row.agent, parseInt(siteId, 10), row.sums.raws, row.sums.uniques, row.sums.sales0, row.sums.sales1]
+        );
+        console.log(`${rst.affectedRows} rec(s) inserted into stats.(after ${effectedRows} deleted)`);
+       	i++;
+       	console.log(`row ${i} : ${JSON.stringify(row)}\n`);
     }
-    /* get agents */
-    var agents = await getAgents();
-    //console.log(`agents:${agents}`);
-    //if (abbrs.indexOf("LSS") !== -1) console.log("Getcha");
-    //if (agents.indexOf("test01") !== -1) console.log("Getcha, too");
-    
-    var i = 0, j = 0;
-    for (let row of stats.table) {
-        j++;
-        var agent = row.columns[1].label;
-        var abbr = row.columns[2].label;
-        var raws = row.reporting.total_click;
-        var uniques = row.reporting.unique_click;
-        var sales0 = sales1 = [0, 0, 0];
-        if (abbrs.indexOf(abbr) !== -1 && agents.indexOf(agent) !== -1) {
-            i++;
-            console.log(i+"___"+
-                row.columns[1].column_type
-                + ":" + row.columns[1].label
-                + "," +
-                row.columns[2].column_type
-                + ":" + row.columns[2].label
-                + "," +
-                "total_click:" + row.reporting.total_click + "," +
-                "unique_click:" + row.reporting.unique_click + "," +
-                "convertion:" + row.reporting.cv
-            );
-            switch (abbrs.indexOf(abbr)) {
-                case 0:
-                    sales0 = [row.reporting.cv, links[0].payout, links[0].earning];
-                    break;
-                case 1:
-                    sales1 = [row.reporting.cv, links[1].payout, links[1].earning];
-                    break;
-            }
-            // step 1, delete it. step 2, insert the latest
-            let effectedRows = await emptyDayRec(agent, siteId, date);
-            let rst = await executeSql(
-                "insert into stats (trxtime, agentid, officeid, siteid, raws, uniques, sales0, sales1) values ( \
-                    ?, (select distinct id from user where username = ?), \
-                    (select distinct officeid from user where username = ?), ?, ?, ?, \
-                    JSON_ARRAY(?), JSON_ARRAY(?))",
-                [date + " 00:00:00", agent, agent, parseInt(siteId, 10), raws, uniques, sales0, sales1]
-            );
-            console.log(`${rst.affectedRows} rec inserted into stats.(after ${effectedRows} deleted)`);
-        }
-    }
-    console.log(`finished.[${j} row(s) processed.]`);
+    console.log(`____________________end (${rows.length})`);
     return true;
 }
