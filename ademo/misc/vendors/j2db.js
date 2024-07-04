@@ -71,6 +71,10 @@ async function getAll4AgsByDay(table, siteId) {
         records.push(
             {
                 "agent" : ag,
+                "site": {
+                    "id": siteId,
+                    "links": abbrs
+                },
                 "sums": {
                     "raws": 0,
                     "uniques": 0,
