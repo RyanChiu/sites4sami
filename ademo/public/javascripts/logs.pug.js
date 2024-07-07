@@ -1,3 +1,17 @@
+var dateStart_clog = $('#iptDateStart_clog').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true
+}, function(start, end, label) {
+    if ($('#iptDateStart_clog').val() == "")
+        dateStart_clog.data('daterangepicker').setStartDate(start.format('MM/DD/YYYY'));
+});
+var dateEnd_clog = $('#iptDateEnd_clog').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true
+}, function(start, end, label) {
+    if ($('#iptDateEnd_clog').val() == "")
+        dateEnd_clog.data('daterangepicker').setEndDate(end.format('MM/DD/YYYY'));
+});
 $('#tblLogs').tablemanager({
     pagination: true,
     //numOfPages: "8",

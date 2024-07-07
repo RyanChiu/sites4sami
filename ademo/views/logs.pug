@@ -78,16 +78,85 @@ block content
               i(class="bi bi-search fs-6 p-1 text-light")
               b(class="text-light") Search 
           div(class="row p-1")
+            div(class="col-1 text-light") Office 
+            div(class="col-3")
+              select(
+                  class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                  name="selOffice_clog"
+                  id="selOffice_clog"
+                  required
+                )
+                  if offices.length > 1
+                    option(selected value="-111") All
+                  - for (var j = 0; j < offices.length; j++) 
+                    option(
+                      value=offices[j]['id']
+                      selected=(post_params != undefined ? (parseInt(post_params.selOffice_clog) == parseInt(offices[j]['id'])) : false)
+                    )= offices[j]['username']
+            div(class="col-1 text-light") Site
+            div(class="col-3")
+              select(
+                  class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                  name="selSite_clog"
+                  id="selSite_clog"
+                  required
+                )
+                  if sites.length > 1
+                    option(selected value="-111") All
+                  each site in sites  
+                    option(
+                      value=site["id"]
+                      selected=(post_params != undefined ? (parseInt(post_params.selSite_clog) == parseInt(site["id"])) : false)
+                    )= site["name"]
+            div(class="col-4")
+          div(class="row p-1")
             div(class="col-1 text-light") Agent 
             div(class="col-3")
+              select(
+                  class="form-select w-75 ps-1 pe-0 pt-0 pb-0"
+                  name="selAgent_clog"
+                  id="selAgent_clog"
+                  required
+                )
+                  if agents.length > 1
+                    option(selected value="-111") All
+                  each agent in agents  
+                    option(
+                      value=agent["id"]
+                      selected=(post_params != undefined ? (parseInt(post_params.selAgent_clog) == parseInt(agent["id"])) : false)
+                    )= agent["username"]
+            div(class="col-1") Date
+            div(class="col-7")
+              div(class="row")
+                div(class="col-2 pe-0")
+                  input(
+                    class="form-input w-100 rounded-2 pull-right" 
+                    type="text" 
+                    id="iptDateStart_clog" name="iptDateStart_clog"
+                    value=(post_params != undefined ? post_params.iptDateStart_clog : "")
+                  )
+                div(class="col-1 pe-0 m-0")
+                  i(class="bi bi-arrow-right-circle text-light fs-5")
+                div(class="col-2 pe-0")
+                  input(
+                    class="form-input w-100 rounded-2 pull-right" 
+                    type="text" 
+                    id="iptDateEnd_clog" name="iptDateEnd_clog"
+                    value=(post_params != undefined ? post_params.iptDateEnd_clog : "")
+                  )
+          div(class="row p-1")
+            div(class="col-1 text-light") IP Adress 
+            div(class="col-3")
               input(
-                class="w-100 h-80 rounded-2"
+                class="w-75 h-80 rounded-2"
                 type="text"
-                name="iptUsername1"
-                id="iptUsername1"
-                placeholder="Agent's username"
+                name="iptIP_clog"
+                id="iptIP_clog"
+                value=(post_params != undefined ? post_params.iptIP_clog : "")
+                placeholder="IP Adress"
               )
-            div(class="col-8")
+            div(class="col-1")
+            div(class="col-7")
           div(class="row p-1")
             div(class="col-2")
               input(
