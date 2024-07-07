@@ -24,7 +24,7 @@ router.get('/', async function(req, res, next) {
       data: data,
       data1: data1,
       countries: countries,
-      tab: 0
+      tab: 1
     });
   } else {
     res.redirect('logout');
