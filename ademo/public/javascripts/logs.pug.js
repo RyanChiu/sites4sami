@@ -12,6 +12,23 @@ var dateEnd_clog = $('#iptDateEnd_clog').daterangepicker({
     if ($('#iptDateEnd_clog').val() == "")
         dateEnd_clog.data('daterangepicker').setEndDate(end.format('MM/DD/YYYY'));
 });
+$('#selOffice_clog').on("change", function() {
+    $.ajax({
+        url: "ags_nov",
+        type: "post",
+        data: {officeid: $('#selOffice_clog').val()},
+        dataType: "json",
+        success: function(rst) {
+            $('#selAgent_clog').html("<option value='-111'>All</option>");
+            let agents = $.parseJSON(rst.rst);
+            for (let agent of agents) {
+                $('#selAgent_clog').html($('#selAgent_clog').html() 
+                    + "<option value='" + agent.id + "'>" + agent.username + "</option>");
+            }
+            //console.log("[debug from links page of ajax:]"); console.log(rst); console.log(agents);// debug;
+        }
+    })
+})
 $('#tblLogs').tablemanager({
     pagination: true,
     //numOfPages: "8",

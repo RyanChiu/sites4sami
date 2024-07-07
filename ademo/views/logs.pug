@@ -1,6 +1,8 @@
 extends layout
 
 block content
+  include loading.pug
+
   ul(class="nav nav-tabs border-0" id="logTab" role="tablist")
     li( class="nav-item" role="presentation")
       button(class="nav-link ps-2 pe-2 pt-0 pb-0 border-bottom bg-dark text-info fw-normal fs-5 active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-tab-pane" type="button" role="tab" aria-controls="login-tab-pane" aria-selected="true") Logins
@@ -128,7 +130,7 @@ block content
             div(class="col-1") Date
             div(class="col-7")
               div(class="row")
-                div(class="col-2 pe-0")
+                div(class="col-3 pe-0")
                   input(
                     class="form-input w-100 rounded-2 pull-right" 
                     type="text" 
@@ -138,7 +140,7 @@ block content
                 div(class="col-1 pe-0 m-0")
                   center
                     i(class="bi bi-arrow-right-circle text-light fs-5")
-                div(class="col-2 pe-0")
+                div(class="col-3 pe-0")
                   input(
                     class="form-input w-100 rounded-2 pull-right" 
                     type="text" 
