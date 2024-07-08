@@ -36,8 +36,9 @@ router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
     var data = data1 = [];
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
-    var agents = await tricks.queryAgents(req.session.role, req.session.userid,
-      (req.body.selOffice_clog != undefined ? (parseInt(req.body.selOffice_clog) == -111 ? "" : " officeid = " + req.body.selOffice_clog) : "")
+    var agents = await tricks.queryAgents(
+      req.session.role, req.session.userid,
+      (req.body.selOffice_clog != undefined ? (parseInt(req.body.selOffice_clog) == -111 ? " 1 = 1 " : " officeid = " + req.body.selOffice_clog) : " 1 = 1 ")
     );
     var sites = await tricks.queryData("select * from site order by name");
     var countries = await tricks.queryCountries();

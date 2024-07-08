@@ -29,6 +29,7 @@ $('#selOffice_clog').on("change", function() {
         }
     })
 })
+setPeriodsPicks("#selPeriod_clog", dateStart_clog, dateEnd_clog);
 $('#tblLogs').tablemanager({
     pagination: true,
     //numOfPages: "8",
