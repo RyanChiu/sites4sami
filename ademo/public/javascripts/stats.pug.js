@@ -134,6 +134,8 @@ $('#selOffice').on("change", function() {
     })
 })
 
+setPeriods("#selPeriod");
+/*
 var selPeriod =$('#selPeriod');
 var now = moment(), yesterday = moment().subtract(1, 'day');
 selPeriod.append("<option value='" + now.format("MM/DD/YYYY") + "," + now.format("MM/DD/YYYY") + "'>Today</option>");
@@ -161,6 +163,7 @@ for (let i = 0; i < 11; i++) {
 }
 //$("#selPeriod")[0].selectedIndex = 3;
 //setDatePicker();
+*/
 
 function setDatePicker() {
     let dates = $('#selPeriod').val().split(",");
