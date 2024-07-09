@@ -37,7 +37,7 @@ block content
                 )
                   option(selected value="-111") All
                   each site in sites  
-                    option(value=site["id"])= site["name"]
+                    option(value=site["id"] class=(parseInt(site["status"]) != 1 ? "text-danger" : ""))= site["name"]
           div(class="col-1")
             label(style="font-size:14px;" for) View By
           div(class="col-6")

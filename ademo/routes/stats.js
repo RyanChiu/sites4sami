@@ -123,7 +123,7 @@ router.get('/', async function(req, res, next) {
     var title = tricks.getTitle(__filename);
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
-    var sites = await tricks.queryData("select * from site order by name");
+    var sites = await tricks.queryData("select * from site order by status desc, name asc");
 
     // to get an "This week" at EDT
     var now = new Date();
@@ -167,7 +167,7 @@ router.post('/', async (req, res) => {
     var params = req.body;
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
-    var sites = await tricks.queryData("select * from site");
+    var sites = await tricks.queryData("select * from site order by status desc, name asc");
     var stats = await tricks.queryData(getStatsSql(params.iptViewBy, req.session, params));
     //res.send(getStatsSql(req.body.iptViewBy, req.session,  req.body) + JSON.stringify(params));
     res.render('stats', { 
