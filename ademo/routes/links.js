@@ -37,7 +37,11 @@ router.post('/', async (req, res) => {
           let link = JSON.parse(lnk);
           //links.push('{"url": "' + link.url + '?sub1=__sub1__", "params": "' + tricks.cipherIt(link.url + "?sub2=" + params.agent) + '", "payout": ' + link.payout + ', "earning": ' + link.earning + '}');
           //var host = req.protocol + '://' + req.get('Host') + req.originalUrl;
-          links.push('{"param": "' + tricks.cipherIt(sites[0]["id"] + "," + link.abbr + "," + params.agent) + '", "name": "' + link.name + '", "abbr": "' + link.abbr + '"}');
+          links.push('\
+            {"param": "' + tricks.cipherIt(sites[0]["id"] + "," + link.abbr + "," + params.agent) 
+              + '", "name": "' + link.name + '", "abbr": "' + link.abbr + '", "status": "' + link.status
+              + '"}\
+          ');
         }
     }
     // console.log("[debug from links with post:]"); console.log(sites[0]["links"]); //debug

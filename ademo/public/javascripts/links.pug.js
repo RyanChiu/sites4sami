@@ -27,11 +27,14 @@ $("#formLinks").on("submit", function() {
                 $('#divLinks').html("");
                 $.each(rst.rst, function(index, lnk) {
                     let link = $.parseJSON(lnk);
-                    $('#divLinks').html(
-                        $('#divLinks').html() 
-                            + link.name + "(" + link.abbr + "): " 
-                            + window.location.href.replace("links", "nav2?to=") + link.param + "<br/>"
-                    );
+                    // console.log(`plaint text of lnk: ${lnk}`);
+                    if (parseInt(link.status) == 1) {
+                        $('#divLinks').html(
+                            $('#divLinks').html() 
+                                + link.name + "(" + link.abbr + "): " 
+                                + window.location.href.replace("links", "nav2?to=") + link.param + "<br/>"
+                        );
+                    }
                 })
             }
         })
