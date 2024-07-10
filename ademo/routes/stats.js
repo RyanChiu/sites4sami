@@ -15,7 +15,7 @@ cols['day'] = " date_format(trxtime, '%m/%d/%Y') as day ";
 var from = [];
 from['detail'] = " from stats a, user b, site c ";
 from['agent'] = " from stats a, user b "
-from['office'] = "from stats a, user b ";
+from['office'] = " from stats a, user b ";
 from['day'] = " from stats a, user b ";
 var where = [];
 var condNostats = " and b.status = 1 and (select status from user where id = b.officeid) = 1 ";
