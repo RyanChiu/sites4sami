@@ -42,9 +42,17 @@ $('#tblHitlogs').tablemanager1({
     disable: [6, "last"]
 });
 
+function setLinksModal(title, links) {
+    $("#h3LinksTitle").html(title);
+    $("#divLinkIn").html(links[0]);
+    if ($("#divLinkOut") !== undefined) $("#divLinkOut").html(links[1]);
+}
 $('[name="uLinkin"]').each(function() {
+    var title = "Agent: " + $(this).data("agent") + "  Abbr: " + $(this).data("abbr");
     var linkin = window.location.href.replace("logs", "nav2?to=") + $(this).html();
-    var html = '<a href="#" onclick="alert(\'' + linkin + '\');return false;">' 
+    var linkout = $(this).data("linkout");
+    var html = '<a href="#" onclick="setLinksModal(\'' + title + '\', [\'' + linkin + '\', \'' + linkout + '\']);' + '$(\'#btnShowLinks\').click();' + 'return false;">' 
+    //var html = '<a href="#foo" onclick="$(\'#btnShowLinks\').click();' + 'return false;">'
         + '<i class="bi bi-link text-info"></i>' 
         + '</a>';
     $(this).html(html);

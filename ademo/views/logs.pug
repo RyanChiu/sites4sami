@@ -3,6 +3,25 @@ extends layout
 block content
   include loading.pug
 
+  button(id="btnShowLinks" class="btn btn-info d-none" data-bs-toggle="modal" data-bs-target="#linksModal") Show Links
+  div(class="modal" id="linksModal" tabindex="-1")
+    div(class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable")
+      div(class="modal-content text-bg-dark")
+        div(class="modal-header pt-2 pb-2 pe-3")
+          h3(class="modal-title fs-5 m-0 ps-0" id="h3LinksTitle")= ""
+          button(type="button" class="btn m-0 p-0" style="color:white;" data-bs-dismiss="modal" aria-label="Close")
+            i(class="bi bi-x-octagon")
+        div(class="modal-body")
+          div(class="row w-100 ps-2 pe-2")
+            div(class="col-1 pe-2")
+              i(class="bi bi-link-45deg float-end")
+            div(class="col-11 p-0 m-0" id="divLinkIn") in
+          if role == 0
+            div(class="row w-100 ps-2 pe-2")
+              div(class="col-1 pe-2")
+                i(class="bi bi-layers-half float-end")
+              div(class="col-11 p-0 m-0" id="divLinkOut") out
+
   ul(class="nav nav-tabs border-0" id="logTab" role="tablist")
     li( class="nav-item" role="presentation")
       button(class="nav-link ps-2 pe-2 pt-0 pb-0 border-bottom bg-dark text-info fw-normal fs-5 active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-tab-pane" type="button" role="tab" aria-controls="login-tab-pane" aria-selected="true") Logins
@@ -207,7 +226,12 @@ block content
               td= row['agent']
               td= row['site']
               td= row['typeabbr']
-              td(name='uLinkin')= row['linkin']
+              td(
+                name='uLinkin' 
+                data-linkout=row['linkout']
+                data-agent=row['agent']
+                data-abbr=row['typeabbr']
+              )= row['linkin']
               td(name='uTimeStr')= row['time']
               td
                 a(class="text-info" href='https://whatismyipaddress.com/ip/' + row['ip4'] target='_blank')= row['ip4']
