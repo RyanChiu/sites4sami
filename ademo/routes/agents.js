@@ -55,6 +55,7 @@ router.post('/', async (req, res) => {
     }
     var title = "Agents";
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
+    var sites = await tricks.querySites();
     var params = [
       req.body.selOffice, 
       req.body.iptAgent,
@@ -75,7 +76,9 @@ router.post('/', async (req, res) => {
       navs: req.session.navs,
       params: params,
       user: req.session.username,
+      role: req.session.role,
       offices: offices,
+      sites: sites,
       data: data
     });
   } else {
