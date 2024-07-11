@@ -74,11 +74,11 @@ router.get('/', async function(req, res, next) {
             } else {
                 passed = 0;
             }
+            url = url.replace("__agent__", tos[2]).replace("__abbr__", tos[1]);
             rst = await tricks.queryData("insert into hitlog (username, siteid, typeabbr, linkin, linkout, ip4, countryISOcode, passed) values \
                 (?, ?, ?, ?, ?, ?, ?, ?)", [tos[2], tos[0], tos[1], params.to, url, ip4, geo == null ? null : geo.country.isoCode, passed]);
             // console.log(`[debug from page nav(3):record the hit with the result -> ${JSON.stringify(rst)}`);
             if (passed) {
-                url = url.replace("__agent__", tos[2]).replace("__abbr__", tos[1]);
                 // console.log(`[debug from page nav(5), the url:]${url}`);
                 //res.redirect("https://www.msn.com");//only for debug locally
                 res.redirect(url);
