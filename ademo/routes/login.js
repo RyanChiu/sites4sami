@@ -59,8 +59,12 @@ router.post('/', async (req, res) => {
                 }
                 //save the logged-in in log
                 var rst = await tricks.queryData(
-                    "insert into log (userid, type, outtime, ip4) values (?, 1, null, ?)",
-                    [req.session.userid, tricks.getIP4(req)]
+                    "insert into log (userid, type, intime, outtime, ip4) values (?, 1, str_to_date(?, '%m/%d/%Y, %h:%i:%s %p'), null, ?)",
+                    [
+                        req.session.userid, 
+                        tricks.currentNewYorkTime(), 
+                        tricks.getIP4(req)
+                    ]
                 );
                 req.session.loginsertid = rst['insertId'];
                 return res.redirect('home');
