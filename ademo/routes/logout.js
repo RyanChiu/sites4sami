@@ -15,8 +15,11 @@ router.get('/', async function(req, res, next) {
     req.session.loggedin = false;
     req.session.username = '';
     var rst = await tricks.queryData(
-      "update log set outtime = NOW() where id = ?",
-      req.session.loginsertid
+      "update log set outtime = str_to_date(?, '%m/%d/%Y, %h:%i:%s %p') where id = ?",
+      [
+        tricks.currentNewYorkTime(),
+        req.session.loginsertid
+      ]
     );
     req.session.userid = -1;
     // console.log(["debug from logout page:"]); console.log(rst); // debug
