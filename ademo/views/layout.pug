@@ -22,7 +22,7 @@ html
     script(src='javascripts/daterangepicker-master/moment.min.js')
     script(src='javascripts/daterangepicker-master/daterangepicker.js')
 
-  body(class="bg-dark text-dark fw-lighter")
+  body(class="bg-dark text-dark fw-lighter" style="background-image:url('images/gwrbg.jpg');background-size:cover;background-position:center;height:100vh;")
     script(src='javascripts/ztoolkits.js')
     script(src='javascripts/layout.pug.js')
 
@@ -32,10 +32,10 @@ html
     div(class="container")
       //- top banner
       div(class="row text-center")
-        div(class="col-2 p-0 m-0")
-          img(src="images/topleft-sm.gif", class="w-100 h-100 m-0 p-0")
-        div(class="col-10 p-0 m-0")
-          img(src="images/topbanner.png", class="w-100 h-100 m-0 p-0")
+        div(class="col-2 pt-0 pe-0 pb-0 mt-0 me-0 mb-0" style="height:210px;")
+          img(src="images/Saturn-s.gif", class="w-100 h-100 m-0 p-0 rounded-start")
+        div(class="col-10 ps-0 pt-0 pb-0 ms-0 mt-0 mb-0" style="height:210px;")
+          img(src="images/topbanner.png", class="w-100 h-100 m-0 p-0 rounded-end")
 
       - var hideNav = (filename.indexOf("login") !== -1 ? 1 : 0)
       - var paths = filename.split("\/")
@@ -47,7 +47,7 @@ html
           break
         when 0
           //- the following is a navbar implemented with bootstrap
-          nav(class="navbar navbar-expand-lg navbar-dark bg-dark nav-underline")
+          nav(class="navbar navbar-expand-lg navbar-dark bg-dark nav-underline p-0 m-0")
             .container-fluid
               //- a(class="navbar-brand fw-bolder text-warning" href="#") GWR
               button(class="navbar-toggler" type="button" 
