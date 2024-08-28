@@ -37,6 +37,17 @@ function __zShowClock() {
 __zShowClock();
 
 $(document).ready(function() {
+    var hideNav = $("#iptHideNav").val();
+    var poped = sessionStorage.getItem("poped");
+    if (hideNav == 0) {
+        poped = (poped == null ? true : poped);
+        sessionStorage.setItem("poped", true);
+        // to do: put popup box for the alerts below
+    } else {
+        poped = (poped == null ? false: poped);
+        sessionStorage.setItem("poped", false);
+    }
+
     $("#captchaImg").click(function(){
         d = new Date();
         this.src = "captcha" + "?" + d.getTime();
