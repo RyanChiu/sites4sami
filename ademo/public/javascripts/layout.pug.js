@@ -40,12 +40,13 @@ $(document).ready(function() {
     var hideNav = $("#iptHideNav").val();
     var poped = sessionStorage.getItem("poped");
     if (hideNav == 0) {
-        poped = (poped == null ? true : poped);
-        sessionStorage.setItem("poped", true);
+        poped = (poped == null || poped == "false" ? "false" : "true");
+        sessionStorage.setItem("poped", "true");
         // to do: put popup box for the alerts below
+        if (poped == "false") $("#btnPopup").click();
     } else {
         poped = (poped == null ? false: poped);
-        sessionStorage.setItem("poped", false);
+        sessionStorage.setItem("poped", "false");
     }
 
     $("#captchaImg").click(function(){
