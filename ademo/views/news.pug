@@ -12,6 +12,22 @@ block content
         div(class="modal-footer d-block")
           button(id="btnEndIt" class="btn btn-info" data-bs-dismiss="modal") OK
 
+  ul(class="nav nav-tabs mb-1" id="newsTab" role="tablist")
+    li( class="nav-item" role="presentation")
+      button(
+        class="nav-link ps-2 pe-2 pt-0 pb-0 border-bottom bg-dark text-light fw-normal fs-6 active" 
+        id="news-tab" type="button" role="tab" 
+        data-bs-toggle="tab" data-bs-target="#news-tab-pane"
+        aria-controls="news-tab-pane" aria-selected="true"
+      ) News
+    li( class="nav-item" role="presentation")
+      button(
+        class="nav-link ps-2 pe-2 pt-0 pb-0 border-bottom bg-dark text-light fw-normal fs-6" 
+        id="alert-tab" type="button" role="tab" 
+        data-bs-toggle="tab" data-bs-target="#alert-tab-pane"
+        aria-controls="alert-tab-pane" aria-selected="false"
+      ) Alert
+
   - var soe = (data == "" ? 0 : 1)
   case soe
     when 0
@@ -41,14 +57,29 @@ block content
           div(class="row")
             div(class="col mb-2")
               input(
+                type="hidden" 
+                id="iptCurTab" name="iptCurTab"
+                value=0
+              )
+              input(
                 id="iptId" name="iptId"
                 type="hidden" 
                 value=data[0]['id']
               )
               textarea(
                 id="joditNews" name="joditNews" 
-                placeholder="Design your news, please."
+                placeholder="Design your news/alert, please."
               )= data[0]["content"]
+              input(
+                id="iptId1" name="iptId1"
+                type="hidden" 
+                value=data1[0]['id']
+              )
+              input(
+                type="hidden"
+                id="iptData1" name="iptData1"
+                value=data1[0]["content"]
+              )
           div(class="row")
             div(class="col-2")
               input(

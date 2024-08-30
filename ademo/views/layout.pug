@@ -77,15 +77,15 @@ html
             _zShowClock();
 
       button(id="btnPopup" class="btn btn-info d-none" data-bs-toggle="modal" data-bs-target="#popupModal") popup
-      div(class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true")
+      div(class="modal fade w-100" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true")
         div(class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable")
           div(class="modal-content text-bg-dark")
             div(class="modal-header pt-2 pb-2 pe-3")
-              h3(class="modal-title fs-5 m-0 ps-0")= "Alerts"
+              h3(class="modal-title fs-5 m-0 ps-0")= "Alert"
               button(type="button" class="btn m-0 p-0" style="color:white;" data-bs-dismiss="modal" aria-label="Close")
                 i(class="bi bi-x-octagon")
             div(class="modal-body")
-              label(class="text-light") aaaaaaa
+              div(class="w-100")!= (data1 == undefined ? "......" : data1[0]['content'])
             div(class="modal-footer")
               button(type="button" class="btn btn-primary m-0 pt-0 pb-0" data-bs-dismiss="modal") Enter
 

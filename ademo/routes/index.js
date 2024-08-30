@@ -12,12 +12,16 @@ router.get('/', async function(req, res, next) {
     data = await tricks.queryData(
       "select * from news where id = (select max(id) from news);"
     );
+    data1 = await tricks.queryData(
+      "select * from news where id = (select min(id) from news);"
+    );
     res.render('home', { 
       title: title,
       tips: tips,
       navs: req.session.navs,
       user: req.session.username,
-      data: data
+      data: data,
+      data1: data1
     });
   } else {
     res.redirect('logout');

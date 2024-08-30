@@ -4,4 +4,5 @@ CREATE TABLE `news` (
   `timeonair` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
-insert into news (content) value ("");
+insert into news (content) value ("Design your news, please");
+insert into news values (-1, "Design your alert, please", now());

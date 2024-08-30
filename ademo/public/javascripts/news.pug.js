@@ -30,3 +30,29 @@ $("#iptUpload").change(function(e) {
         }
     })
 });
+
+function switchTabContents(tab) {
+    if (tab == "news") {
+        sessionStorage.setItem("alert", editor.value);
+        $("#iptData1").val(editor.value);
+        editor.value = sessionStorage.getItem("news");
+        $("#iptCurTab").val(0);
+    } else if (tab == "alert") {
+        sessionStorage.setItem("news", editor.value);
+        $("#iptData1").val(editor.value);
+        editor.value = sessionStorage.getItem("alert");
+        $("#iptCurTab").val(1);
+    }
+}
+
+$(document).ready(function() {
+    sessionStorage.setItem("news", $("#joditNews").val());
+    sessionStorage.setItem("alert", $("#iptData1").val());
+    $("#news-tab").click(function(e) {
+        switchTabContents("news");
+    })
+    
+    $("#alert-tab").click(function(e) {
+        switchTabContents("alert");
+    })
+});

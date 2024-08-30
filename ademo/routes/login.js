@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
                 union\
                 select a.id, a.username, a.type, a.status, a.officeid, null, null\
                 from user a where a.username = ? and type < 3 and a.pwd_crypted = ?;"
-            data = await tricks.queryData(sql, [params[0], tricks.cryptIt(params[1]), params[0], tricks.cryptIt(params[1])]);
+            let data = await tricks.queryData(sql, [params[0], tricks.cryptIt(params[1]), params[0], tricks.cryptIt(params[1])]);
             // console.log(`[z.debug.login:]${JSON.stringify(data)}`);
             if (data != null && data.length > 0 
                 && (data[0]['status'] == 1 && data[0]['type'] < 3
