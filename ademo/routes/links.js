@@ -40,6 +40,7 @@ router.post('/', async (req, res) => {
           links.push('\
             {"param": "' + tricks.cipherIt(sites[0]["id"] + "," + link.abbr + "," + params.agent) 
               + '", "name": "' + link.name + '", "abbr": "' + link.abbr + '", "status": "' + link.status
+              + '", "alias": "' + link.alias
               + '"}\
           ');
         }

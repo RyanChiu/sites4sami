@@ -31,7 +31,7 @@ $("#formLinks").on("submit", function() {
                     if (parseInt(link.status) == 1) {
                         $('#divLinks').html(
                             $('#divLinks').html() 
-                                + link.name + "(" + link.abbr + "): " 
+                                + link.name + "(" + link.alias + "): " 
                                 + window.location.href.replace("links", "nav2?to=") + link.param + "<br/>"
                         );
                     }
