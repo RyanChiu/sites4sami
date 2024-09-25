@@ -9,7 +9,7 @@ router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     if (req.session.role == 0) {
       var title = tricks.getTitle(__filename);
-      var data = "";
+      var data = "", data1 = null;
       if (req.session.role !== 0) {
         res.redirect('home');
       } else {

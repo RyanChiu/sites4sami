@@ -73,12 +73,12 @@ block content
               input(
                 id="iptId1" name="iptId1"
                 type="hidden" 
-                value=data1[0]['id']
+                value=(data1 == undefined || data1 == null ? "" : data1[0]['id'])
               )
               input(
                 type="hidden"
                 id="iptData1" name="iptData1"
-                value=data1[0]["content"]
+                value=(data1 == undefined || data1 == null ? "" : data1[0]['content'])
               )
           div(class="row")
             div(class="col-2")
