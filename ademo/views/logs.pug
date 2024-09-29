@@ -80,7 +80,8 @@ block content
               td= i
               td= row['username']
               td= row['office'] == null ? "-" : row['office']
-              td= row['ip4']
+              td
+                a(class="text-info" href='https://whatismyipaddress.com/ip/' + row['ip4'] target='_blank')= row['ip4']
               td(name='uTimeStr')= row['intime']
               td(name='uTimeStr')= row['outtime']
         tfoot 
