@@ -45,13 +45,13 @@ router.post('/', async (req, res) => {
                     case 0:
                         tricks.useSession(router, true);
                     default:
-                        req.session.navs = ["Home", "News", "Offices", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile", "Admins", "Settings"];
+                        req.session.navs = ["Home", "News", "Offices", "Agents", "*New*", "Sites", "Stats", "Links", "Logs", "Profile", "Admins", "Set"];
                         break;
                     case 1:
-                        req.session.navs = ["Home", "Offices", "Agents", "Approve Agents", "Sites", "Stats", "Links", "Logs", "Profile"];
+                        req.session.navs = ["Home", "Offices", "Agents", "*New*", "Sites", "Stats", "Links", "Logs", "Profile"];
                         break;
                     case 2:
-                        req.session.navs = ["Home", "Agents", "Approve Agents", "Stats", "Links", "Logs", "Profile"];
+                        req.session.navs = ["Home", "Agents", "*New*", "Stats", "Links", "Logs", "Profile"];
                         break;
                     case 3:
                         req.session.navs = ["Home", "Stats", "Links", "Logs", "Profile"];
