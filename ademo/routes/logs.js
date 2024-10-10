@@ -24,7 +24,8 @@ router.get('/', async function(req, res, next) {
       data: data,
       data1: data1,
       countries: countries,
-      tab: 1
+      tab: 1,
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');
@@ -77,7 +78,8 @@ router.post('/', async (req, res) => {
       data1: data1,
       countries: countries,
       post_params: req.body,
-      tab: tab
+      tab: tab,
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');

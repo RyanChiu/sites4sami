@@ -17,7 +17,8 @@ router.get('/', async function(req, res, next) {
       offices: offices,
       agents: agents,
       sites: sites,
-      links: []
+      links: [],
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');

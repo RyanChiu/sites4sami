@@ -32,14 +32,16 @@ router.get('/', async function(req, res, next) {
         role: req.session.role,
         offices: offices,
         sites: sites,
-        data: data
+        data: data,
+        newags: req.session.iaNum
       });
     } else {
       title = "Home";
       res.render('home', { 
         title: title,
         navs: req.session.navs,
-        user: req.session.username
+        user: req.session.username,
+        newags: req.session.iaNum
       });
     }
   } else {
@@ -79,7 +81,8 @@ router.post('/', async (req, res) => {
       role: req.session.role,
       offices: offices,
       sites: sites,
-      data: data
+      data: data,
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');

@@ -154,7 +154,8 @@ router.get('/', async function(req, res, next) {
       sites: sites,
       stats: stats,
       post_params: params,
-      viewBy: params.iptViewBy
+      viewBy: params.iptViewBy,
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');
@@ -180,7 +181,8 @@ router.post('/', async (req, res) => {
       sites: sites,
       stats: stats,
       post_params: params,
-      viewBy: params.iptViewBy
+      viewBy: params.iptViewBy,
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');

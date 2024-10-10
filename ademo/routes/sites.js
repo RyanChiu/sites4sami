@@ -40,7 +40,8 @@ router.get('/', async function(req, res, next) {
         navs: req.session.navs,
         user: req.session.username,
         role: req.session.role,
-        data: sites
+        data: sites,
+        newags: req.session.iaNum
       });
     } else {
       res.redirect('home?tips=Not allowed.');

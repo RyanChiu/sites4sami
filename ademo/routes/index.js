@@ -21,7 +21,8 @@ router.get('/', async function(req, res, next) {
       navs: req.session.navs,
       user: req.session.username,
       data: data,
-      data1: data1
+      data1: data1,
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');

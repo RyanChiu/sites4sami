@@ -22,6 +22,7 @@ router.get('/', async function(req, res, next) {
       ]
     );
     req.session.userid = -1;
+    req.session.iaNum = null;
     // console.log(["debug from logout page:"]); console.log(rst); // debug
   } 
   res.render('login', { 

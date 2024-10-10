@@ -67,6 +67,9 @@ router.post('/', async (req, res) => {
                     ]
                 );
                 req.session.loginsertid = rst['insertId'];
+                //save the new agents number to session
+                var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
+                req.session.iaNum = newags.length;
                 return res.redirect('home');
             } else {
                 if (data != null && data.length > 0 

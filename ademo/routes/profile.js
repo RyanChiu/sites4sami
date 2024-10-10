@@ -16,7 +16,8 @@ router.get('/', async function(req, res, next) {
       title: title,
       navs: req.session.navs,
       user: req.session.username,
-      data: data
+      data: data,
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');

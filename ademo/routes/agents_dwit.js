@@ -41,7 +41,8 @@ router.get('/', async function(req, res, next) {
           role: req.session.role,
           offices: offices,
           sites: sites,
-          data: data
+          data: data,
+          newags: req.session.iaNum
         });
         break;
       case "edit":
@@ -62,7 +63,8 @@ router.get('/', async function(req, res, next) {
           role: req.session.role,
           offices: offices_edit,
           sites: sites,
-          data: data
+          data: data,
+          newags: req.session.iaNum
         });
         break;
       case "approve":
@@ -77,7 +79,8 @@ router.get('/', async function(req, res, next) {
       default:
         res.render('home', {
           title: "It seems sth. went south...",
-          navs: req.session.navs
+          navs: req.session.navs,
+          newags: req.session.iaNum
         })
         break;
     }
@@ -85,12 +88,19 @@ router.get('/', async function(req, res, next) {
       title = "Agents";
       await tricks.queryData("update user set status = ? where id = ?", [status, paramId]);
       data = await tricks.queryAgents(req.session.role, req.session.userid);
+
+      //save the new agents number to session
+      var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
+      req.session.iaNum = newags.length;
+      console.log(`[debug from agents_dwit(get method):<how many unapproved>] ${req.session.iaNum}`);
+
       if (paramRef) {
         res.render('approveagents', { 
           title: title,
           navs: req.session.navs,
           user: req.session.username,
-          data: data
+          data: data,
+          newags: req.session.iaNum
         });
       } else {
         res.render('agents', { 
@@ -98,7 +108,8 @@ router.get('/', async function(req, res, next) {
           navs: req.session.navs,
           user: req.session.username,
           offices: offices,
-          data: data
+          data: data,
+          newags: req.session.iaNum
         });
       }
     }
@@ -144,7 +155,13 @@ router.post('/', async (req, res) => {
         req.body.txtNote, iptSites
       ];
       rst = await tricks.queryData(sql, params);
-    } else if (req.body.submitType == "edit") {
+
+      //save the new agents number to session
+      var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
+      req.session.iaNum = newags.length;
+      console.log(`[debug from agents_dwit(post method "add"):<how many unapproved>] ${req.session.iaNum}`);
+
+    } else if (req.body.submitType == "edit") { // basically will be never used, this very block
       /*
       sql = "update user set 1stname = '" + params[1] + "', lstname = '" + params[2] + "', username = '" + params[3] + "', "
         + "password = '" + params[4] + "', pwd_crypted = '" + tricks.cryptIt(params[4]) + "', "
@@ -184,10 +201,17 @@ router.post('/', async (req, res) => {
         parseInt(req.body.iptId)
       ];
       rst = await tricks.queryData(sql, params);
+
+      //save the new agents number to session
+      var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
+      req.session.iaNum = newags.length;
+      console.log(`[debug from agents_dwit(ajax_edit):<how many unapproved>] ${req.session.iaNum}`);
+      
       res.set('Content-Type', 'text/html');
       if (rst) {
         res.send({
-          "rst": 1
+          "rst": 1,
+          "newags": newags.length
         })
       } else {
         res.send({
@@ -201,10 +225,17 @@ router.post('/', async (req, res) => {
       sql = "update user set status = ? where id = ?";
       rst = await tricks.queryData(sql, [st, req.body.agentid]);
       // console.log(`[debug from agents_dwit(ajax_hide):]with status is:${st}("hidden":${req.body.hidden})`);
+
+      //save the new agents number to session
+      var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
+      req.session.iaNum = newags.length;
+      console.log(`[debug from agents_dwit(ajax_hide):<how many unapproved>] ${req.session.iaNum}`);
+
       res.set('Content-Type', 'text/html');
       if (rst) {
         res.send({
-          "rst": 1
+          "rst": 1,
+          "newags": newags.length
         })
       } else {
         res.send({
@@ -218,10 +249,17 @@ router.post('/', async (req, res) => {
       sql = "update user set status = ? where id = ?";
       rst = await tricks.queryData(sql, [st, req.body.agentid]);
       // console.log(`[debug from agents_dwit(ajax_approve):]with status is:${st}("approved":${req.body.approved})`);
+
+      //save the new agents number to session
+      var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
+      req.session.iaNum = newags.length;
+      console.log(`[debug from agents_dwit(ajax_approve):<how many unapproved>] ${req.session.iaNum}`);
+
       res.set('Content-Type', 'text/html');
       if (rst) {
         res.send({
-          "rst": 1
+          "rst": 1,
+          "newags": newags.length
         })
       } else {
         res.send({
@@ -232,12 +270,14 @@ router.post('/', async (req, res) => {
     // console.log("[debug for agents_dwit db op] rst/body:"); console.log(rst); console.log(req.body); //debug
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var data = await tricks.queryAgents(req.session.role, req.session.userid);
+
     res.render('agents', { 
       title: title,
       navs: req.session.navs,
       user: req.session.username,
       offices: offices,
-      data: data
+      data: data,
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');

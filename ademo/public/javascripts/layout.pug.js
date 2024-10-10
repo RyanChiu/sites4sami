@@ -37,6 +37,28 @@ function __zShowClock() {
 __zShowClock();
 
 $(document).ready(function() {
+    // tell every page that the counts of the agents who need to be approved is stored in session
+    if (sessionStorage.getItem("newags") == "" || sessionStorage.getItem("newags") == undefined || sessionStorage.getItem("newags") == null) {
+        sessionStorage.setItem("newags", $("#iptNewAgs").val());
+    } else {
+        // show nums on top corner of the nav item
+        // $("#navLnk_approveagents").text("*New*" + sessionStorage.getItem("newags"));
+        $("#navLnk_approveagents").append(
+            '<span id="spnNewAgs" class="top-0 start-0 m-0 translate-middle badge rounded-pill bg-danger float-sm-end" style="font-size:8px;">'
+                + '<label class="p-0 m-0 text-light" id="lblNewAgs">'
+                + sessionStorage.getItem("newags")
+                + '</label>'
+                + '<span class="visually-hidden m-0">unapproved agent(s)</span>'
+            + '</span>'
+        );
+        if (sessionStorage.getItem("newags") == 0) {
+            $("#spnNewAgs").hide();
+        } else {
+            $("#spnNewAgs").show();
+        }
+    }
+    //alert($("#navLnk_approveagents").text());
+    //alert(sessionStorage.getItem("newags"));
     var hideNav = $("#iptHideNav").val();
     var poped = sessionStorage.getItem("poped");
     if (hideNav == 0) {

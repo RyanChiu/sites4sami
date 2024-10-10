@@ -54,6 +54,12 @@ $("#formAgentEdit").validate({
             dataType: "json",
             success: function(data) {
                 if (data.rst == 1) {
+                    console.log(`[debug from agents.pug.js (editAgent): <how many unapproved>]: ${data.newags}`);
+                    sessionStorage.setItem("newags", data.newags);
+                    $("#lblNewAgs").html(data.newags);
+                    if (data.newags == 0) $("#spnNewAgs").hide();
+                    else $("#spnNewAgs").show();
+
                     $('#iptId').val(id);
                     $('#selOffi').val(officeid);
                     $("#ipt1stName").val(fstName);
@@ -150,6 +156,12 @@ function hideAgent(id, hidden) {
       if (data.rst == 1) {
         $("#tdStatus_" + id).data("status", hidden ? -1 : 1);
         $("#tdStatus_" + id).html(hidden ? -1 : 1);
+       
+        console.log(`[debug from agents.pug.js (hideAgent): <how many unapproved>]: ${data.newags}`);
+        sessionStorage.setItem("newags", data.newags);
+        $("#lblNewAgs").html(data.newags);
+        if (data.newags == 0) $("#spnNewAgs").hide();
+        else $("#spnNewAgs").show();
         //$("#chkStatus_" + id).val(hidden ? -1 : 1);
         //$("#chkStatus_" + id).prop("checked", !hidden);
         $("#lnkHide_" + id).html(hidden ? "<i class='bi bi-eye-slash fs-6 text-secondary'></i>" : "<i class='bi bi-eye fs-6 text-info'></i>");
@@ -160,18 +172,25 @@ function hideAgent(id, hidden) {
   })
 }
 function approveAgent(id, approved) {
-    $.ajax({
-      url: "agents_dwit",
-      type: "post",
-      data: {submitType: "ajax_approve", agentid: id, approved: approved},
-      dataType: "json",
-      success: function(data) {
-        if (data.rst == 1) {
-          $("#tdStatus_" + id).data("status", approved ? 1 : 0);
-          $("#tdStatus_" + id).html(approved ? 1 : 0);
-          setuStatusIcon("#tdStatus_" + id);
-        } else {
-        }
+  $.ajax({
+    url: "agents_dwit",
+    type: "post",
+    data: {submitType: "ajax_approve", agentid: id, approved: approved},
+    dataType: "json",
+    success: function(data) {
+      if (data.rst == 1) {
+        $("#tdStatus_" + id).data("status", approved ? 1 : 0);
+        $("#tdStatus_" + id).html(approved ? 1 : 0);
+        
+        console.log(`[debug from agents.pug.js (approveAgent): <how many unapproved>]: ${data.newags}`);
+        sessionStorage.setItem("newags", data.newags);
+        $("#lblNewAgs").html(data.newags);
+        if (data.newags == 0) $("#spnNewAgs").hide();
+        else $("#spnNewAgs").show();
+
+        setuStatusIcon("#tdStatus_" + id);
+      } else {
       }
-    })
-  }
+    }
+  })
+}

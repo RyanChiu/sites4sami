@@ -15,7 +15,8 @@ router.get('/', async function(req, res, next) {
         navs: req.session.navs,
         user: req.session.username,
         role: req.session.role,
-        data: data
+        data: data,
+        newags: req.session.iaNum
       });
     } else {
       res.redirect('home?tips=Not allowed.');
@@ -41,7 +42,8 @@ router.post('/', async (req, res) => {
         navs: req.session.navs,
         user: req.session.username,
         role: req.session.role,
-        data: data
+        data: data,
+        newags: req.session.iaNum
       })
     } else {
       res.redirect('home?tips=Not allowed.');

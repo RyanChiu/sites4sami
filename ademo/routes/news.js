@@ -26,7 +26,8 @@ router.get('/', async function(req, res, next) {
         user: req.session.username,
         data: data,
         data1: data1,
-        tipDoing: "Uploading"
+        tipDoing: "Uploading",
+        newags: req.session.iaNum
       });
     } else {
       res.redirect('home?tips=Not allowed.');
@@ -69,7 +70,8 @@ router.post('/', async (req, res) => {
       user: req.session.username,
       data: data,
       data1: data1,
-      tipDoing: "Uploading"
+      tipDoing: "Uploading",
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');

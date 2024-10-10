@@ -21,7 +21,8 @@ router.get('/', async function(req, res, next) {
       navs: req.session.navs,
       user: req.session.username,
       countries: countries,
-      richOnes: richOnes
+      richOnes: richOnes,
+      newags: req.session.iaNum
     });
   } else {
     res.redirect('logout');
