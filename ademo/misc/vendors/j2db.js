@@ -16,6 +16,8 @@ async function executeSql(sql, holders) {
     }
 }
 
+exports.executeSql = executeSql;
+
 async function getLinks(siteId) {
     let sites = await executeSql(
         "select * from site where id = ?", siteId
@@ -30,6 +32,8 @@ async function getLinks(siteId) {
     return links;
 }
 
+exports.getLinks = getLinks;
+
 async function getAgents() {
     let data = await executeSql(
         "select username from user where type = ? and status = ?", [3, 1]
@@ -41,11 +45,13 @@ async function getAgents() {
     return agents;
 }
 
+exports.getAgents = getAgents;
+
 /**
  * Get all the clicks/raws/uniques and sales by day for an agent.
  * Right now, clicks/raws/uniques are sum of no mater how many types in a site, but
  * separate sales into different cols.
- * @param table means actually useful tracking data abstract from the API
+ * @param table means actually useful tracking data abstract from the API from "api.eflow.team" alike
  * @returns array of rows that coud be inserted into DB 
  */
 async function getAll4AgsByDay(table, siteId) {
@@ -137,6 +143,8 @@ async function emptyDayRec(agent, siteId, date) {
     return rec.affectedRows;
     //console.log(`dayRecEmpty delete sql result: ${JSON.stringify(rec)}`);
 }
+
+exports.emptyDayRec = emptyDayRec;
 
 exports.endPool = function() {
     pool.end();
