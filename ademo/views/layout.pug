@@ -78,8 +78,9 @@ html
                     - if (pathNav == "set") pathNav = "settings" //very important hard code!!
                     - var clsNav = (ofPath.indexOf(pathNav) === 0 ? " active text-danger" : " text-light")
                     a(class="nav-link ms-0 ps-0 me-1 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav)= navs[i]
+              a(class="nav-link float-sm-end" href="#foo" title=user alt=user)
+                i(class="bi bi-person-circle text-light fs-5 p-1")
               a(class="nav-link float-sm-end" href="logout" title="Logout" alt="Logout")
-                label(class="border border-start-0 border-end-0 rounded-3 text-light ps-1 pe-1 me-1")= user
                 i(class="bi bi-box-arrow-right text-light fs-5 p-1")
       div(class="row mb-1 text-center" + (tips == "" || typeof(tips) == undefined || tips == null ? " d-none" : " d-block"))
         div(class="col text-warning" style="height:41px")= tips
