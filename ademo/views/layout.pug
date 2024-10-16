@@ -77,7 +77,11 @@ html
                     - if (pathNav == "new") pathNav = "approveagents" //very important hard code!!
                     - if (pathNav == "set") pathNav = "settings" //very important hard code!!
                     - var clsNav = (ofPath.indexOf(pathNav) === 0 ? " active text-danger" : " text-light")
-                    a(class="nav-link ms-0 ps-0 me-1 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav)= navs[i]
+                    a(class="nav-link ms-0 ps-0 me-1 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav)
+                      - if (navs[i] == "Set") // hard code here
+                          i(class="bi bi-gear text-light fs-6 p-1")
+                      - else
+                          = navs[i]
               a(class="nav-link float-sm-end" href="#foo" title=user alt=user)
                 i(class="bi bi-person-circle text-light fs-5 p-1")
               a(class="nav-link float-sm-end" href="logout" title="Logout" alt="Logout")
