@@ -105,7 +105,7 @@ if (args.length == 2) {
         );
         console.log(`${rst.affectedRows} rec(s) inserted into stats.(after ${effectedRows} deleted)`);
         i++;
-        console.log(`row ${i} : ${JSON.stringify(stats[agent])}\n`);
+        console.log(`row ${i} : ${JSON.stringify(stats[agent])}`);
       }
     }
     console.log(`____________________end (${i})<${scriptName}>`);
