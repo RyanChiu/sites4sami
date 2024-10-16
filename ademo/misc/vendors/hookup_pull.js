@@ -2,6 +2,9 @@ const http = require("https");
 const j2db = require('./j2db');
 const {exec} = require('child_process');
 
+// get the script name itself
+let tmpNames = process.argv[1].split("/");
+var scriptName = tmpNames[tmpNames.length - 1];
 /**
  * it take 2 params:
  * 1st one is siteId;
@@ -69,7 +72,7 @@ if (args.length == 2) {
         }
       }
     }
-    console.log(`[debug]set of stats: \n ${JSON.stringify(stats)}`);
+    // console.log(`[debug]set of stats: \n ${JSON.stringify(stats)}`);
     /**
      * according the stats that get from the trakcer server, and 
      * reorgnized with JSON format,
@@ -79,12 +82,12 @@ if (args.length == 2) {
      */
     var agents = await j2db.getAgents();
     var i = 0;
-    console.log("start__________________");
+    console.log(`start__________________<${scriptName}>`);
     for (let agent of agents) {
       if (!(agent in stats)) {
         // if the agent is not one of the keys in stats, then do nothing
       } else {
-        console.log(`[debug] screen the data of legal agent(s):${JSON.stringify(stats[agent])}`);
+        // console.log(`[debug] screen the data of legal agent(s):${JSON.stringify(stats[agent])}`);
         // 1, empty a rec
         let effectedRows = await j2db.emptyDayRec(agent, args[0], args[1]);
         // 2, insert an updatedly new one
@@ -105,7 +108,7 @@ if (args.length == 2) {
         console.log(`row ${i} : ${JSON.stringify(stats[agent])}\n`);
       }
     }
-    console.log(`____________________end (${i})`);
+    console.log(`____________________end (${i})<${scriptName}>`);
 
     j2db.endPool();
   })();
