@@ -79,6 +79,9 @@ router.post('/', async (req, res) => {
           req.body.txtNote, req.body.chkStatus == 1 ? 1: 0, parseInt(req.body.iptId) 
         ];
         rst = await tricks.queryData(sql, params);
+        // set selected sites for all the agents of the office
+        sql = "update user set sites = JSON_ARRAY(" + req.body.selSites + ") where type = 3 and officeid = ?";
+        await tricks.queryData(sql, [parseInt(req.body.iptId)]);
         res.set('Content-Type', 'text/html');
         if (rst) {
           res.send({

@@ -258,6 +258,28 @@ exports.querySites = async function() {
     return sites;
 }
 
+/**
+ * check all the agents of the office, and combine the `sites` fields data, 
+ * get the collection as the "activated sites" for the office
+ * @param {*} id 
+ */
+exports.queryAssignedSites4Offi = async function(id) {
+    var assites = await queryData("select sites from user where officeid = " + id);
+    // get the collection of all the assigned sites for the office agent's by agent's
+    var collection = [];
+    for (let assite of assites) {
+        // console.log(`[debug] ${JSON.stringify(assite)}`)
+        // collection = collection.concat(assite["sites"].filter(function(v){return !(collection.indexOf(v) > -1)}));
+        for (let siteid of assite["sites"]) {
+            if (collection.indexOf(siteid) == -1) {
+                collection.push(siteid);
+            }
+        }
+    }
+    // console.log(`[debug] collection of all the assigned sites for agents of the office (${id}):${collection.toString()}`);
+    return collection;
+}
+
 exports.getIP4 = function(req) {
     var ip = req.headers['x-forwarded-for'] ||
         req.ip ||

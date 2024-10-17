@@ -51,6 +51,10 @@ $("form[name='formOfficeEdit'").each(function() {
         var password = $("#iptPassword_" + id).val();
         var status = $("#chkStatus_" + id).val();
         var note = $("#txtNote_" + id).val();
+        var selsites = [];
+        $("input[name='iptSite" + id + "']:checked").each(function() {
+            selsites.push(parseInt($(this).val()));
+        })
         $.ajax({
         url: "offices_dwit",
         type: "post",
@@ -62,7 +66,8 @@ $("form[name='formOfficeEdit'").each(function() {
             iptUsername: username,
             iptPassword: password,
             chkStatus: status,
-            txtNote: note
+            txtNote: note,
+            "selSites": selsites.join(",")
         },
         dataType: "json",
         success: function(data) {

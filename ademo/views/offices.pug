@@ -161,6 +161,21 @@ block content
                                     name="txtNote_"+row['id']
                                 )= row["note"]
                         div(class="row m-2")
+                          div(class="col-3")
+                            label(class="text-light") Site(s)
+                          div(class="col-9")
+                            div(class="row")
+                              each site in sites 
+                                div(class="col-4")
+                                  input(class="form-check-input" type="checkbox" role="switch" 
+                                    value=site.id 
+                                    id="iptSite" + row['id'] + "_" + site.id
+                                    name="iptSite" + row['id']
+                                    checked=(assites[row["id"]].indexOf(site.id) != -1)
+                                    disabled=(site.status == 1 ? false : true)
+                                  )
+                                  label(class="form-check-label" for="iptSite_" + site.id)= "[" + site.abbr + "] " + site.name
+                        div(class="row m-2")
                             div(class="col-3")
                                 div(class="form-check")
                                     - var status = (row["status"] == 1 ? 1 : 0);

@@ -37,9 +37,9 @@ $("#formAgentEdit").validate({
         })
         // console.log(`[debug from agents.pug.js (selsites)]${JSON.stringify(selsites)}`)
         $.ajax({
-                url: "agents_dwit",
-                type: "post",
-                data: {
+            url: "agents_dwit",
+            type: "post",
+            data: {
                 submitType: "ajax_edit",
                 iptId: id,
                 selOffice: officeid,
