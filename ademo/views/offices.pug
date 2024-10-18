@@ -162,11 +162,14 @@ block content
                                 )= row["note"]
                         div(class="row m-2")
                           div(class="col-3")
-                            label(class="text-light") Site(s)
+                            div(class="row")
+                              label(class="text-light") Site(s)
+                            div(class="row")
+                              label(class="text-warning" style="font-size:12px;") Please be aware that all the selected site(s) will be activated to all the agents of the office
                           div(class="col-9")
                             div(class="row")
                               each site in sites 
-                                div(class="col-4")
+                                div(class="col-4 ms-0 me-0 mt-2 mb-1")
                                   input(class="form-check-input" type="checkbox" role="switch" 
                                     value=site.id 
                                     id="iptSite" + row['id'] + "_" + site.id
