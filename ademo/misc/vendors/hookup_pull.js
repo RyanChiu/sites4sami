@@ -28,7 +28,7 @@ if (args.length == 2) {
     for (let offerid of offerids) {
       setTimeout(function() {}, 1600); // try to avoid "too many requests error from the server"
       var rst = await getReports(url, args[1], offerid);
-      //console.log(`[debug] offerid (${offerid}):${rst.data}`);
+      // console.log(`[debug] offerid (${offerid}):${rst.data}`);
       /**
        * put data that gathering from the tracking server into 
        * formated ones that could be fit with inserting into our own DB
