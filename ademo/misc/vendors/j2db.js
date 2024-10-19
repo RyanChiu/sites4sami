@@ -1,5 +1,8 @@
 const tricks = require('../../modules/ztoolkits/tricks');
 const pool = tricks.getMysql().createPool(tricks.getDBSettings());
+const timezone = "America/New_York";
+
+exports.timezone = timezone;
 
 async function executeSql(sql, holders) {
     try {
