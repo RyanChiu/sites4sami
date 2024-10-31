@@ -13,16 +13,18 @@ cols['office'] = " a.officeid, (select username from user where a.officeid = use
 //cols['day'] = " convert(a.trxtime, date) as day ";
 cols['day'] = " date_format(trxtime, '%m/%d/%Y') as day ";
 var from = [];
-from['detail'] = " from stats a, user b, site c ";
-from['agent'] = " from stats a, user b "
-from['office'] = " from stats a, user b ";
-from['day'] = " from stats a, user b ";
+var fromTables = " from stats a, user b, site c ";
+from['detail'] = fromTables;
+from['agent'] =  fromTables;
+from['office'] = fromTables;
+from['day'] =    fromTables;
 var where = [];
-var condNostats = " and b.status = 1 and (select status from user where id = b.officeid) = 1 ";
-where['detail'] = " where a.agentid = b.id and a.siteid = c.id" + condNostats;
-where['agent'] =  " where a.agentid = b.id" + condNostats;
-where['office'] = " where a.agentid = b.id" + condNostats;
-where['day'] = " where a.agentid = b.id" + condNostats;
+var conditions = " where a.agentid = b.id and a.siteid = c.id \
+  and b.status = 1 and (select status from user where id = b.officeid) = 1 and c.status = 1 ";
+where['detail'] = conditions;
+where['agent'] =  conditions;
+where['office'] = conditions;
+where['day'] =    conditions;
 var groupBy = [];
 groupBy['detail'] = " group by day, officeid, agentid, siteid ";
 groupBy['agent'] =  " group by agentid ";
