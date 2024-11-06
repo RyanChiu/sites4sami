@@ -23,10 +23,20 @@ function setuStatusIcons() {
 
 function _zShowClock() {
     var now = new Date();
-    now.setHours(now.getHours() - 4);
-    var nowStr = now.toUTCString();
+    // now.setHours(now.getHours() - 4);
+    var nowStr;
+    const options = {
+      timeZone: 'America/New_York', timeZoneName: 'short',
+      day: '2-digit', month: 'short', year: 'numeric', weekday: 'short',
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+    };
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    nowStr = formatter.format(now);
+    /*
+    nowStr = now.toUTCString();
     nowStr = nowStr.replace("GMT", "EDT"); //for firefox browser
     nowStr = nowStr.replace("UTC", "EDT"); //for IE browser
+    */
     nowStr = '<i class="bi bi-clock-fill fs-3 text-light me-1"></i>' + nowStr;
     jQuery("#lblLiveClock").html(nowStr);
 }
