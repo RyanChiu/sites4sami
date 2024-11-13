@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  case role 
+  case role
     when 0
       div(class="row mb-1")
         div(class="col-2")
@@ -18,23 +18,23 @@ block content
   table(class="w-100")
     thead
       tr
-        th Name 
-        th Type 
-        th Abbr 
-        th Links 
+        th Name
+        th Type
+        th Abbr
+        th Links
         th st.
-        case role 
-          when 0 
-            th Edit 
+        case role
+          when 0
+            th Edit
     - var i = 0
-    tbody 
-      each row in data 
+    tbody
+      each row in data
         - i++
-        tr 
+        tr
           td= row['name']
           td= row['type']
           td= row['abbr']
-          td 
+          td
             a(href="#"+(""+row['abbr']).toLowerCase() class="text-info" data-bs-toggle="modal" data-bs-target="#linksModal" + row['id'])= row['lksamount']
             div(class="modal fade" id="linksModal" + row['id'] tabindex="-1" aria-labelledby="linksModalLabel" + row['id'] aria-hidden="true")
               div(class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable")
@@ -56,7 +56,7 @@ block content
                       -   var append = "_" + row['id'] + "_" + _link.abbr;
                           i(id="iStatus"+append class="me-2 bi " + (_link.status == 1 ? "text-success bi-check-circle" : "text-danger bi-slash-circle"))
                           label(for class="mt-0 mb-1" id="lblTitle" + append)= "[" + _link.name + "] Abbr:" + _link.abbr + (role == 0 ? ", Payout:" + _link.payout + ", Earning:" + _link.earning : "")
-                          if role == 0
+                          if role == 0 && user == "root"
                             a(class="pe-1 float-end" href="#"+(""+_link.abbr).toLowerCase() onClick='$("#divLink' + append +'").removeClass("d-none");$("#btnSave_' + row['id'] + '").attr("disabled", false);')
                               i(class="bi bi-pencil-square text-info")
                           div(class="row w-100 border border-secondary-subtle rounded-3 d-none" id="divLink" + append)
@@ -88,7 +88,7 @@ block content
                               label(for) Activated:
                             div(class="col-2")
                               input(
-                                type="checkbox" class="form-check-input" 
+                                type="checkbox" class="form-check-input"
                                 value=_link.status checked=(_link.status == 1 ? true : false)
                                 id="iptLinkstatus" + append
                                 name="iptLinkstatus_"+row['id']
@@ -99,25 +99,23 @@ block content
                       - } catch (e) {
                       -   _str = e.message
                       - }
-  
+
                   div(class="modal-footer")
-                    if role == 0
-                      b(class="text-danger fw-bold fs-6") MAKE SURE, LIKE 100%, THAT YOU KNOW WHAT YOU'RE GOING TO SAVE, PLEASE! 
+                    if role == 0 && user == "root"
+                      b(class="text-danger fw-bold fs-6") MAKE SURE, LIKE 100%, THAT YOU KNOW WHAT YOU'RE GOING TO SAVE, PLEASE!
                       button(
                         id="btnSave_" + row['id']
-                        type="button" 
-                        class="btn btn-info mt-0 mb-0 mb-0 me-2 pt-0 pb-0 ps-5 pe-5" 
-                        data-bs-dismiss="modal" 
+                        type="button"
+                        class="btn btn-info mt-0 mb-0 mb-0 me-2 pt-0 pb-0 ps-5 pe-5"
+                        data-bs-dismiss="modal"
                         onClick="saveLinks('" + row['id'] + "');"
                         disabled=true
                       ) Save
                       button(type="button" class="btn btn-secondary m-0 pt-0 pb-0" data-bs-dismiss="modal") Cancel
 
           td(name="sStatus")= row['status']
-          case role 
+          case role
             when 0
               td
                 a(class="pe-1" href="sites_dwit?op=edit&id=" + row['id'])
                     i(class="bi bi-pencil-square text-info")
-
-    
