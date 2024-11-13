@@ -45,16 +45,16 @@ router.post('/', async (req, res) => {
                     case 0:
                         tricks.useSession(router, true);
                     default:
-                        req.session.navs = ["Home", "News", "Offices", "Agents", "*New*", "Sites", "Stats", "Links", "Logs", "Profile", "Admins", "Set"];
+                        req.session.navs = ["Home", "News", "Offices", "Agents", "*New*", "Sites", "Stats", "Links", "Logs", "Admins", "Set"];
                         break;
                     case 1:
-                        req.session.navs = ["Home", "Offices", "Agents", "*New*", "Sites", "Stats", "Links", "Logs", "Profile"];
+                        req.session.navs = ["Home", "Offices", "Agents", "*New*", "Sites", "Stats", "Links", "Logs"];
                         break;
                     case 2:
-                        req.session.navs = ["Home", "Agents", "*New*", "Stats", "Links", "Logs", "Profile"];
+                        req.session.navs = ["Home", "Agents", "*New*", "Stats", "Links", "Logs"];
                         break;
                     case 3:
-                        req.session.navs = ["Home", "Stats", "Links", "Logs", "Profile"];
+                        req.session.navs = ["Home", "Stats", "Links", "Logs"];
                         break;
                 }
                 //save the logged-in in log

@@ -8,7 +8,7 @@ html
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap-icons/font/bootstrap-icons.min.css')
     link(rel='stylesheet', href='/stylesheets/font-awesome-solid.min.css')
-    case hideNav 
+    case hideNav
       when 1
         break
       when 0
@@ -21,7 +21,7 @@ html
     script(src='javascripts/dayjs/dayjs.min.js')
     script(src='javascripts/dayjs/plugin/utc.js')
     script(src='javascripts/dayjs/plugin/timezone.js')
-    case hideNav 
+    case hideNav
       when 1
         break
       when 0
@@ -41,7 +41,7 @@ html
     div(class="container")
       //- top banner
       div(class="row text-center")
-        div(class="col-2 pt-0 pe-0 pb-0 mt-0 me-0 mb-0" style="height:210px;")          
+        div(class="col-2 pt-0 pe-0 pb-0 mt-0 me-0 mb-0" style="height:210px;")
           img(src="images/Saturn-xs.gif" class="w-100 h-100 m-0 p-0" title="Saturn")
         div(class="col-10 ps-0 pt-0 pb-0 ms-0 mt-0 mb-0" style="height:210px;")
           img(src="images/topbanner.png" class="w-100 h-100 m-0 p-0 rounded-end" title="GWR Banner")
@@ -49,11 +49,11 @@ html
       input(id="iptNewAgs" value=(hideNav == 1 ? "" : (newags == undefined ? "" : newags)) type="hidden")
       script.
         sessionStorage.setItem("newags", $("#iptNewAgs").val());
-      
+
       input(id="iptHideNav" value=hideNav type="hidden")
       - var paths = filename.split("\/")
       - var lastpath = paths[paths.length -1]
-      - var idx = lastpath.indexOf("_") 
+      - var idx = lastpath.indexOf("_")
       - var ofPath = (idx != -1 ? lastpath.substr(0, idx) : lastpath)
       case hideNav
         when 1
@@ -63,9 +63,9 @@ html
           nav(class="navbar navbar-expand navbar-dark bg-dark nav-underline p-0 m-0")
             .container-fluid
               //- a(class="navbar-brand fw-bolder text-warning" href="#") GWR
-              button(class="navbar-toggler" type="button" 
-                  data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
-                  aria-controls="navbarNavAltMarkup" aria-expanded="false" 
+              button(class="navbar-toggler" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                  aria-controls="navbarNavAltMarkup" aria-expanded="false"
                   aria-label="Toggle navigation")
                 span(class="navbar-toggler-icon")
               div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
@@ -82,7 +82,7 @@ html
                           i(class="bi bi-gear text-light fs-6 p-1")
                       - else
                           = navs[i]
-              a(class="nav-link float-sm-end" href="#foo" title=user alt=user)
+              a(class="nav-link float-sm-end" href="profile" title=user alt=user)
                 i(class="bi bi-person-circle text-light fs-5 p-1")
               a(class="nav-link float-sm-end" href="logout" title="Logout" alt="Logout")
                 i(class="bi bi-box-arrow-right text-light fs-5 p-1")
@@ -110,4 +110,3 @@ html
               button(type="button" class="btn btn-primary m-0 pt-0 pb-0" data-bs-dismiss="modal") Enter
 
       block content
-
