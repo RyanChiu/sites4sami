@@ -211,7 +211,7 @@ block content
             th Office
             th Agent
             th Site
-            th Type(abbr) 
+            th Type 
             th Link 
             th Time 
             th IP from
@@ -221,17 +221,21 @@ block content
         tbody
           each row in data1 
             - i1++
+            - var abbr = row['typeabbr']
+            - var link = links[""+abbr]
+            - var alias = (link !== undefined ? link.alias : "N/A")
             tr 
               td= i1
               td= row['office']
               td= row['agent']
               td= row['site']
-              td= row['typeabbr']
+              td= alias
               td(
                 name='uLinkin' 
                 data-linkout=row['linkout']
                 data-agent=row['agent']
-                data-abbr=row['typeabbr']
+                data-abbr=abbr
+                data-alias=alias
               )= row['linkin']
               td(name='uTimeStr')= row['time']
               td

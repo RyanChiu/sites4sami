@@ -48,7 +48,7 @@ function setLinksModal(title, links) {
     if ($("#divLinkOut") !== undefined) $("#divLinkOut").html(links[1]);
 }
 $('[name="uLinkin"]').each(function() {
-    var title = "Agent: " + $(this).data("agent") + "  Abbr: " + $(this).data("abbr");
+    var title = "Agent: " + $(this).data("agent") + "  Alias: " + $(this).data("alias");
     var linkin = window.location.href.replace("logs", "nav2?to=") + $(this).html();
     var linkout = $(this).data("linkout");
     var html = '<a href="#" onclick="setLinksModal(\'' + title + '\', [\'' + linkin + '\', \'' + linkout + '\']);' + '$(\'#btnShowLinks\').click();' + 'return false;">' 

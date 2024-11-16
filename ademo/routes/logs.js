@@ -12,6 +12,8 @@ router.get('/', async function(req, res, next) {
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
     var sites = await tricks.queryData("select * from site order by name");
+    var links = await tricks.queryLinks();
+    // console.log(`[debug<links>] ${JSON.stringify(links)}`); // debug code, should be removed later
     var countries = await tricks.queryCountries();
     res.render('logs', { 
       title: "Logs",
@@ -20,7 +22,8 @@ router.get('/', async function(req, res, next) {
       role: req.session.role,
       offices: offices,
       agents: agents,
-      sites, sites,
+      sites: sites,
+      links: links,
       data: data,
       data1: data1,
       countries: countries,
@@ -42,6 +45,7 @@ router.post('/', async (req, res) => {
       (req.body.selOffice_clog != undefined ? (parseInt(req.body.selOffice_clog) == -111 ? " 1 = 1 " : " officeid = " + req.body.selOffice_clog) : " 1 = 1 ")
     );
     var sites = await tricks.queryData("select * from site order by name");
+    var links = await tricks.queryLinks();
     var countries = await tricks.queryCountries();
     var tab = 0;
     if (req.body.iptUsername != undefined) {
@@ -73,7 +77,8 @@ router.post('/', async (req, res) => {
       role: req.session.role,
       offices: offices,
       agents: agents,
-      sites, sites,
+      sites: sites,
+      links: links,
       data: data,
       data1: data1,
       countries: countries,

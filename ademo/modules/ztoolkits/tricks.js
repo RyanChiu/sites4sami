@@ -259,6 +259,59 @@ exports.querySites = async function() {
 }
 
 /**
+ * get all sites and jsonify the links of theirs
+ */
+exports.querySites4All = querySites4All = async function() {
+    var data = await queryData("select * from site order by name");
+    var sites = [];
+    for (let site of data) {
+        var links = null;
+        var _links = [];
+        try {
+            links = JSON.parse(JSON.stringify(site['links']));
+            for (let link of links) {
+                _links.push(
+                    JSON.parse(link)
+                );
+            }
+        } catch (e) {
+        }
+        sites.push({
+            id: site['id'],
+            name: site['name'],
+            short: site['short'],
+            abbr: site['abbr'],
+            url: site['url'],
+            clickparam: site['clickparam'],
+            type: site['type'],
+            links: _links,
+            status: site['status']
+        })
+    }
+    return sites;
+}
+
+/**
+ * get all links by identical abbr (abbreviation) with files
+ * "site id, site name, link name, link alias"
+ */
+exports.queryLinks = async function() {
+    var links = {};
+    var sites = await querySites4All();
+    for (let site of sites) {
+        for (let link of site.links) {
+            links[link.abbr] = {
+                "site_id": site['id'],
+                "site_name": site['name'],
+                "name": link.name,
+                "alias": link.alias
+            }
+        }
+    }
+    return links;
+}
+
+/**
  * check all the agents of the office, and combine the `sites` fields data, 
  * get the collection as the "activated sites" for the office
  * @param {*} id 
