@@ -62,8 +62,13 @@ router.get('/', async function(req, res, next) {
             for (let lnk of lnks) {
                 let link = JSON.parse(lnk);
                 if (link.abbr == tos[1]) {
-                    url = link.url;
-                    break;
+                    if (link.status == 1) {
+                        url = link.url;
+                        break;
+                    } else {
+                        res.send("   ");
+                        break;
+                    }
                 }
             }
         if (url != "") {
