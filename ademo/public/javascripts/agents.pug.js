@@ -54,7 +54,7 @@ $("#formAgentEdit").validate({
             dataType: "json",
             success: function(data) {
                 if (data.rst == 1) {
-                    console.log(`[debug from agents.pug.js (editAgent): <how many unapproved>]: ${data.newags}`);
+                    // console.log(`[debug from agents.pug.js (editAgent): <how many unapproved>]: ${data.newags}`);
                     sessionStorage.setItem("newags", data.newags);
                     $("#lblNewAgs").html(data.newags);
                     if (data.newags == 0) $("#spnNewAgs").hide();
@@ -75,6 +75,7 @@ $("#formAgentEdit").validate({
                     $("#tdUsername_" + id).html(username);
                     $("#tdPassword_" + id).html(password);
                     $("#tdStatus_" + id).html(status);
+                    $("#lnkHide_" + id).html(status != 1 ? "<i class='bi bi-eye-slash fs-6 text-secondary'></i>" : "<i class='bi bi-eye fs-6 text-info'></i>");
                     setuStatusIcon("#tdStatus_" + id);
                     $("#btnEnd_"+id).click();
                 } else {
@@ -157,7 +158,7 @@ function hideAgent(id, hidden) {
         $("#tdStatus_" + id).data("status", hidden ? -1 : 1);
         $("#tdStatus_" + id).html(hidden ? -1 : 1);
        
-        console.log(`[debug from agents.pug.js (hideAgent): <how many unapproved>]: ${data.newags}`);
+        // console.log(`[debug from agents.pug.js (hideAgent): <how many unapproved>]: ${data.newags}`);
         sessionStorage.setItem("newags", data.newags);
         $("#lblNewAgs").html(data.newags);
         if (data.newags == 0) $("#spnNewAgs").hide();
@@ -182,12 +183,13 @@ function approveAgent(id, approved) {
         $("#tdStatus_" + id).data("status", approved ? 1 : 0);
         $("#tdStatus_" + id).html(approved ? 1 : 0);
         
-        console.log(`[debug from agents.pug.js (approveAgent): <how many unapproved>]: ${data.newags}`);
+        // console.log(`[debug from agents.pug.js (approveAgent): <how many unapproved>]: ${data.newags}`);
         sessionStorage.setItem("newags", data.newags);
         $("#lblNewAgs").html(data.newags);
         if (data.newags == 0) $("#spnNewAgs").hide();
         else $("#spnNewAgs").show();
 
+        $("#lnkHide_" + id).html(!approved ? "<i class='bi bi-eye-slash fs-6 text-secondary'></i>" : "<i class='bi bi-eye fs-6 text-info'></i>");
         setuStatusIcon("#tdStatus_" + id);
       } else {
       }
