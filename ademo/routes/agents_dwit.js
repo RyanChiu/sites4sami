@@ -92,7 +92,7 @@ router.get('/', async function(req, res, next) {
       //save the new agents number to session
       var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
       req.session.iaNum = newags.length;
-      console.log(`[debug from agents_dwit(get method):<how many unapproved>] ${req.session.iaNum}`);
+      // console.log(`[debug from agents_dwit(get method):<how many unapproved>] ${req.session.iaNum}`);
 
       if (paramRef) {
         res.render('approveagents', { 
@@ -159,7 +159,7 @@ router.post('/', async (req, res) => {
       //save the new agents number to session
       var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
       req.session.iaNum = newags.length;
-      console.log(`[debug from agents_dwit(post method "add"):<how many unapproved>] ${req.session.iaNum}`);
+      // console.log(`[debug from agents_dwit(post method "add"):<how many unapproved>] ${req.session.iaNum}`);
 
     } else if (req.body.submitType == "edit") { // basically will be never used, this very block
       /*
@@ -205,7 +205,7 @@ router.post('/', async (req, res) => {
       //save the new agents number to session
       var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
       req.session.iaNum = newags.length;
-      console.log(`[debug from agents_dwit(ajax_edit):<how many unapproved>] ${req.session.iaNum}`);
+      // console.log(`[debug from agents_dwit(ajax_edit):<how many unapproved>] ${req.session.iaNum}`);
       
       res.set('Content-Type', 'text/html');
       if (rst) {
@@ -229,7 +229,7 @@ router.post('/', async (req, res) => {
       //save the new agents number to session
       var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
       req.session.iaNum = newags.length;
-      console.log(`[debug from agents_dwit(ajax_hide):<how many unapproved>] ${req.session.iaNum}`);
+      // console.log(`[debug from agents_dwit(ajax_hide):<how many unapproved>] ${req.session.iaNum}`);
 
       res.set('Content-Type', 'text/html');
       if (rst) {
@@ -253,7 +253,7 @@ router.post('/', async (req, res) => {
       //save the new agents number to session
       var newags = await tricks.queryAgents(req.session.role, req.session.userid, " status = 0");
       req.session.iaNum = newags.length;
-      console.log(`[debug from agents_dwit(ajax_approve):<how many unapproved>] ${req.session.iaNum}`);
+      // console.log(`[debug from agents_dwit(ajax_approve):<how many unapproved>] ${req.session.iaNum}`);
 
       res.set('Content-Type', 'text/html');
       if (rst) {
