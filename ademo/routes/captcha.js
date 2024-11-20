@@ -4,14 +4,14 @@ const tricks = require('../modules/ztoolkits/tricks');
 
 tricks.useSession(router);
 var svgCaptcha = require('svg-captcha');
-svgCaptcha.loadFont(__dirname + '/../public/webfonts/ArialRoundedBold.ttf');
+svgCaptcha.loadFont(__dirname + '/../public/webfonts/PlantagenetCherokee.ttf');
 
 /* GET captcha. */
 router.get('/', function(req, res, next) {
     var captcha = svgCaptcha.createMathExpr( {
         noise: 3,
         color: false,
-        fontSize: 60,
+        fontSize: 50,
         background: "white",
         mathMin: 2,
         mathMax: 21
