@@ -79,7 +79,7 @@ html
                     - var clsNav = (ofPath.indexOf(pathNav) === 0 ? " active text-danger" : " text-light")
                     - var navTip = ""
                     - navTip = (navs[i] == "*New*" ? "Unapproved agent(s)" : "")
-                    a(class="nav-link ms-0 ps-0 me-1 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav title=navTip alt=navTip)
+                    a(class="nav-link ms-0 ps-0 me-1 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav title=navTip alt=navTip data-bs-toggle="tooltip")
                       - if (navs[i] == "Set") // hard code here
                           i(class="bi bi-gear text-light fs-6 p-1")
                       - else if (navs[i] == "*New*") // hard code here

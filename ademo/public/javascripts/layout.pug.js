@@ -47,7 +47,11 @@ function __zShowClock() {
 __zShowClock();
 
 $(document).ready(function() {
-    // tell every page that the counts of the agents who need to be approved is stored in session
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+		return new bootstrap.Tooltip(tooltipTriggerEl)
+	})
+	// tell every page that the counts of the agents who need to be approved is stored in session
     if (sessionStorage.getItem("newags") == "" || sessionStorage.getItem("newags") == undefined || sessionStorage.getItem("newags") == null) {
         sessionStorage.setItem("newags", $("#iptNewAgs").val());
     } else {
