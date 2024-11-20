@@ -79,14 +79,14 @@ html
                     - var clsNav = (ofPath.indexOf(pathNav) === 0 ? " active text-danger" : " text-light")
                     - var navTip = ""
                     - navTip = (navs[i] == "*New*" ? "Unapproved agent(s)" : "")
-                    a(class="nav-link ms-0 ps-0 me-1 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav title=navTip alt=navTip data-bs-toggle="tooltip")
+                    a(class="nav-link ms-0 ps-0 me-1 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav title=navTip data-bs-toggle="tooltip")
                       - if (navs[i] == "Set") // hard code here
                           i(class="bi bi-gear text-light fs-6 p-1")
                       - else if (navs[i] == "*New*") // hard code here
                           i(class="bi bi-people text-light fs-6 p-0")
                       - else
                           = navs[i]
-              a(class="nav-link float-sm-end" href="profile" title=user alt=user)
+              a(class="nav-link float-sm-end" href="profile" data-bs-toggle="tooltip" title=user+":your profile")
                 i(class="bi bi-person-circle text-light fs-5 p-1")
               a(class="nav-link float-sm-end" href="logout" title="Logout" alt="Logout")
                 i(class="bi bi-box-arrow-right text-light fs-5 p-1")
