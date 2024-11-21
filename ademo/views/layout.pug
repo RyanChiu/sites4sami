@@ -70,6 +70,7 @@ html
                 span(class="navbar-toggler-icon")
               div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
                 div(class="navbar-nav", id="navbarMain")
+                  - var navTips = {}  
                   - for (let nav of navs)
                     - var pathNav = nav.toLowerCase()
                     - pathNav = pathNav.replace(/\s*/g, '')
@@ -77,9 +78,8 @@ html
                     - if (pathNav == "new") pathNav = "approveagents" //very important hard code!!
                     - if (pathNav == "set") pathNav = "settings" //very important hard code!!
                     - var clsNav = (ofPath.indexOf(pathNav) === 0 ? " active text-danger" : " text-light")
-                    - var navTip = ""
-                    - navTip = (nav == "*New*" ? "Unapproved agent(s)" : "")
-                    a(class="nav-link ms-0 ps-0 me-2 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav title=navTip data-bs-toggle="tooltip")
+                    - navTips[nav] = (nav == "*New*" ? "Unapproved agent(s)" : (nav == "Set" ? "Settings" : ""))
+                    a(class="nav-link ms-0 ps-0 me-2 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav title=navTips[nav] data-bs-toggle="tooltip")
                       - if (nav == "Set") // hard code here
                           i(class="bi bi-gear text-light fs-6 p-1")
                       - else if (nav == "*New*") // hard code here
