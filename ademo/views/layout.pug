@@ -70,22 +70,22 @@ html
                 span(class="navbar-toggler-icon")
               div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
                 div(class="navbar-nav", id="navbarMain")
-                  - for (var i = 0; i < navs.length; i++)
-                    - var pathNav = navs[i].toLowerCase()
+                  - for (let nav of navs)
+                    - var pathNav = nav.toLowerCase()
                     - pathNav = pathNav.replace(/\s*/g, '')
                     - pathNav = pathNav.replace(/\*/g, '')
                     - if (pathNav == "new") pathNav = "approveagents" //very important hard code!!
                     - if (pathNav == "set") pathNav = "settings" //very important hard code!!
                     - var clsNav = (ofPath.indexOf(pathNav) === 0 ? " active text-danger" : " text-light")
                     - var navTip = ""
-                    - navTip = (navs[i] == "*New*" ? "Unapproved agent(s)" : "")
-                    a(class="nav-link ms-0 ps-0 me-1 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav title=navTip data-bs-toggle="tooltip")
-                      - if (navs[i] == "Set") // hard code here
+                    - navTip = (nav == "*New*" ? "Unapproved agent(s)" : "")
+                    a(class="nav-link ms-0 ps-0 me-2 fw-bold"+clsNav id="navLnk_"+pathNav href=pathNav title=navTip data-bs-toggle="tooltip")
+                      - if (nav == "Set") // hard code here
                           i(class="bi bi-gear text-light fs-6 p-1")
-                      - else if (navs[i] == "*New*") // hard code here
+                      - else if (nav == "*New*") // hard code here
                           i(class="bi bi-people text-light fs-6 p-0")
                       - else
-                          = navs[i]
+                          = nav
               a(class="nav-link float-sm-end" href="profile" data-bs-toggle="tooltip" title=user+":your profile")
                 i(class="bi bi-person-circle text-light fs-5 p-1")
               a(class="nav-link float-sm-end" href="logout" title="Logout" alt="Logout")
