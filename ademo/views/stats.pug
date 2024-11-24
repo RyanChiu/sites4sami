@@ -328,14 +328,14 @@ block content
                 table(id="tblSales")
                     thead
                         tr
-                            th time
-                            th country
-                            th region
-                            th city
-                            th referer
+                            th(class="bg-info") time
+                            th(class="bg-info") country
+                            th(class="bg-info") region
+                            th(class="bg-info") city
+                            th(class="bg-info") referer
                     tbody(id="tbdSales")
-            div(class="modal-footer d-none")
-                button(id="btnEnd" class="btn btn-info" data-bs-dismiss="modal") Got it
+            div(class="modal-footer p-0")
+                button(id="btnEnd" class="btn btn-info btn-sm" data-bs-dismiss="modal") Got it
 
   script(src="javascripts/stats.pug.js")
           
