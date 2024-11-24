@@ -203,10 +203,13 @@ function getSales(day, agent, type) {
                 let sales = $.parseJSON(rst.rst);
                 $("#divSales").html("<b class='text-primary fs-6 fw-bold me-2'>Sale(s)</b><b style='font-size:12px;'>(Agent: " + agent + ", Type abbreviation: " + type + ", On: " + day + " America_New_York)</b>"); 
                 $("#tbdSales").html("");
+                var i = 0;
                 for (let sale of sales) {
+                    i++;
                     var trxtime = new Date(sale.click_unix_time * 1000).toLocaleString("en-US", {timeZone: "America/New_York", hour12: true});
                     $("#tbdSales").append(
                         "<tr>"
+                            + "<td>" + i + "</td>"
                             + "<td>" + trxtime + "</td>"
                             + "<td>" + sale.country + "</td>"
                             + "<td>" + sale.region + "</td>"
@@ -214,6 +217,11 @@ function getSales(day, agent, type) {
                             + "<td>" + sale.referer + "</td>"
                         + "</tr>"
                     );
+                }
+                if (sales.length == 0) {
+                    $("#divSalesTip").html("<p class='fs-6 fw-bold text-danger text-center m-0 p-0'>oooops, it seems that no data have been pulled...</p>");
+                } else {
+                    $("#divSalesTip").html("");
                 }
             } else {
                 $("#divSales").html(rst.rst);
