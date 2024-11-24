@@ -184,3 +184,40 @@ $('#tblStats').tablemanager({
     //numOfPages: "8",
     //disable: [1, 10, "last"]
 });
+
+/**
+ * day, '2024-11-21' sth. like that
+ * agent, 'TESTAGENT01', sth. like that, username, not id
+ * type, 'ADLF', sth. like that, type's abbreviation, which should be idendical
+ */
+function getSales(day, agent, type) {
+    $.ajax({
+        url: "sales_nov",
+        type: "post",
+        data: {day: day, agent: agent, type: type},
+        dataType: "json",
+        success: function(rst) {
+            // console.log(`[debug] ${rst.rst}`);
+            if (rst.suc) {
+                // $("#divSales").html("<" + rst.rst + ">"); // for debug
+                let sales = $.parseJSON(rst.rst);
+                $("#divSales").html("<b class='text-primary fs-6 fw-bold me-2'>Sale(s)</b><b style='font-size:12px;'>(Agent: " + agent + ", Type abbreviation: " + type + ", On: " + day + " America_New_York)</b>"); 
+                $("#tbdSales").html("");
+                for (let sale of sales) {
+                    var trxtime = new Date(sale.click_unix_time * 1000).toLocaleString("en-US", {timeZone: "America/New_York", hour12: true});
+                    $("#tbdSales").append(
+                        "<tr>"
+                            + "<td>" + trxtime + "</td>"
+                            + "<td>" + sale.country + "</td>"
+                            + "<td>" + sale.region + "</td>"
+                            + "<td>" + sale.city + "</td>"
+                            + "<td>" + sale.referer + "</td>"
+                        + "</tr>"
+                    );
+                }
+            } else {
+                $("#divSales").html(rst.rst);
+            }
+        }
+    })
+}

@@ -12,6 +12,7 @@ var officesDwitRouter = require('./routes/offices_dwit');
 var agentsRouter = require('./routes/agents');
 var agentsDwitRouter = require('./routes/agents_dwit');
 var agsnovRouter = require('./routes/ags_nov'); // ags means agents, nov means with no view
+var salesnovRouter = require('./routes/sales_nov'); // nov means with no view
 var approveagentsRouter = require('./routes/approveagents');
 var sitesRouter = require('./routes/sites');
 var sitesDwitRouter = require('./routes/sites_dwit');
@@ -49,6 +50,7 @@ app.use('/offices_dwit', officesDwitRouter);
 app.use('/agents', agentsRouter);
 app.use('/agents_dwit', agentsDwitRouter);
 app.use('/ags_nov', agsnovRouter);
+app.use('/sales_nov', salesnovRouter);
 app.use('/approveagents', approveagentsRouter);
 app.use('/sites', sitesRouter);
 app.use('/sites_dwit', sitesDwitRouter);
@@ -74,6 +76,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   //swith env to "development/production"
   req.app.set('env', 'production');
+  // req.app.set('env', 'development');
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

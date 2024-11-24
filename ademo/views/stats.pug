@@ -154,6 +154,7 @@ block content
   input(type="hidden" id="iptPost_params" value=JSON.stringify(post_params))
   div(class="row") 
     div(class="col w-100 text-danger fw-medium ps-3" id="divCaption")
+  - var thTypes = [{"abbr":"", "alias":'L-1'}, {"abbr":"", "alias":'L-2'}]
   table(class="w-100 tablemanager" id="tblStats")
     thead
       tr 
@@ -175,10 +176,8 @@ block content
             th Site 
         th Raws 
         th Uniques
-        - var thTypes = ['LINK-1', 'LINK-2']
         case post_params.selSite
           when "-111"
-            - thTypes = ['L-1', 'L-2']
             - break
           default 
             - var selSiteLinks = null
@@ -194,15 +193,16 @@ block content
                 - try {
                   - selSlnk = JSON.parse(selSiteLink)
                     if jj <= thTypes.length
-                      - thTypes[jj - 1] = selSlnk.alias
+                      - thTypes[jj - 1].alias = selSlnk.alias
+                      - thTypes[jj - 1].abbr = selSlnk.abbr
                 - } catch (e) {
                     if jj <= thTypes.length
-                      - thTypes[jj - 1] = "L-" + jj
+                      - thTypes[jj - 1].alias = "L-" + jj
                 - }
 
             - break
-        th(style="background:#A3E4FF")= thTypes[0] 
-        th(style="background:#A3E4FF")= thTypes[1]
+        th(style="background:#A3E4FF")= thTypes[0].alias 
+        th(style="background:#A3E4FF")= thTypes[1].alias
         th(style="background:#A3E4FF") Tot Sales
         case role 
           when 0
@@ -255,8 +255,15 @@ block content
               td= row['site'] 
           td= row['raws'] 
           td= row['uniques']
-          td= row['sales_type0']
-          td= row['sales_type1']
+          - var unescSaleStrs = [row['sales_type0'], row['sales_type1']]
+          if (role == 0 && user == "root")
+            if (viewBy == "detail")
+              - var ymd = row['day'].split("/")
+              - var day_cn_fmt = ymd[2] + "-" + ymd[0] + "-" + ymd[1]
+              - unescSaleStrs[0] = (post_params.selSite == "-111" || row['sales_type0'] == 0 ? row['sales_type0'] : "<a href='#sale' data-sale=" + row['sales_type0'] + " data-type='" + thTypes[0].abbr + "' data-day='" + day_cn_fmt + "' data-agent='" + row['agent'] + "' onClick='$(\"#btnSale\").click();'>" + row['sales_type0'] + "</a>")
+              - unescSaleStrs[1] = (post_params.selSite == "-111" || row['sales_type1'] == 0 ? row['sales_type1'] : "<a href='#sale' data-sale=" + row['sales_type1'] + " data-type='" + thTypes[1].abbr + "' data-day='" + day_cn_fmt + "' data-agent='" + row['agent'] + "' onClick='getSales(\"" + day_cn_fmt + "\", \"" + row['agent'] + "\", \"" + thTypes[1].abbr + "\");$(\"#btnSale\").click();'>" + row['sales_type1'] + "</a>")
+          td !{unescSaleStrs[0]}
+          td !{unescSaleStrs[1]}
           td= row['sales_type0'] + row['sales_type1']
           case role
             when 0
@@ -309,6 +316,26 @@ block content
           when 'day'
             td(class="text-bg-warning fw-bold text-end" colspan=2) Uniques to Sales Ratio:
         td(class="text-bg-warning fw-bold text-start" colspan=6)= (tots["sales"] !== 0 ? "1:" + (parseFloat(tots["uniques"]) / parseFloat(tots["sales"])).toFixed(2) : "0:" + parseFloat(tots["uniques"]).toFixed(2))
+
+  button(id="btnSale" class="btn btn-info d-none" data-bs-toggle="modal" data-bs-target="#saleModal") sale
+  div(class="modal fade" id="saleModal" tabindex="-1" aria-labelledby="saleModalLabel" aria-hidden="true")
+    div(class="modal-dialog modal-dialog-centered modal-lg")
+        div(class="modal-content text-bg-dark")
+            div(class="modal-header d-none")
+                h5 Sale(s)
+            div(class="modal-body")
+                div(id="divSales") Sales
+                table(id="tblSales")
+                    thead
+                        tr
+                            th time
+                            th country
+                            th region
+                            th city
+                            th referer
+                    tbody(id="tbdSales")
+            div(class="modal-footer d-none")
+                button(id="btnEnd" class="btn btn-info" data-bs-dismiss="modal") Got it
 
   script(src="javascripts/stats.pug.js")
           
