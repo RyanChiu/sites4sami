@@ -191,6 +191,10 @@ $('#tblStats').tablemanager({
  * type, 'ADLF', sth. like that, type's abbreviation, which should be idendical
  */
 function getSales(day, agent, type) {
+    var titlePrefix = "<b class='text-primary fs-6 fw-bold me-2'>Sale(s)</b>";
+    $("#divSales").html(titlePrefix);
+    $("#divSalesTip").html('<center><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> loading...</center>');
+    $("#tbdSales").html("");
     $.ajax({
         url: "sales_nov",
         type: "post",
@@ -201,8 +205,7 @@ function getSales(day, agent, type) {
             if (rst.suc) {
                 // $("#divSales").html("<" + rst.rst + ">"); // for debug
                 let sales = $.parseJSON(rst.rst);
-                $("#divSales").html("<b class='text-primary fs-6 fw-bold me-2'>Sale(s)</b><b style='font-size:12px;'>(Agent: " + agent + ", Type abbreviation: " + type + ", On: " + day + " America_New_York)</b>"); 
-                $("#tbdSales").html("");
+                $("#divSales").html(titlePrefix + "<b style='font-size:12px;'>(Agent: " + agent + ", Type abbreviation: " + type + ", On: " + day + " America_New_York)</b>"); 
                 var i = 0;
                 for (let sale of sales) {
                     i++;
