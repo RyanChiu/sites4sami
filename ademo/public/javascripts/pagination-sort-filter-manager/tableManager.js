@@ -571,6 +571,19 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
                     }
                     // check col type if is aplhpanum or date
                     if (types[i] == "alphanumeric") {
+                        /**
+                         * fix by ryan
+                         * make it could sort by number/integer
+                         * */
+                        if (firstCol.indexOf("$") === 0 && secondCol.indexOf("$") === 0) {
+                            var dollars = [firstCol.split("$"), secondCol.split("$")];
+                            // console.log(`[debug (deal with "$")] ${parseFloat(dollars[0][1])}/${parseFloat(dollars[1][1])}`);
+                            if (parseFloat(dollars[0][1]) > parseFloat(dollars[1][1])) {
+                                return order;
+                            } else {
+                                return -1 * order;
+                            }
+                        }
                         if ((firstCol | 0) === parseInt(firstCol) && (secondCol | 0) === parseInt(secondCol)) {
                             // console.log(`[debug (num)]:${firstCol}/${secondCol}`);
                             if (parseInt(firstCol) > parseInt(secondCol)) {
