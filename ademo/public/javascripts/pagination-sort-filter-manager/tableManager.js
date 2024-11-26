@@ -571,10 +571,20 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
                     }
                     // check col type if is aplhpanum or date
                     if (types[i] == "alphanumeric") {
-                        if (firstCol > secondCol) {
-                            return order;
-                        } else if (firstCol < secondCol) {
-                            return -1 * order;
+                        if ((firstCol | 0) === parseInt(firstCol) && (secondCol | 0) === parseInt(secondCol)) {
+                            // console.log(`[debug (num)]:${firstCol}/${secondCol}`);
+                            if (parseInt(firstCol) > parseInt(secondCol)) {
+                                return order;
+                            } else if (parseInt(firstCol) < parseInt(secondCol)) {
+                                return -1 * order;
+                            }
+                        } else {
+                            // console.log(`[debug (alpha)]:${firstCol}/${secondCol}`);
+                            if (firstCol > secondCol) {
+                                return order;
+                            } else if (firstCol < secondCol) {
+                                return -1 * order;
+                            }
                         }
                     } else if (types[i] == "date") {
                         if (
