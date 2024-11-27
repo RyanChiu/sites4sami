@@ -260,8 +260,8 @@ block content
             if (viewBy == "detail")
               - var ymd = row['day'].split("/")
               - var day_cn_fmt = ymd[2] + "-" + ymd[0] + "-" + ymd[1]
-              - unescSaleStrs[0] = (post_params.selSite == "-111" || row['sales_type0'] == 0 ? row['sales_type0'] : "<a href='#sale' data-sale=" + row['sales_type0'] + " data-type='" + thTypes[0].abbr + "' data-day='" + day_cn_fmt + "' data-agent='" + row['agent'] + "' onClick='$(\"#btnSale\").click();'>" + row['sales_type0'] + "</a>")
-              - unescSaleStrs[1] = (post_params.selSite == "-111" || row['sales_type1'] == 0 ? row['sales_type1'] : "<a href='#sale' data-sale=" + row['sales_type1'] + " data-type='" + thTypes[1].abbr + "' data-day='" + day_cn_fmt + "' data-agent='" + row['agent'] + "' onClick='getSales(\"" + day_cn_fmt + "\", \"" + row['agent'] + "\", \"" + thTypes[1].abbr + "\");$(\"#btnSale\").click();'>" + row['sales_type1'] + "</a>")
+              - unescSaleStrs[0] = (post_params.selSite == "-111" || row['sales_type0'] == 0 ? row['sales_type0'] : "<a href='#sale' class='link-info' data-sale=" + row['sales_type0'] + " data-type='" + thTypes[0].abbr + "' data-day='" + day_cn_fmt + "' data-agent='" + row['agent'] + "' onClick='$(\"#btnSale\").click();'>" + row['sales_type0'] + "</a>")
+              - unescSaleStrs[1] = (post_params.selSite == "-111" || row['sales_type1'] == 0 ? row['sales_type1'] : "<a href='#sale' class='link-info' data-sale=" + row['sales_type1'] + " data-type='" + thTypes[1].abbr + "' data-day='" + day_cn_fmt + "' data-agent='" + row['agent'] + "' onClick='getSales(\"" + day_cn_fmt + "\", \"" + row['agent'] + "\", \"" + thTypes[1].abbr + "\");$(\"#btnSale\").click();'>" + row['sales_type1'] + "</a>")
           td !{unescSaleStrs[0]}
           td !{unescSaleStrs[1]}
           td= row['sales_type0'] + row['sales_type1']
