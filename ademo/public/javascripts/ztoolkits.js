@@ -38,3 +38,14 @@ function setPeriodsPicks(selId, iptStart, iptEnd) {
         }
     });
 }
+function copy2Clipboard(lnkId, iptId) {
+    new ClipboardJS("#" + lnkId, {
+        text: function(trigger) {
+            return $("#" + iptId).val();
+        }
+    }).on('success', function(e) {
+        console.log(`[debug (suc)]`);
+    }).on('error', function(e) {
+        console.log(`[debug (failed)]`);
+    });
+}

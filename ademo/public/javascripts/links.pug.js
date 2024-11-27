@@ -29,13 +29,33 @@ $("#formLinks").on("submit", function() {
                     let link = $.parseJSON(lnk);
                     // console.log(`plaint text of lnk: ${lnk}`);
                     if (parseInt(link.status) == 1) {
+                        var lnkCopyLinkId = 'lnkCopyLink_' + link.abbr;
+                        var iptShowLinkId = 'iptShowLink_' + link.abbr;
+                        var showTitle = "<div class='col-3 p-2'>" 
+                            + "<a class='icon-link icon-link-hover link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover' href='#' id='" + lnkCopyLinkId + "' onclick='copy2Clipboard(\"" + lnkCopyLinkId + "\", \"" + iptShowLinkId + "\")' data-bs-link-toggle='tooltip' title='" + link.alias + "'>"
+                            // + link.name + "(" + link.alias + ")"
+                            + link.name 
+                            + "<i class='bi bi-clipboard fs-6 pb-4'></i>"
+                            // + "<svg class='bi' aria-hidden='true'><use xlink:href='#clipboard'></use></svg>"
+                            + "</a>"
+                            + "</div>";
+                        var showLink = "<div class='col-9 p-2'>"
+                            + "<input id='" + iptShowLinkId + "' value='"
+                            + window.location.href.replace("links", "nav2?to=") 
+                            + link.param + "' class='w-100 form-input rounded-2 border-success' readonly></div>";
                         $('#divLinks').html(
                             $('#divLinks').html() 
-                                + link.name + "(" + link.alias + "): " 
-                                + window.location.href.replace("links", "nav2?to=") + link.param + "<br/>"
+                                + "<div class='row w-100'>"
+                                + showTitle 
+                                + showLink
+                                + "</div>"
                         );
                     }
                 })
+                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-link-toggle="tooltip"]'));
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
             }
         })
 })
