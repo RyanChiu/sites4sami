@@ -191,7 +191,7 @@ $('#tblStats').tablemanager({
  * type, 'ADLF', sth. like that, type's abbreviation, which should be idendical
  */
 function getSales(day, agent, type) {
-    var titlePrefix = "<b class='text-primary fs-6 fw-bold me-2'>Sale(s)</b>";
+    var titlePrefix = "<b class='text-info fs-6 fw-bold me-2'>Sale(s)</b>";
     $("#divSales").html(titlePrefix);
     $("#divSalesTip").html('<center><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> loading...</center>');
     $("#tbdSales").html("");
