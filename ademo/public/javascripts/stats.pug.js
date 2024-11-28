@@ -213,7 +213,8 @@ function getSales(day, agent, type) {
                     $("#tbdSales").append(
                         "<tr>"
                             + "<td>" + i + "</td>"
-                            + "<td>" + trxtime + "</td>"
+                            + "<td>" + (trxtime ? trxtime.split(",")[1] : "") + "</td>"
+                            + "<td>" + sale.conversion_user_ip + "</td>"
                             + "<td>" + sale.country + "</td>"
                             + "<td>" + sale.region + "</td>"
                             + "<td>" + sale.city + "</td>"
