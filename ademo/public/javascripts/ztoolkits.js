@@ -44,8 +44,14 @@ function copy2Clipboard(lnkId, iptId) {
             return $("#" + iptId).val();
         }
     }).on('success', function(e) {
-        console.log(`[debug (suc)]`);
+        // console.log(`[debug (suc)]`);
+        showToast("liveToast");
     }).on('error', function(e) {
-        console.log(`[debug (failed)]`);
+        // console.log(`[debug (failed)]`);
     });
+}
+function showToast(toastId) {
+    var toast = document.getElementById(toastId);
+    var toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
+    toastBootstrap.show();
 }
