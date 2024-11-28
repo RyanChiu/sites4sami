@@ -14,3 +14,4 @@ CREATE TABLE `sales` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `transactionid` (`trxid`)
 )
+alter table sales add column session_user_ip varchar(16) default null after type_abbr;

@@ -221,13 +221,14 @@ exports.eflow_sales2DB = async function(data, siteId="", date="2024-11-21") {
             // trxtime = trxtime.replace(",", " ");
             let s = await executeSql(
                 "insert into sales (day_pulling, trxid, trxtime, agent, type_abbr,"
-                    + " conversion_id, conversion_user_ip, country, region, city, referer)"
-                    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    + " session_user_ip, conversion_id, conversion_user_ip, country, region, city, referer)"
+                    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 [
                     date,
                     conv.transaction_id,
                     conv.click_unix_timestamp,
                     conv.sub1, conv.sub2,
+                    conv.session_user_ip,
                     conv.conversion_id, conv.conversion_user_ip,
                     conv.country, 
                     conv.region.slice(0,32), 

@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
                 "day": row.day_pulling,
                 "transaction_id": row.trxid,
                 "click_unix_time": row.trxtime,
-                "conversion_user_ip": row.conversion_user_ip,
+                "session_user_ip": row.session_user_ip,
                 "country": row.country,
                 "region": row.region,
                 "city": row.city,

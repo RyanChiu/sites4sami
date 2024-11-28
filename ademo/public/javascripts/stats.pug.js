@@ -214,7 +214,7 @@ function getSales(day, agent, type) {
                         "<tr>"
                             + "<td>" + i + "</td>"
                             + "<td>" + (trxtime ? trxtime.split(",")[1] : "") + "</td>"
-                            + "<td>" + sale.conversion_user_ip + "</td>"
+                            + "<td>" + sale.session_user_ip + "</td>"
                             + "<td>" + sale.country + "</td>"
                             + "<td>" + sale.region + "</td>"
                             + "<td>" + sale.city + "</td>"
