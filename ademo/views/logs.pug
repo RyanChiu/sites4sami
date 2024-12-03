@@ -242,7 +242,7 @@ block content
               td
                 a(class="text-info" href='https://whatismyipaddress.com/ip/' + row['ip4'] target='_blank')= row['ip4']
               - var title = countries[row['country']];
-              td(title=(typeof(title) !== undefined ? title : "") style="cursor:default;")= row['country']
+              td(data-bs-toggle="tooltip" title=(typeof(title) !== undefined ? title : "") style="cursor:default;")= row['country']
               case row['passed']
                 when 0
                   td 
