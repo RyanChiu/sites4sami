@@ -44,9 +44,9 @@ $('#tblHitlogs').tablemanager1({
 
 function setLinksModal(title, links) {
     $("#h3LinksTitle").html(title);
-    $("#divLinkIn").html("<a href='" + links[0] + "' target='_blank'>" + links[0] + "</a>");
+    $("#divLinkIn").html("<a class='link-info' href='" + links[0] + "' target='_blank'>" + links[0] + "</a>");
     if ($("#divLinkOut") !== undefined) {
-        $("#divLinkOut").html("<a href='" + links[1] + "' target='_blank'>" + links[1] + "</a>");
+        $("#divLinkOut").html("<a class='link-info' href='" + links[1] + "' target='_blank'>" + links[1] + "</a>");
     }
 }
 $('[name="uLinkin"]').each(function() {
