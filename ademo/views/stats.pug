@@ -256,7 +256,8 @@ block content
           td= row['raws'] 
           td= row['uniques']
           - var unescSaleStrs = [row['sales_type0'], row['sales_type1']]
-          if (role == 0 && user == "root")
+          // if (role == 0 && user == "root")
+          if (role == 0 || role == 1)
             if (viewBy == "detail")
               - var ymd = row['day'].split("/")
               - var day_cn_fmt = ymd[2] + "-" + ymd[0] + "-" + ymd[1]

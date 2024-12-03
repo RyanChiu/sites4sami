@@ -7,7 +7,8 @@ tricks.useSession(router);
 /* deal with post data */
 router.post('/', async (req, res) => {
     let params = req.body;
-    if (req.session.role === undefined || req.session.role !== 0 || req.session.username !== "root" ||
+    // if (req.session.role === undefined || req.session.role !== 0 || req.session.username !== "root" ||
+    if (req.session.role === undefined || (req.session.role !== 0 && req.session.role !== 1) || 
         params.day === undefined || params.agent === undefined || params.type === undefined) {
         res.set('Content-Type', 'text/html');
         res.send({
