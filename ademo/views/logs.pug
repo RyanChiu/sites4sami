@@ -217,6 +217,7 @@ block content
             th IP from
             th Country
             th Passed
+            th Referer
         - var i1 = 0
         tbody
           each row in data1 
@@ -251,7 +252,8 @@ block content
                     i(class="bi bi-stoplights text-success fs-4")
                 default 
                   td 
-                    label(for) -
+                      label(for) -
+              td= row['referer']
         tfoot 
           tr 
             td

@@ -11,3 +11,4 @@ CREATE TABLE `hitlog` (
   PRIMARY KEY (`id`)
 );
 alter table hitlog add passed tinyint default null comment '1 means the click was passed, 0 means the click was blocked';
+alter table hitlog add column referer varchar(256) default null after passed;

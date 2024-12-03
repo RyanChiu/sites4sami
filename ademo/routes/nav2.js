@@ -22,6 +22,8 @@ tricks.useSession(router);
 /* deal with get */
 router.get('/', async function(req, res, next) {
     let params = req.query;
+    // console.log(`[debug (to see result of decipherIt('${params.to}'):)] ${tricks.decipherIt(params.to)}`);
+    // console.log(`[debug (the referer):] ${req.headers.referer.toString().substring(0, 256)}`); // could be undefined, or the real referer
     const tos = tricks.decipherIt(params.to).split(",");// tos will be [{siteid}, {link.abbr}, {agent.username}]
     // console.log(`[debug from page nav(0,tos):${tos}`);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid, " username = '" + tos[2] + "'");
@@ -80,8 +82,11 @@ router.get('/', async function(req, res, next) {
                 passed = 0;
             }
             url = url.replace("__agent__", tos[2]).replace("__abbr__", tos[1]);
-            rst = await tricks.queryData("insert into hitlog (username, siteid, typeabbr, linkin, linkout, ip4, countryISOcode, passed) values \
-                (?, ?, ?, ?, ?, ?, ?, ?)", [tos[2], tos[0], tos[1], params.to, url, ip4, geo == null ? null : geo.country.isoCode, passed]);
+            let referer = req.headers.referer === undefined ? null : req.headers.referer.toString().substring(0, 256);
+            rst = await tricks.queryData(
+                "insert into hitlog (username, siteid, typeabbr, linkin, linkout, ip4, countryISOcode, passed, referer) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+                [tos[2], tos[0], tos[1], params.to, url, ip4, geo == null ? null : geo.country.isoCode, passed, referer]
+            );
             // console.log(`[debug from page nav(3):record the hit with the result -> ${JSON.stringify(rst)}`);
             if (passed) {
                 // console.log(`[debug from page nav(5), the url:]${url}`);
