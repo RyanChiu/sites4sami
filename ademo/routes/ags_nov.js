@@ -12,7 +12,8 @@ router.post('/', async (req, res) => {
         var data = await tricks.queryAgents(
             req.session.role, req.session.userid, 
             parseInt(params.officeid) === -111 ? " 1=1 " :
-                " office = (select distinct username from user where id =" + params.officeid + ")"
+                " office = (select distinct username from user where id =" + params.officeid + ")",
+            " order by regexp_substr(username, '[a-zA-Z]+'), cast(regexp_substr(username, '[0-9]+') as unsigned)"
         );
         var rst = [];
         if (data) {
