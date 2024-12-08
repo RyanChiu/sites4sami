@@ -25,6 +25,7 @@ $("#formLinks").on("submit", function() {
             dataType: "json",
             success: function(rst) {
                 $('#divLinks').html("");
+                // console.log(`[debug (for rst.rst)] ${JSON.stringify(rst.rst)}`);
                 $.each(rst.rst, function(index, lnk) {
                     let link = $.parseJSON(lnk);
                     // console.log(`plaint text of lnk: ${lnk}`);
@@ -32,7 +33,7 @@ $("#formLinks").on("submit", function() {
                         var lnkCopyLinkId = 'lnkCopyLink_' + link.abbr;
                         var iptShowLinkId = 'iptShowLink_' + link.abbr;
                         var showTitle = "<div class='col-3 p-2'>" 
-                            + "<a class='icon-link icon-link-hover link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover' href='#' id='" + lnkCopyLinkId + "' onclick='copy2Clipboard(\"" + lnkCopyLinkId + "\", \"" + iptShowLinkId + "\")' data-bs-link-toggle='tooltip' title='" + link.alias + "'>"
+                            + "<a class='icon-link icon-link-hover link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover' href='#genlnk' id='" + lnkCopyLinkId + "' onclick='copy2Clipboard(\"" + lnkCopyLinkId + "\", \"" + iptShowLinkId + "\")' data-bs-link-toggle='tooltip' title='" + link.alias + "'>"
                             // + link.name + "(" + link.alias + ")"
                             + link.name 
                             + "<i class='bi bi-clipboard fs-6 pb-4'></i>"
@@ -41,7 +42,7 @@ $("#formLinks").on("submit", function() {
                             + "</div>";
                         var showLink = "<div class='col-9 p-2'>"
                             + "<input id='" + iptShowLinkId + "' value='"
-                            + window.location.href.replace("links", "nav2?to=") 
+                            + window.location.href.replace("links", "nav2?to=").replace("#genlnk", "")
                             + link.param + "' class='w-100 form-input rounded-2 border-success' readonly></div>";
                         $('#divLinks').html(
                             $('#divLinks').html() 
