@@ -169,7 +169,11 @@ router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
     var params = req.body;
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
-    var agents = await tricks.queryAgents(req.session.role, req.session.userid);
+    var agents = await tricks.queryAgents(
+        req.session.role, req.session.userid,
+        parseInt(params.selOffice) !== -111 ? ("officeid = " + params.selOffice) : "1=1",
+        " order by regexp_substr(username, '[a-zA-Z]+'), cast(regexp_substr(username, '[0-9]+') as unsigned)"
+    );
     var sites = await tricks.queryData("select * from site order by status desc, name asc");
     var stats = await tricks.queryData(getStatsSql(params.iptViewBy, req.session, params));
     //res.send(getStatsSql(req.body.iptViewBy, req.session,  req.body) + JSON.stringify(params));
