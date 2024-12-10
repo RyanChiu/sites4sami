@@ -25,11 +25,13 @@ $("#formLinks").on("submit", function() {
             dataType: "json",
             success: function(rst) {
                 $('#divLinks').html("");
+                var i = 0;
                 // console.log(`[debug (for rst.rst)] ${JSON.stringify(rst.rst)}`);
                 $.each(rst.rst, function(index, lnk) {
                     let link = $.parseJSON(lnk);
                     // console.log(`plaint text of lnk: ${lnk}`);
                     if (parseInt(link.status) == 1) {
+                        i++;
                         var lnkCopyLinkId = 'lnkCopyLink_' + link.abbr;
                         var iptShowLinkId = 'iptShowLink_' + link.abbr;
                         var showTitle = "<div class='col-3 p-2'>" 
@@ -53,6 +55,14 @@ $("#formLinks").on("submit", function() {
                         );
                     }
                 })
+                if (i == 0) {
+                    $('#divLinks').html(
+                        ""
+                        + "<i class='bi bi-slash-square fs-6 text-danger'> no link available</i>"
+                        + ""
+                    );
+                }
+
                 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-link-toggle="tooltip"]'));
                 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl);
