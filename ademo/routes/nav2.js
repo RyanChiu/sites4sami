@@ -22,9 +22,9 @@ tricks.useSession(router);
 /* deal with get */
 router.get('/', async function(req, res, next) {
     let params = req.query;
-    // console.log(`[debug (to see result of decipherIt('${params.to}'):)] ${tricks.decipherIt(params.to)}`);
+    // console.log(`[debug (to see result of decipherIt('${params.to}'):)] ${await tricks.decipherIt(params.to)}`);
     // console.log(`[debug (the referer):] ${req.headers.referer.toString().substring(0, 256)}`); // could be undefined, or the real referer
-    const tos = tricks.decipherIt(params.to).split(",");// tos will be [{siteid}, {link.abbr}, {agent.username}]
+    const tos = (await tricks.decipherIt(params.to)).split(",");// tos will be [{siteid}, {link.abbr}, {agent.username}]
     // console.log(`[debug from page nav(0,tos):${tos}`);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid, " username = '" + tos[2] + "'");
     // console.log(`[debug from page nav(1,agents):${JSON.stringify(agents)}`);

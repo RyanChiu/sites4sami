@@ -4,6 +4,7 @@ const session = require("express-session");
 const crypto = require('crypto');
 const dbSalt = "4sitesofsami202402";
 const ALGORITHM = 'aes-192-cbc';
+const codecSalt = '_2412012257_';
 const dbSettings = {
     host: "localhost",
     user: "sami",
@@ -40,21 +41,107 @@ exports.cryptIt = function (str) {
 }
 
 /* cipher and decipher */
-exports.cipherIt = function (str) {
-    const cipher = crypto.createCipher(ALGORITHM, dbSalt);
-    let encrypted = cipher.update(str);
-    encrypted += cipher.final('hex');
-    return encrypted;
-}
+/**
+ * cipherIt function take 1 param, which is the string need to be ciphered.
+ * decipherIt function take 1 param, which is the string need to be deciphered.
+ * >>>>>>>>and the following contents shoule be noticed<<<<<<<<<<<<
+ * createCipher is deprecated, and we found that when the str's length
+ * is longer than 15, then there will be some messed characters in the return of cipherIt().
+ * So, in order not affect the old generated links, when it's longer than 15,
+ * it needs to be replaced by "checkCypher()/enCypher()/deCypher()".
+ */
 
-exports.decipherIt = function (str) {
-    try {
-        const decipher = crypto.createDecipher(ALGORITHM, dbSalt);
-        let decrypted = decipher.update(str, 'hex');
-        decrypted += decipher.final('utf8');
-        return decrypted;
-    } catch (err) {
+/**
+ * check if the pair dec/enc is in table `mapping`, and if not, generate it.
+ * @param {string} dec - a decoded string
+ * @param {string} enc - an encoded string
+ * @param {number} type - 0 means should be deprecated, 1 means a normal none
+ * @returns {json} - .tag(1 means 'new pair interted', 2 means 'the pair exists', 0 means failed
+ *                 - .dec, original/decoded string
+ *                 - .enc, coded string
+ */
+async function checkCypher(dec = null, enc, type = 1) {
+    let data = await queryData(
+        "select * from mapping where id = ?", [enc + ""]
+    );
+    if (data !== [] && data.length > 0) {
+        console.log(`[debug] cypher '${enc}' exists, it's connected to '${JSON.stringify(data)}'.`);
+        return {
+            "tag": 1,
+            "dec": dec == null ? data[0]['triplet'] : dec,
+            "enc": enc
+        }
+    } else {
+        console.log(`[debug] cypher '${enc}' doesn't exist'.(${JSON.stringify(data)})`);
+        if (dec == null) {
+            return {
+                "tag": 0,
+                "dec": dec,
+                "enc": enc
+            }
+        }
+        let rst = await queryData(
+            "insert into mapping values (?, ?, ?)",
+            [enc, dec, type]
+        );
+        if (rst == null) {
+            return {
+                "tag": 0,
+                "dec": dec,
+                "enc": enc
+            }
+        } else {
+            return {
+                "tag": 2,
+                "dec": dec,
+                "enc": enc
+            }
+        }
+    }
+}
+async function enCypher(str) {
+    let md5 = crypto.createHash('md5');
+    let cypher = md5.update(str + codecSalt).digest('hex');
+    let rst = await checkCypher(str, cypher);
+    if (rst.tag == 0) {
         return "";
+    } else {
+        return cypher;
+    }
+}
+async function deCypher(cypher) {
+    let rst = await checkCypher(null, cypher);
+    if (rst.tag == 0) return null;
+    return rst.dec;
+}
+exports.cipherIt = async function (str) {
+    // console.log(`[debug (from cipherIt())] str(length:${str.length}): ${str}`);
+    if (str.length < 16) {
+        console.log(`[debug (from cipherIt)] old deprecated 'createCipher'.`);
+        const cipher = crypto.createCipher(ALGORITHM, dbSalt);
+        let encrypted = cipher.update(str);
+        encrypted += cipher.final('hex');
+        // return encrypted;
+        let rst = await checkCypher(str, encrypted, 0);
+        return rst.tag == 0 ? "" : encrypted;
+    } else {
+        return await enCypher(str);
+    }
+}
+exports.decipherIt = async function (str) {
+    let dec = await deCypher(str);
+    console.log(`[debug (from decipherIt)]: ${dec}`);
+    if (dec == null) { 
+        try {
+            const decipher = crypto.createDecipher(ALGORITHM, dbSalt);
+            let decrypted = decipher.update(str, 'hex');
+            decrypted += decipher.final('utf8');
+            return decrypted;
+        } catch (err) {
+            return "";
+        }
+    } else {
+        return dec;
     }
 }
 

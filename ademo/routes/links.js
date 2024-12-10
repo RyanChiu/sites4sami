@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
           //links.push('{"url": "' + link.url + '?sub1=__sub1__", "params": "' + tricks.cipherIt(link.url + "?sub2=" + params.agent) + '", "payout": ' + link.payout + ', "earning": ' + link.earning + '}');
           //var host = req.protocol + '://' + req.get('Host') + req.originalUrl;
           links.push('\
-            {"param": "' + tricks.cipherIt(sites[0]["id"] + "," + link.abbr + "," + params.agent) 
+            {"param": "' + await tricks.cipherIt(sites[0]["id"] + "," + link.abbr + "," + params.agent) 
               + '", "name": "' + link.name + '", "abbr": "' + link.abbr + '", "status": "' + link.status
               + '", "alias": "' + link.alias
               + '"}\
