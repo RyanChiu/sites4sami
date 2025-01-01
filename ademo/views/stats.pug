@@ -219,7 +219,7 @@ block content
         - tots['sales0'] += parseInt(row['sales_type0'])
         - tots['sales1'] += parseInt(row['sales_type1'])
         - tots['earnings'] += parseFloat(row['sales_type0_earning']) + parseFloat(row['sales_type1_earning'])
-        tr(title=(viewBy != 'detail' ? "Before the drilldown, please make sure don't change any searching conditions." : ""))
+        tr(data-bs-toggle="tooltip" title=(viewBy != 'detail' ? "Before the drilldown, please make sure don't change any searching conditions." : ""))
           td= i 
           case viewBy
             when 'detail'
