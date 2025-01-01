@@ -53,9 +53,8 @@ router.post('/', async (req, res) => {
         req.session.role, req.session.userid, 
         "username like '%" + req.body.iptUsername + "%'"
       );
-      tab = 0;
-    }
-    if (req.body.selAgent_clog != undefined) {
+      data1 = await tricks.queryHitlogs(req.session.role, req.session.userid);
+    } else if (req.body.selAgent_clog != undefined) {
       var cond = " 1 = 1 ";
       cond += (parseInt(req.body.selOffice_clog) == -111 ? "" : " and officeid = " + req.body.selOffice_clog);
       cond += (parseInt(req.body.selAgent_clog) == -111 ? "" : " and agentid = " + req.body.selAgent_clog);
@@ -68,6 +67,7 @@ router.post('/', async (req, res) => {
         req.session.role, req.session.userid, 
         cond
       );
+      data = await tricks.queryLogs(req.session.role, req.session.userid);
       tab = 1;
     }
     res.render('logs', { 

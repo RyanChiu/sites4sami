@@ -219,7 +219,7 @@ block content
             th Passed
             th Referer
         - var i1 = 0
-        tbody
+        if (data1 !== undefined && data1 !== null && data1 != [] && data1.length > 0)
           each row in data1 
             - i1++
             - var abbr = row['typeabbr']
@@ -252,10 +252,11 @@ block content
                     i(class="bi bi-stoplights text-success fs-4")
                 default 
                   td 
-                      label(for) -
+                    label(class="text-light") -
               td= row['referer']
         tfoot 
           tr 
+            td
             td
             td
             td
