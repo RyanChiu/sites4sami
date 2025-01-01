@@ -65,14 +65,14 @@ async function checkCypher(dec = null, enc, type = 1) {
         "select * from mapping where id = ?", [enc + ""]
     );
     if (data !== [] && data.length > 0) {
-        console.log(`[debug] cypher '${enc}' exists, it's connected to '${JSON.stringify(data)}'.`);
+        // console.log(`[debug] cypher '${enc}' exists, it's connected to '${JSON.stringify(data)}'.`);
         return {
             "tag": 1,
             "dec": dec == null ? data[0]['triplet'] : dec,
             "enc": enc
         }
     } else {
-        console.log(`[debug] cypher '${enc}' doesn't exist'.(${JSON.stringify(data)})`);
+        // console.log(`[debug] cypher '${enc}' doesn't exist'.(${JSON.stringify(data)})`);
         if (dec == null) {
             return {
                 "tag": 0,
@@ -117,7 +117,7 @@ async function deCypher(cypher) {
 exports.cipherIt = async function (str) {
     // console.log(`[debug (from cipherIt())] str(length:${str.length}): ${str}`);
     if (str.length < 16) {
-        console.log(`[debug (from cipherIt)] old deprecated 'createCipher'.`);
+        // console.log(`[debug (from cipherIt)] old deprecated 'createCipher'.`);
         const cipher = crypto.createCipher(ALGORITHM, dbSalt);
         let encrypted = cipher.update(str);
         encrypted += cipher.final('hex');
@@ -130,7 +130,7 @@ exports.cipherIt = async function (str) {
 }
 exports.decipherIt = async function (str) {
     let dec = await deCypher(str);
-    console.log(`[debug (from decipherIt)]: ${dec}`);
+    // console.log(`[debug (from decipherIt)]: ${dec}`);
     if (dec == null) { 
         try {
             const decipher = crypto.createDecipher(ALGORITHM, dbSalt);
@@ -300,6 +300,7 @@ exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by 
             }
             console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy + limit}`);
             logs = await queryData(sql + where + orderBy + limit);
+            console.log(`[debug from queryHitlogs():<role:${role}>] ${JSON.stringify(logs)}`);
             break;
         case 2:
             where = " where (officeid = ?) ";
@@ -310,7 +311,7 @@ exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by 
             logs = await queryData(sql + where + orderBy + limit, [userid]);
             break;
         case 3:
-            where = " where agentid = ? ";
+            where = " where (agentid = ?) ";
             if (cond != "") {
                 where += " and (" + cond + ") "
             }
