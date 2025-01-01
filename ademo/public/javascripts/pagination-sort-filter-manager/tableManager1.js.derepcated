@@ -75,7 +75,7 @@ Classes:
 
 Data- attributes:
 
-    data-tablemanager =
+    data-tablemanager1 =
         'disable' --> disable that specific column
 
         '{"dateFormat":"dd-mm-yyyy"}' --> this secific column represent a date with the forma tdd-mm-yyyy (Important! To pass correctly this data attribute the attribute value has to be written between '' and attribute single elements like dateFormat or mm-dd-yyyy between "")
@@ -570,33 +570,10 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
                     }
                     // check col type if is aplhpanum or date
                     if (types[i] == "alphanumeric") {
-                        /**
-                         * fixed by ryan
-                         * make it could be sorted by number/integer
-                         */
-                        if (firstCol.indexOf("$") === 0 && secondCol.indexOf("$") === 0) {
-                            var dollars = [firstCol.split("$"), secondCol.split("$")];
-                            // console.log(`[debug (deal with "$")] ${parseFloat(dollars[0][1])}/${parseFloat(dollars[1][1])}`);
-                            if (parseFloat(dollars[0][1]) > parseFloat(dollars[1][1])) {
-                                return order;
-                            } else {
-                                return -1 * order;
-                            }
-                        }
-                        if ((firstCol | 0) === parseInt(firstCol) && (secondCol | 0) === parseInt(secondCol)) {
-                            // console.log(`[debug (num)]:${firstCol}/${secondCol}`);
-                            if (parseInt(firstCol) > parseInt(secondCol)) {
-                                return order;
-                            } else if (parseInt(firstCol) < parseInt(secondCol)) {
-                                return -1 * order;
-                            }
-                        } else {
-                            // console.log(`[debug (alpha)]:${firstCol}/${secondCol}`);
-                            if (firstCol > secondCol) {
-                                return order;
-                            } else if (firstCol < secondCol) {
-                                return -1 * order;
-                            }
+                        if (firstCol > secondCol) {
+                            return order;
+                        } else if (firstCol < secondCol) {
+                            return -1 * order;
                         }
                     } else if (types[i] == "date") {
                         if (
@@ -755,7 +732,7 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
                     $("<button>", {
                         value: i,
                         text: i,
-                        class: "pagecontroller1 pagecontroller-num1",
+                        class: "pagecontroller1 pagecontroller-num",
                     })
                 );
             }
