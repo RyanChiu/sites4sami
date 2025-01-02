@@ -219,8 +219,8 @@ block content
             th Passed
             th Referer
         - var i1 = 0
-        if (data1 !== undefined && data1 !== null && data1 != [] && data1.length > 0)
-          each row in data1 
+        if (typeof(dataHit) !== undefined && dataHit !== undefined && dataHit !== null && dataHit != [])
+          each row in dataHit 
             - i1++
             - var abbr = row['typeabbr']
             - var link = links[""+abbr]

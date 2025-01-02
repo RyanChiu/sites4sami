@@ -251,7 +251,7 @@ exports.queryAgents = async function(role, userid, cond="1=1", orderBy = " order
 const LOGS_LIMIT = " limit 2000";
 exports.queryLogs = async function(role, userid, cond="", orderBy=" order by intime desc", limit=LOGS_LIMIT) {
     var sql = "select * from view_log ";
-    var logs, where = "";
+    var logs = [], where = "";
     switch (role) {
         case 0:
             if (cond != "") {
@@ -291,7 +291,7 @@ exports.queryLogs = async function(role, userid, cond="", orderBy=" order by int
 
 exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by time desc", limit=LOGS_LIMIT) {
     var sql = "select * from view_hitlog ";
-    var logs, where = "";
+    var logs = [], where = "";
     switch (role) {
         case 0:
         case 1:
@@ -300,7 +300,7 @@ exports.queryHitlogs = async function(role, userid, cond="", orderBy=" order by 
             }
             console.log(`[debug from queryHitlogs():<role:${role}>]${sql + where + orderBy + limit}`);
             logs = await queryData(sql + where + orderBy + limit);
-            console.log(`[debug from queryHitlogs():<role:${role}>] ${JSON.stringify(logs)}`);
+            // console.log(`[debug from queryHitlogs():<role:${role}>] ${JSON.stringify(logs)}`);
             break;
         case 2:
             where = " where (officeid = ?) ";

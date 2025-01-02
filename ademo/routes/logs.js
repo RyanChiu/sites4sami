@@ -8,7 +8,7 @@ tricks.useSession(router);
 router.get('/', async function(req, res, next) {
   if (req.session && req.session.loggedin) {
     var data = await tricks.queryLogs(req.session.role, req.session.userid);
-    var data1 = await tricks.queryHitlogs(req.session.role, req.session.userid);
+    var dataHit = await tricks.queryHitlogs(req.session.role, req.session.userid);
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var agents = await tricks.queryAgents(req.session.role, req.session.userid);
     var sites = await tricks.queryData("select * from site order by name");
@@ -25,7 +25,7 @@ router.get('/', async function(req, res, next) {
       sites: sites,
       links: links,
       data: data,
-      data1: data1,
+      dataHit: dataHit,
       countries: countries,
       tab: 1,
       newags: req.session.iaNum
@@ -38,7 +38,7 @@ router.get('/', async function(req, res, next) {
 /* deal with post data */
 router.post('/', async (req, res) => {
   if (req.session && req.session.loggedin) {
-    var data = data1 = [];
+    var data = [], dataHit = [];
     var offices = await tricks.queryOffices(req.session.role, req.session.userid);
     var agents = await tricks.queryAgents(
       req.session.role, req.session.userid,
@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {
         req.session.role, req.session.userid, 
         "username like '%" + req.body.iptUsername + "%'"
       );
-      data1 = await tricks.queryHitlogs(req.session.role, req.session.userid);
+      dataHit = await tricks.queryHitlogs(req.session.role, req.session.userid);
     } else if (req.body.selAgent_clog != undefined) {
       var cond = " 1 = 1 ";
       cond += (parseInt(req.body.selOffice_clog) == -111 ? "" : " and officeid = " + req.body.selOffice_clog);
@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
       cond += (" and (convert(time, date) >= str_to_date('" 
         + req.body.iptDateStart_clog + "', '%m/%d/%Y') and convert(time, date) <= str_to_date('" 
         + req.body.iptDateEnd_clog + "', '%m/%d/%Y'))");
-      data1 = await tricks.queryHitlogs(
+      dataHit = await tricks.queryHitlogs(
         req.session.role, req.session.userid, 
         cond
       );
@@ -80,7 +80,7 @@ router.post('/', async (req, res) => {
       sites: sites,
       links: links,
       data: data,
-      data1: data1,
+      dataHit: dataHit,
       countries: countries,
       post_params: req.body,
       tab: tab,
