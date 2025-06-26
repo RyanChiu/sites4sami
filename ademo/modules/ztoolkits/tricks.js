@@ -100,8 +100,19 @@ async function checkCypher(dec = null, enc, type = 1) {
     }
 }
 async function enCypher(str) {
+    /*
+    // the following 2 lines will generate a string which is with 32 characters
     let md5 = crypto.createHash('md5');
     let cypher = md5.update(str + codecSalt).digest('hex');
+    */
+    // the following lines will generate one with 16 characters instead
+    let hash = crypto.createHash('md5').update(str + codecSalt).digest(); // Buffer of 16 bytes
+    let shortHash = Buffer.alloc(8);
+    for (let i = 0; i < 8; i++) {
+        shortHash[i] = hash[i] ^ hash[i + 8];
+    }
+    let cypher = shortHash.toString('hex');  // 16-char hex string
+
     let rst = await checkCypher(str, cypher);
     if (rst.tag == 0) {
         return "";
