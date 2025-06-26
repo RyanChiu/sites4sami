@@ -114,7 +114,9 @@ async function deCypher(cypher) {
     if (rst.tag == 0) return null;
     return rst.dec;
 }
+
 exports.cipherIt = async function (str) {
+    /*
     // console.log(`[debug (from cipherIt())] str(length:${str.length}): ${str}`);
     if (str.length < 16) {
         // console.log(`[debug (from cipherIt)] old deprecated 'createCipher'.`);
@@ -127,8 +129,12 @@ exports.cipherIt = async function (str) {
     } else {
         return await enCypher(str);
     }
+    */
+    return await enCypher(str);
 }
 exports.decipherIt = async function (str) {
+    return await deCypher(str);
+    /*
     let dec = await deCypher(str);
     // console.log(`[debug (from decipherIt)]: ${dec}`);
     if (dec == null) { 
@@ -143,6 +149,7 @@ exports.decipherIt = async function (str) {
     } else {
         return dec;
     }
+    */
 }
 
 /* use session */
